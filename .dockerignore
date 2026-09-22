@@ -1,0 +1,13 @@
+.git
+.env
+.env.*
+data/auth.json
+data/sessions.json
+data/messages.json
+data/security-events.json
+node_modules
+dist
+build
+*.log
+.DS_Store
+Thumbs.db
