@@ -2,64 +2,126 @@
  * PORTFOLIO DATABASE & PERSISTENCE LAYER
  * Provides persistent atomic read/write storage for portfolio content,
  * private contact messages, owner auth credentials, sessions, and settings.
+ * Supports standard local environments and serverless/ephemeral environments (Vercel/AWS Lambda).
  * Public views are strictly read-only.
  */
 
 const fs = require('node:fs');
 const path = require('node:path');
+const os = require('node:os');
 
 const ROOT_DIR = path.resolve(__dirname, '..');
-const DATA_DIR = path.join(ROOT_DIR, 'data');
+const BUNDLED_DATA_DIR = path.join(ROOT_DIR, 'data');
 
-// Ensure data directory exists
-if (!fs.existsSync(DATA_DIR)) {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
+// Detect serverless or read-only filesystem environment (e.g. Vercel, AWS Lambda)
+const IS_SERVERLESS = !!(
+  process.env.VERCEL ||
+  process.env.AWS_LAMBDA_FUNCTION_NAME ||
+  process.env.LAMBDA_TASK_ROOT ||
+  (process.env.NODE_ENV === 'production' && !process.env.IS_STANDALONE)
+);
+
+// On serverless platforms, only /tmp (os.tmpdir()) is writable
+const RUNTIME_DATA_DIR = IS_SERVERLESS
+  ? path.join(os.tmpdir(), 'portfolio-data')
+  : BUNDLED_DATA_DIR;
+
+// Ensure runtime directory exists
+try {
+  if (!fs.existsSync(RUNTIME_DATA_DIR)) {
+    fs.mkdirSync(RUNTIME_DATA_DIR, { recursive: true });
+  }
+} catch (err) {
+  console.warn('[DB] Notice: Could not create runtime data directory:', err.message);
 }
 
+// In-memory cache for ultra-fast access & resilient serverless ephemeral fallback
+const memoryCache = new Map();
+
 const DB_FILES = {
-  portfolio: path.join(DATA_DIR, 'portfolio-db.json'),
-  messages: path.join(DATA_DIR, 'messages.json'),
-  auth: path.join(DATA_DIR, 'auth.json'),
-  sessions: path.join(DATA_DIR, 'sessions.json'),
-  settings: path.join(DATA_DIR, 'settings.json')
+  portfolio: 'portfolio-db.json',
+  messages: 'messages.json',
+  auth: 'auth.json',
+  sessions: 'sessions.json',
+  settings: 'settings.json'
 };
 
 /**
- * Atomic write helper to prevent partial writes / corruption
+ * Safe Atomic write helper
+ * Writes to runtime directory (/tmp on serverless or data/ on local)
+ * Retains state in-memory if disk is read-only
  */
-function atomicWriteJson(filePath, data) {
-  const tempPath = `${filePath}.tmp.${Date.now()}`;
-  fs.writeFileSync(tempPath, JSON.stringify(data, null, 2), 'utf-8');
-  fs.renameSync(tempPath, filePath);
+function atomicWriteJson(filePathOrName, data) {
+  const baseName = path.basename(filePathOrName);
+  // Always update in-memory cache first
+  memoryCache.set(baseName, data);
+
+  // Attempt disk persistence in runtime directory
+  try {
+    const targetPath = path.join(RUNTIME_DATA_DIR, baseName);
+    const tempPath = `${targetPath}.tmp.${Date.now()}`;
+    fs.writeFileSync(tempPath, JSON.stringify(data, null, 2), 'utf-8');
+    fs.renameSync(tempPath, targetPath);
+  } catch (err) {
+    // Graceful fallback for read-only filesystem environments (Vercel / Lambda)
+    console.warn(`[DB] Notice: Write for ${baseName} fell back to memory store (${err.code || err.message}).`);
+  }
 }
 
 /**
- * Safe JSON read helper with fallback
+ * Safe JSON read helper
+ * Checks: 1. Memory cache -> 2. Runtime directory (/tmp) -> 3. Bundled project data -> 4. Fallback
  */
-function readJson(filePath, fallback = {}) {
+function readJson(filePathOrName, fallback = {}) {
+  const baseName = path.basename(filePathOrName);
+
+  // 1. Check in-memory store
+  if (memoryCache.has(baseName)) {
+    return memoryCache.get(baseName);
+  }
+
+  // 2. Check runtime directory (e.g. /tmp/portfolio-data/...)
+  const runtimePath = path.join(RUNTIME_DATA_DIR, baseName);
   try {
-    if (fs.existsSync(filePath)) {
-      const content = fs.readFileSync(filePath, 'utf-8');
-      return JSON.parse(content);
+    if (fs.existsSync(runtimePath)) {
+      const content = fs.readFileSync(runtimePath, 'utf-8');
+      const parsed = JSON.parse(content);
+      memoryCache.set(baseName, parsed);
+      return parsed;
     }
   } catch (err) {
-    console.error(`[DB] Error reading ${filePath}:`, err);
+    // continue to bundled
   }
+
+  // 3. Check bundled project data directory
+  const bundledPath = path.join(BUNDLED_DATA_DIR, baseName);
+  try {
+    if (fs.existsSync(bundledPath)) {
+      const content = fs.readFileSync(bundledPath, 'utf-8');
+      const parsed = JSON.parse(content);
+      memoryCache.set(baseName, parsed);
+      return parsed;
+    }
+  } catch (err) {
+    console.error(`[DB] Error reading ${bundledPath}:`, err.message);
+  }
+
   return fallback;
 }
 
 /**
- * Seed initial portfolio data from js/portfolio-data.js if missing
+ * Seed initial portfolio data from bundled JSON or js/portfolio-data.js if missing
  */
 function initializePortfolioDb() {
-  if (!fs.existsSync(DB_FILES.portfolio)) {
+  const existingPortfolio = readJson(DB_FILES.portfolio, null);
+  if (!existingPortfolio || !existingPortfolio.profile) {
     console.log('[DB] Seeding portfolio data from js/portfolio-data.js...');
     try {
       const initialData = require(path.join(ROOT_DIR, 'js', 'portfolio-data.js'));
       atomicWriteJson(DB_FILES.portfolio, initialData);
       console.log('[DB] Portfolio data successfully initialized.');
     } catch (err) {
-      console.error('[DB] Failed to seed from js/portfolio-data.js:', err);
+      console.error('[DB] Failed to seed from js/portfolio-data.js:', err.message);
       atomicWriteJson(DB_FILES.portfolio, {
         profile: {},
         projects: [],
@@ -74,15 +136,15 @@ function initializePortfolioDb() {
   }
 
   // Initialize messages file if missing
-  if (!fs.existsSync(DB_FILES.messages)) {
-    // Check if there are messages staged in localStorage test or seed default
+  const existingMessages = readJson(DB_FILES.messages, null);
+  if (!existingMessages) {
     atomicWriteJson(DB_FILES.messages, [
       {
         id: "msg-1726884900000",
         name: "Sarah Lin",
         email: "sarah.lin@cloudtech-partners.com",
         subject: "Senior Distributed Systems Internship — Fall 2026",
-        message: "Hi Alex, we reviewed your TraceFlow case study and were really impressed by your zero-copy WASM parser. Our infrastructure team has an opening for Fall 2026 and we'd love to set up an introductory technical chat.",
+        message: "Hi J Raghavendra, we reviewed your TraceFlow case study and were really impressed by your zero-copy WASM parser. Our infrastructure team has an opening for Fall 2026 and we'd love to set up an introductory technical chat.",
         createdAt: "2026-09-21T10:15:00.000Z",
         read: true,
         archived: false
@@ -92,7 +154,7 @@ function initializePortfolioDb() {
         name: "Marcus Vance",
         email: "m.vance@edge-networks.io",
         subject: "Technical Inquiry / Consensus Invariants",
-        message: "Hi Alex, saw your implementation of Raft with deterministic simulation testing. What library did you use for fault injection under network partitions? Would love to connect regarding full-time SWE 2027.",
+        message: "Hi J Raghavendra, saw your implementation of Raft with deterministic simulation testing. What library did you use for fault injection under network partitions? Would love to connect regarding full-time SWE 2027.",
         createdAt: "2026-09-22T08:30:50.000Z",
         read: false,
         archived: false
@@ -101,9 +163,10 @@ function initializePortfolioDb() {
   }
 
   // Initialize settings file if missing
-  if (!fs.existsSync(DB_FILES.settings)) {
+  const existingSettings = readJson(DB_FILES.settings, null);
+  if (!existingSettings) {
     atomicWriteJson(DB_FILES.settings, {
-      siteStatus: "live", // "live" or "maintenance"
+      siteStatus: "live",
       portfolioVisibility: "public",
       contactAvailability: true,
       recruiterSlaText: "Typically within 24 hours",
@@ -117,20 +180,29 @@ function initializePortfolioDb() {
   }
 
   // Initialize sessions file if missing
-  if (!fs.existsSync(DB_FILES.sessions)) {
+  const existingSessions = readJson(DB_FILES.sessions, null);
+  if (!existingSessions) {
     atomicWriteJson(DB_FILES.sessions, {});
   }
 }
 
 // Run schema migrations and initial seed on load
 const { runMigrations } = require('./migrations');
-runMigrations();
+try {
+  runMigrations();
+} catch (migErr) {
+  console.warn('[DB] Migration runner notice:', migErr.message);
+}
 initializePortfolioDb();
 
 /**
  * Synchronize js/portfolio-data.js so static client fallback stays in sync
  */
 function syncPortfolioDataJs(data) {
+  if (IS_SERVERLESS) {
+    // In serverless, static bundle files are read-only; no-op
+    return;
+  }
   try {
     const fileContent = `/**
  * UNIFIED PORTFOLIO DATA STORE
@@ -146,13 +218,21 @@ if (typeof module !== 'undefined' && module.exports) {
 }
 `;
     const targetFile = path.join(ROOT_DIR, 'js', 'portfolio-data.js');
-    atomicWriteJson(targetFile, fileContent);
+    const tempPath = `${targetFile}.tmp.${Date.now()}`;
+    fs.writeFileSync(tempPath, fileContent, 'utf-8');
+    fs.renameSync(tempPath, targetFile);
   } catch (err) {
-    console.error('[DB] Error synchronizing portfolio-data.js:', err);
+    console.warn('[DB] Notice: Could not sync portfolio-data.js to disk:', err.message);
   }
 }
 
 module.exports = {
+  IS_SERVERLESS,
+  RUNTIME_DATA_DIR,
+  BUNDLED_DATA_DIR,
+  readJson,
+  atomicWriteJson,
+
   getPortfolioData() {
     return readJson(DB_FILES.portfolio, {});
   },
@@ -163,7 +243,7 @@ module.exports = {
     const settings = this.getSettings();
     settings.lastUpdated = new Date().toISOString();
     this.saveSettings(settings);
-    // Sync client-side file
+    // Sync client-side file if locally writable
     syncPortfolioDataJs(data);
     return data;
   },

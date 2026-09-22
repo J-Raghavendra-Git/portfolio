@@ -61,7 +61,9 @@ function parseCookies(req) {
 function getClientIp(req) {
   return (
     req.headers['x-forwarded-for']?.split(',')[0].trim() ||
-    req.socket.remoteAddress ||
+    req.headers['x-real-ip'] ||
+    req.socket?.remoteAddress ||
+    req.connection?.remoteAddress ||
     '127.0.0.1'
   );
 }
@@ -160,19 +162,20 @@ function serveStaticFile(req, res, filePath) {
     return;
   }
 
-  fs.stat(normalizedPath, (err, stats) => {
-    if (err || !stats.isFile()) {
+  try {
+    if (!fs.existsSync(normalizedPath) || !fs.statSync(normalizedPath).isFile()) {
       res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' });
-      res.end('<h1>404 Not Found</h1>');
+      res.end('<!DOCTYPE html><html><head><title>404 Not Found</title></head><body><h1>404 Not Found</h1></body></html>');
       return;
     }
 
+    const content = fs.readFileSync(normalizedPath);
     const ext = path.extname(normalizedPath).toLowerCase();
     const contentType = MIME_TYPES[ext] || 'application/octet-stream';
 
     const headers = {
       'Content-Type': contentType,
-      'Content-Length': stats.size,
+      'Content-Length': content.length,
       'X-Content-Type-Options': 'nosniff',
       'X-Frame-Options': 'DENY',
       'Referrer-Policy': 'strict-origin-when-cross-origin'
@@ -185,8 +188,14 @@ function serveStaticFile(req, res, filePath) {
     }
 
     res.writeHead(200, headers);
-    fs.createReadStream(normalizedPath).pipe(res);
-  });
+    res.end(content);
+  } catch (err) {
+    console.error(`[SERVER] Error serving static file ${normalizedPath}:`, err.message);
+    if (!res.headersSent) {
+      res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
+      res.end('500 Internal Server Error');
+    }
+  }
 }
 
 /**
@@ -932,15 +941,20 @@ const server = http.createServer(async (req, res) => {
       'X-Content-Type-Options': 'nosniff',
       'X-Frame-Options': 'DENY'
     });
-    return fs.createReadStream(notFoundPath).pipe(res);
+    return res.end(fs.readFileSync(notFoundPath));
   }
 
   res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' });
   res.end('<!DOCTYPE html><html><head><title>404 Not Found</title></head><body><h1>404 Not Found</h1><p><a href="/">Return to Home</a></p></body></html>');
 });
 
-server.listen(PORT, '0.0.0.0', () => {
-  console.log(`[SERVER] Recruiter Portfolio & Admin Server running at http://localhost:${PORT}`);
-  console.log(`[SERVER] Public portfolio: http://localhost:${PORT}/`);
-  console.log(`[SERVER] Protected admin:  http://localhost:${PORT}/admin`);
-});
+// Start listener only when run standalone (node server.js), not when required by @vercel/node
+if (require.main === module || !process.env.VERCEL) {
+  server.listen(PORT, '0.0.0.0', () => {
+    console.log(`[SERVER] Recruiter Portfolio & Admin Server running at http://localhost:${PORT}`);
+    console.log(`[SERVER] Public portfolio: http://localhost:${PORT}/`);
+    console.log(`[SERVER] Protected admin:  http://localhost:${PORT}/admin`);
+  });
+}
+
+module.exports = server;

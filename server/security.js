@@ -10,32 +10,16 @@ const path = require('node:path');
 const crypto = require('node:crypto');
 const db = require('./db');
 
-const ROOT_DIR = path.resolve(__dirname, '..');
-const DATA_DIR = path.join(ROOT_DIR, 'data');
-const EVENTS_FILE = path.join(DATA_DIR, 'security-events.json');
-const SEC_SETTINGS_FILE = path.join(DATA_DIR, 'security-settings.json');
+const EVENTS_FILE = 'security-events.json';
+const SEC_SETTINGS_FILE = 'security-settings.json';
 
 const MAX_SECURITY_EVENTS = 200;
 
-function atomicWriteJson(filePath, data) {
-  const tempPath = `${filePath}.tmp.${Date.now()}`;
-  fs.writeFileSync(tempPath, JSON.stringify(data, null, 2), 'utf-8');
-  fs.renameSync(tempPath, filePath);
-}
-
-function readJson(filePath, fallback = null) {
-  try {
-    if (fs.existsSync(filePath)) {
-      return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-    }
-  } catch (err) {
-    console.error(`[SECURITY] Error reading ${filePath}:`, err.message);
-  }
-  return fallback;
-}
+const readJson = (file, fallback) => db.readJson(file, fallback);
+const atomicWriteJson = (file, data) => db.atomicWriteJson(file, data);
 
 // Ensure security data files exist
-if (!fs.existsSync(EVENTS_FILE)) {
+if (!readJson(EVENTS_FILE, null)) {
   atomicWriteJson(EVENTS_FILE, [
     {
       id: `sec-evt-${Date.now()}-init`,
@@ -49,7 +33,7 @@ if (!fs.existsSync(EVENTS_FILE)) {
   ]);
 }
 
-if (!fs.existsSync(SEC_SETTINGS_FILE)) {
+if (!readJson(SEC_SETTINGS_FILE, null)) {
   atomicWriteJson(SEC_SETTINGS_FILE, {
     sessionDurationHours: 24,
     failedLoginLockoutThreshold: 5,

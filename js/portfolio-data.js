@@ -1,1 +1,1014 @@
-"/**\n * UNIFIED PORTFOLIO DATA STORE\n * Cleanly structured data source for candidate profile, projects, experience, skills, and achievements.\n * Auto-synced from private admin system.\n */\n\nconst PORTFOLIO_DATA = {\n  \"profile\": {\n    \"name\": \"J Raghavendra\",\n    \"title\": \"Software  Engineering\",\n    \"availability\": \"Available for Fall 2026 Internships & 2027 Full-Time SWE\",\n    \"isAvailable\": true,\n    \"location\": \"Bangalore,karnatka\",\n    \"email\": \"raghavendraraghu71537@gmail.com\",\n    \"github\": \"https://github.com\",\n    \"linkedin\": \"https://linkedin.com\",\n    \"leetcode\": \"https://leetcode.com\",\n    \"positioning\": \"Building resilient, high-throughput distributed systems and low-latency cloud infrastructure where fault-tolerance and predictable P99 latency are non-negotiable.\",\n    \"shortBio\": \"Computer Science student specializing in distributed consensus, concurrency primitives, and systems-level network programming. Experienced in writing zero-copy Go and memory-safe Rust services capable of millions of transactions per second.\",\n    \"metrics\": [\n      {\n        \"value\": \"3.94\",\n        \"label\": \"Cumulative GPA\",\n        \"accent\": \"\"\n      },\n      {\n        \"value\": \"2\",\n        \"label\": \"SWE Internships\",\n        \"accent\": \"x\"\n      },\n      {\n        \"value\": \"85k\",\n        \"label\": \"Throughput (ops/s)\",\n        \"accent\": \"+\"\n      },\n      {\n        \"value\": \"Top 1%\",\n        \"label\": \"LeetCode & ICPC\",\n        \"accent\": \"\"\n      }\n    ],\n    \"updatedAt\": \"2026-09-22T13:04:55.626Z\",\n    \"headline\": \"Staff Systems & Infrastructure Engineer\"\n  },\n  \"projects\": [\n    {\n      \"id\": \"omnidash\",\n      \"title\": \"OmniDash Financial Orderbook\",\n      \"slug\": \"omnidash\",\n      \"shortDescription\": \"High-frequency financial orderbook visualizer and market-depth analyzer rendering 100k live updates/sec in WebGL.\",\n      \"description\": \"A specialized frontend financial visualization dashboard capable of rendering real-time Level 2 crypto and equities orderbook depth charts without dropping frames. Employs HTML5 Canvas, WebGL buffers, and off-thread Web Workers.\",\n      \"category\": \"Frontend\",\n      \"featured\": false,\n      \"status\": \"Production Verified\",\n      \"createdAt\": \"2024-03-15\",\n      \"updatedAt\": \"2024-07-22\",\n      \"tagline\": \"HIGH-FREQUENCY ORDERBOOK VISUALIZER\",\n      \"metadata\": {\n        \"role\": \"Lead Frontend Engineer\",\n        \"timeline\": \"2 Months (Spring 2024)\",\n        \"teamSize\": \"Solo Engineering Project\",\n        \"coreTech\": \"TypeScript, React, WebGL, Canvas API, WebSockets\"\n      },\n      \"technologies\": [\n        \"TypeScript\",\n        \"React\",\n        \"WebGL\",\n        \"Canvas API\",\n        \"WebSockets\",\n        \"CSS Tokens\"\n      ],\n      \"impact\": \"Sustains 60fps rendering under 100,000 live tick updates per second with zero UI thread freezing.\",\n      \"githubUrl\": \"https://github.com/example/omnidash\",\n      \"liveUrl\": \"https://omnidash.internal.net\",\n      \"demoUrl\": \"https://omnidash.internal.net\",\n      \"problem\": \"Traditional React state management triggers DOM re-render thrashing when handling continuous market-depth WebSocket feeds.\",\n      \"solution\": \"Designed an off-thread memory ring buffer in a Web Worker, blitting directly to an OffscreenCanvas via WebGL shaders.\",\n      \"features\": [\n        {\n          \"title\": \"OffscreenCanvas Rendering\",\n          \"desc\": \"Completely separates rendering calculations from the browser main UI thread.\"\n        },\n        {\n          \"title\": \"Zero-GC Frame Buffer\",\n          \"desc\": \"Reuses typed arrays to eliminate garbage collector pauses during market volatility.\"\n        }\n      ],\n      \"results\": [\n        {\n          \"num\": \"60fps\",\n          \"title\": \"Frame Rate\",\n          \"desc\": \"Maintained consistently under 100k market ticks/second\"\n        },\n        {\n          \"num\": \"<2ms\",\n          \"title\": \"Tick-to-Render\",\n          \"desc\": \"Ultra-low latency display of market-depth shifts\"\n        }\n      ]\n    },\n    {\n      \"id\": \"nexus-db\",\n      \"title\": \"NexusDB\",\n      \"slug\": \"nexus-db\",\n      \"shortDescription\": \"Distributed transactional metadata database featuring two-phase commit (2PC) and multi-version concurrency control (MVCC).\",\n      \"description\": \"An ACID-compliant distributed metadata store written in Go. Supports snapshot isolation and two-phase commit across partitioned storage shards with automatic deadlock detection.\",\n      \"category\": \"Backend\",\n      \"featured\": false,\n      \"status\": \"Production Verified\",\n      \"createdAt\": \"2024-02-10\",\n      \"updatedAt\": \"2024-06-15\",\n      \"tagline\": \"DISTRIBUTED ACID METADATA STORE\",\n      \"metadata\": {\n        \"role\": \"Backend Engineer\",\n        \"timeline\": \"3 Months (Spring 2024)\",\n        \"teamSize\": \"Solo Engineering Project\",\n        \"coreTech\": \"Go, Raft, gRPC, B-Tree, PostgreSQL Protocol\"\n      },\n      \"technologies\": [\n        \"Go\",\n        \"gRPC\",\n        \"Protobuf\",\n        \"PostgreSQL Wire Protocol\",\n        \"Raft\",\n        \"Docker\"\n      ],\n      \"impact\": \"Processed 40,000 distributed ACID transactions/sec with zero isolation anomalies across Jepsen bank tests.\",\n      \"githubUrl\": \"https://github.com/example/nexus-db\",\n      \"liveUrl\": \"https://nexusdb.internal.net\",\n      \"demoUrl\": \"https://nexusdb.internal.net\",\n      \"problem\": \"Standard microservice databases struggle to coordinate transactions across multi-datacenter partitions without locking entire tables.\",\n      \"solution\": \"Implemented Multi-Version Concurrency Control (MVCC) with serialized snapshot isolation and distributed deadlock wait-for graphs.\",\n      \"features\": [\n        {\n          \"title\": \"MVCC Snapshot Isolation\",\n          \"desc\": \"Readers never block writers and writers never block readers.\"\n        },\n        {\n          \"title\": \"Distributed Deadlock Detection\",\n          \"desc\": \"Maintains global wait-for graphs with cycle detection algorithms.\"\n        }\n      ],\n      \"results\": [\n        {\n          \"num\": \"40k\",\n          \"title\": \"Transactions / Sec\",\n          \"desc\": \"Throughput under strict Serializable Snapshot Isolation\"\n        },\n        {\n          \"num\": \"100%\",\n          \"title\": \"ACID Conformance\",\n          \"desc\": \"Zero dirty reads or serialization anomalies in Jepsen suite\"\n        }\n      ]\n    },\n    {\n      \"id\": \"devtunnel\",\n      \"title\": \"DevTunnel\",\n      \"slug\": \"devtunnel\",\n      \"shortDescription\": \"Secure peer-to-peer developer tunneling utility establishing encrypted NAT traversal tunnels over WireGuard.\",\n      \"description\": \"A fast, open-source alternative to ngrok written in Rust. Establishes encrypted peer-to-peer tunnels through residential and corporate NATs using STUN/TURN hole-punching and Noise protocol cryptography.\",\n      \"category\": \"Other\",\n      \"featured\": false,\n      \"status\": \"Open Source • 600+ Stars\",\n      \"createdAt\": \"2023-11-20\",\n      \"updatedAt\": \"2024-04-10\",\n      \"tagline\": \"ENCRYPTED P2P DEVELOPER TUNNEL\",\n      \"metadata\": {\n        \"role\": \"Open Source Author\",\n        \"timeline\": \"2 Months (Winter 2023)\",\n        \"teamSize\": \"Solo Engineering Project\",\n        \"coreTech\": \"Rust, WireGuard Protocol, Noise Cryptography, Tokio\"\n      },\n      \"technologies\": [\n        \"Rust\",\n        \"WireGuard Protocol\",\n        \"Tokio Async\",\n        \"TCP / UDP\",\n        \"DNS\"\n      ],\n      \"impact\": \"Adopted by 600+ developers; sustains 940Mbps throughput over local symmetric NATs.\",\n      \"githubUrl\": \"https://github.com/example/devtunnel\",\n      \"liveUrl\": \"https://devtunnel.internal.net\",\n      \"demoUrl\": \"https://devtunnel.internal.net\",\n      \"problem\": \"Exposing local dev servers to external webhooks requires expensive commercial relays with artificial bandwidth limits.\",\n      \"solution\": \"Built a decentralized P2P hole-punching utility that negotiates direct UDP links using WireGuard cryptographic key pairs.\",\n      \"features\": [\n        {\n          \"title\": \"Direct P2P UDP Traversal\",\n          \"desc\": \"Bypasses intermediary servers whenever direct NAT traversal is possible.\"\n        },\n        {\n          \"title\": \"End-to-End Encryption\",\n          \"desc\": \"Secured using Curve25519 and ChaCha20-Poly1305 authenticated ciphers.\"\n        }\n      ],\n      \"results\": [\n        {\n          \"num\": \"940Mbps\",\n          \"title\": \"Throughput\",\n          \"desc\": \"Near line-rate network performance over gigabit fiber\"\n        },\n        {\n          \"num\": \"600+\",\n          \"title\": \"GitHub Stars\",\n          \"desc\": \"Community adoption by open-source backend engineers\"\n        }\n      ]\n    }\n  ],\n  \"experience\": [\n    {\n      \"id\": \"exp-1\",\n      \"organization\": \"Apex Cloud Technologies\",\n      \"role\": \"Software Engineering Intern — Distributed Systems & Ingress\",\n      \"employmentType\": \"Internship\",\n      \"startDate\": \"Jun 2025\",\n      \"endDate\": \"Aug 2025\",\n      \"location\": \"San Francisco, CA (On-site)\",\n      \"description\": \"Engineered core traffic routing and caching primitives for next-generation multi-tenant edge infrastructure serving millions of daily edge requests.\",\n      \"organizationUrl\": \"https://apexcloud.internal.net\",\n      \"featured\": true,\n      \"order\": 1,\n      \"responsibilities\": [\n        \"Collaborated with senior staff engineers to design distributed in-memory cache architecture.\",\n        \"Maintained edge gRPC reverse proxy routing and connection management modules.\",\n        \"Participated in on-call shadow rotations, diagnosing traffic anomalies using Prometheus dashboards and Grafana.\",\n        \"Authored internal RFC proposals for zero-downtime certificate rotation mechanisms.\"\n      ],\n      \"achievements\": [\n        \"Architected an in-memory distributed LRU cache layer in Go with lock-striped hashing, reducing database read load by <strong>44%</strong> across 12 tier-1 microservices.\",\n        \"Profiled and eliminated CPU contention hotspots in the gRPC routing gateway using Go pprof and flamegraphs, improving P99 request latency by <strong>32ms</strong> under peak load.\",\n        \"Implemented automated Canary rollback controllers integrated with Prometheus metric thresholds, preventing <strong>3 potential SLA breaches</strong> during live deployment cycles.\"\n      ],\n      \"technologies\": [\n        \"Go\",\n        \"gRPC\",\n        \"Redis\",\n        \"Prometheus\",\n        \"Docker\",\n        \"Kubernetes\",\n        \"Linux\"\n      ],\n      \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n      \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n    },\n    {\n      \"id\": \"exp-2\",\n      \"organization\": \"Novaflow Systems\",\n      \"role\": \"Backend Engineering Intern — Data Infrastructure\",\n      \"employmentType\": \"Internship\",\n      \"startDate\": \"Jan 2025\",\n      \"endDate\": \"May 2025\",\n      \"location\": \"Seattle, WA (Hybrid)\",\n      \"description\": \"Built scalable ETL data pipelines and API endpoints processing telemetry for 500k+ active industrial IoT devices.\",\n      \"organizationUrl\": \"https://novaflow.internal.net\",\n      \"featured\": true,\n      \"order\": 2,\n      \"responsibilities\": [\n        \"Rewrote legacy batch worker infrastructure into streaming real-time event processors.\",\n        \"Monitored and tuned PostgreSQL database query execution plans and index partitioning.\",\n        \"Constructed automated integration and regression testing fixtures using Docker Compose.\"\n      ],\n      \"achievements\": [\n        \"Redesigned time-series aggregation pipeline in Rust, replacing legacy Python batch workers and yielding an <strong>8.5x throughput improvement</strong> (45k events/sec).\",\n        \"Optimized PostgreSQL schema indexes and partitioned large historical event tables (1.2B rows), decreasing heavy analytical query durations from <strong>4.2s to 280ms</strong>.\",\n        \"Wrote end-to-end integration test harness with Docker Compose and Mockoon, increasing overall codebase test coverage from <strong>62% to 91%</strong>.\"\n      ],\n      \"technologies\": [\n        \"Rust\",\n        \"PostgreSQL\",\n        \"Kafka\",\n        \"TimescaleDB\",\n        \"Docker\",\n        \"GitHub Actions\"\n      ],\n      \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n      \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n    },\n    {\n      \"id\": \"exp-3\",\n      \"organization\": \"University Systems & Networking Lab\",\n      \"role\": \"Undergraduate Systems Research Assistant\",\n      \"employmentType\": \"Research\",\n      \"startDate\": \"Sep 2024\",\n      \"endDate\": \"Present\",\n      \"location\": \"Campus Research Facility\",\n      \"description\": \"Conducting experimental systems research on distributed consensus resilience and tail-latency minimization in asynchronous network topologies.\",\n      \"organizationUrl\": \"https://systems-lab.university.edu\",\n      \"featured\": true,\n      \"order\": 3,\n      \"responsibilities\": [\n        \"Configured synthetic Linux traffic control (tc) and NetEm testing harnesses.\",\n        \"Implemented distributed consensus state machine benchmarks in Rust and C++.\",\n        \"Analyzed network packet traces in Wireshark to measure asymmetric packet delay impact on leader election terms.\"\n      ],\n      \"achievements\": [\n        \"Co-authored research prototype analyzing tail-latency penalties of Raft leader-election delays under asymmetric network partitions.\",\n        \"Demonstrated a <strong>68% reduction in election churn</strong> by implementing a formal Pre-Vote phase under 30% packet loss.\"\n      ],\n      \"technologies\": [\n        \"C++\",\n        \"Rust\",\n        \"Linux NetEm\",\n        \"Wireshark\",\n        \"Python\"\n      ],\n      \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n      \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n    }\n  ],\n  \"skills\": {\n    \"categories\": [\n      {\n        \"id\": \"all\",\n        \"label\": \"All Skills\"\n      },\n      {\n        \"id\": \"programming\",\n        \"label\": \"Programming Languages\"\n      },\n      {\n        \"id\": \"frontend\",\n        \"label\": \"Frontend\"\n      },\n      {\n        \"id\": \"backend\",\n        \"label\": \"Backend\"\n      },\n      {\n        \"id\": \"databases\",\n        \"label\": \"Databases\"\n      },\n      {\n        \"id\": \"ai-ml\",\n        \"label\": \"AI / Machine Learning\"\n      },\n      {\n        \"id\": \"cloud-devops\",\n        \"label\": \"Cloud / DevOps\"\n      },\n      {\n        \"id\": \"tools\",\n        \"label\": \"Tools\"\n      },\n      {\n        \"id\": \"other\",\n        \"label\": \"Other Technical Skills\"\n      }\n    ],\n    \"items\": [\n      {\n        \"id\": \"rust\",\n        \"name\": \"Rust\",\n        \"category\": \"Programming Languages\",\n        \"level\": \"Core\",\n        \"officialUrl\": \"https://www.rust-lang.org\",\n        \"featured\": true,\n        \"projectsCount\": 4,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"go\",\n        \"name\": \"Go (Golang)\",\n        \"category\": \"Programming Languages\",\n        \"level\": \"Core\",\n        \"officialUrl\": \"https://go.dev\",\n        \"featured\": true,\n        \"projectsCount\": 5,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"cpp\",\n        \"name\": \"C / C++\",\n        \"category\": \"Programming Languages\",\n        \"level\": \"Proficient\",\n        \"officialUrl\": \"https://isocpp.org\",\n        \"featured\": true,\n        \"projectsCount\": 3,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"typescript\",\n        \"name\": \"TypeScript / JS\",\n        \"category\": \"Programming Languages\",\n        \"level\": \"Core\",\n        \"officialUrl\": \"https://www.typescriptlang.org\",\n        \"featured\": true,\n        \"projectsCount\": 6,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"python\",\n        \"name\": \"Python\",\n        \"category\": \"Programming Languages\",\n        \"level\": \"Proficient\",\n        \"officialUrl\": \"https://www.python.org\",\n        \"featured\": false,\n        \"projectsCount\": 4,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"sql\",\n        \"name\": \"SQL\",\n        \"category\": \"Programming Languages\",\n        \"level\": \"Core\",\n        \"officialUrl\": \"https://www.postgresql.org/docs\",\n        \"featured\": true,\n        \"projectsCount\": 5,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"distributed-consensus\",\n        \"name\": \"Distributed Systems (Raft/Paxos)\",\n        \"category\": \"Backend\",\n        \"level\": \"Core\",\n        \"officialUrl\": \"https://raft.github.io\",\n        \"featured\": true,\n        \"projectsCount\": 3,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"grpc-protobuf\",\n        \"name\": \"gRPC & Protocol Buffers\",\n        \"category\": \"Backend\",\n        \"level\": \"Core\",\n        \"officialUrl\": \"https://grpc.io\",\n        \"featured\": true,\n        \"projectsCount\": 4,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"concurrency\",\n        \"name\": \"Concurrency & Lock-Free Primitives\",\n        \"category\": \"Backend\",\n        \"level\": \"Core\",\n        \"officialUrl\": \"\",\n        \"featured\": true,\n        \"projectsCount\": 4,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"socket-prog\",\n        \"name\": \"Linux Socket Programming (TCP/UDP)\",\n        \"category\": \"Backend\",\n        \"level\": \"Proficient\",\n        \"officialUrl\": \"\",\n        \"featured\": false,\n        \"projectsCount\": 2,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"kafka\",\n        \"name\": \"Apache Kafka\",\n        \"category\": \"Backend\",\n        \"level\": \"Proficient\",\n        \"officialUrl\": \"https://kafka.apache.org\",\n        \"featured\": true,\n        \"projectsCount\": 3,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"rest-apis\",\n        \"name\": \"RESTful Microservices\",\n        \"category\": \"Backend\",\n        \"level\": \"Core\",\n        \"officialUrl\": \"\",\n        \"featured\": false,\n        \"projectsCount\": 5,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"html5-semantic\",\n        \"name\": \"Modern HTML5 & Semantic Web\",\n        \"category\": \"Frontend\",\n        \"level\": \"Core\",\n        \"officialUrl\": \"https://developer.mozilla.org\",\n        \"featured\": true,\n        \"projectsCount\": 8,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"css-tokens\",\n        \"name\": \"Vanilla CSS & Design Tokens\",\n        \"category\": \"Frontend\",\n        \"level\": \"Core\",\n        \"officialUrl\": \"https://developer.mozilla.org\",\n        \"featured\": true,\n        \"projectsCount\": 8,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"react\",\n        \"name\": \"React 18 & Next.js\",\n        \"category\": \"Frontend\",\n        \"level\": \"Core\",\n        \"officialUrl\": \"https://react.dev\",\n        \"featured\": true,\n        \"projectsCount\": 5,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"wasm-frontend\",\n        \"name\": \"WebAssembly (WASM)\",\n        \"category\": \"Frontend\",\n        \"level\": \"Proficient\",\n        \"officialUrl\": \"https://webassembly.org\",\n        \"featured\": true,\n        \"projectsCount\": 2,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"wcag\",\n        \"name\": \"WCAG Accessibility (a11y)\",\n        \"category\": \"Frontend\",\n        \"level\": \"Core\",\n        \"officialUrl\": \"https://www.w3.org/WAI\",\n        \"featured\": true,\n        \"projectsCount\": 6,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"webgl\",\n        \"name\": \"WebGL & OffscreenCanvas\",\n        \"category\": \"Frontend\",\n        \"level\": \"Proficient\",\n        \"officialUrl\": \"\",\n        \"featured\": false,\n        \"projectsCount\": 1,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"postgresql\",\n        \"name\": \"PostgreSQL\",\n        \"category\": \"Databases\",\n        \"level\": \"Core\",\n        \"officialUrl\": \"https://www.postgresql.org\",\n        \"featured\": true,\n        \"projectsCount\": 5,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"redis\",\n        \"name\": \"Redis In-Memory Caching\",\n        \"category\": \"Databases\",\n        \"level\": \"Core\",\n        \"officialUrl\": \"https://redis.io\",\n        \"featured\": true,\n        \"projectsCount\": 4,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"clickhouse\",\n        \"name\": \"ClickHouse (Columnar)\",\n        \"category\": \"Databases\",\n        \"level\": \"Proficient\",\n        \"officialUrl\": \"https://clickhouse.com\",\n        \"featured\": true,\n        \"projectsCount\": 2,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"lsm-trees\",\n        \"name\": \"LSM-Trees & B+Trees\",\n        \"category\": \"Databases\",\n        \"level\": \"Proficient\",\n        \"officialUrl\": \"\",\n        \"featured\": false,\n        \"projectsCount\": 2,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"indexing\",\n        \"name\": \"Index & Query Plan Optimization\",\n        \"category\": \"Databases\",\n        \"level\": \"Core\",\n        \"officialUrl\": \"\",\n        \"featured\": true,\n        \"projectsCount\": 4,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"pytorch\",\n        \"name\": \"PyTorch\",\n        \"category\": \"AI / Machine Learning\",\n        \"level\": \"Proficient\",\n        \"officialUrl\": \"https://pytorch.org\",\n        \"featured\": true,\n        \"projectsCount\": 2,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"vllm\",\n        \"name\": \"vLLM & Inference Serving\",\n        \"category\": \"AI / Machine Learning\",\n        \"level\": \"Proficient\",\n        \"officialUrl\": \"https://github.com/vllm-project/vllm\",\n        \"featured\": true,\n        \"projectsCount\": 2,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"vector-dbs\",\n        \"name\": \"Vector Databases (Qdrant/Pinecone)\",\n        \"category\": \"AI / Machine Learning\",\n        \"level\": \"Proficient\",\n        \"officialUrl\": \"\",\n        \"featured\": false,\n        \"projectsCount\": 2,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"speculative-decoding\",\n        \"name\": \"Speculative Decoding Pipelines\",\n        \"category\": \"AI / Machine Learning\",\n        \"level\": \"Proficient\",\n        \"officialUrl\": \"\",\n        \"featured\": false,\n        \"projectsCount\": 1,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"docker\",\n        \"name\": \"Docker & Containerization\",\n        \"category\": \"Cloud / DevOps\",\n        \"level\": \"Core\",\n        \"officialUrl\": \"https://www.docker.com\",\n        \"featured\": true,\n        \"projectsCount\": 6,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"kubernetes\",\n        \"name\": \"Kubernetes (K8s)\",\n        \"category\": \"Cloud / DevOps\",\n        \"level\": \"Proficient\",\n        \"officialUrl\": \"https://kubernetes.io\",\n        \"featured\": true,\n        \"projectsCount\": 3,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"ebpf-linux\",\n        \"name\": \"Linux Internals & eBPF\",\n        \"category\": \"Cloud / DevOps\",\n        \"level\": \"Proficient\",\n        \"officialUrl\": \"https://ebpf.io\",\n        \"featured\": true,\n        \"projectsCount\": 2,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"aws\",\n        \"name\": \"AWS (EC2, S3, RDS, EKS)\",\n        \"category\": \"Cloud / DevOps\",\n        \"level\": \"Proficient\",\n        \"officialUrl\": \"https://aws.amazon.com\",\n        \"featured\": true,\n        \"projectsCount\": 4,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"github-actions\",\n        \"name\": \"GitHub Actions CI/CD\",\n        \"category\": \"Cloud / DevOps\",\n        \"level\": \"Core\",\n        \"officialUrl\": \"https://github.com/features/actions\",\n        \"featured\": true,\n        \"projectsCount\": 7,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"terraform\",\n        \"name\": \"Terraform (IaC)\",\n        \"category\": \"Cloud / DevOps\",\n        \"level\": \"Familiar\",\n        \"officialUrl\": \"https://www.terraform.io\",\n        \"featured\": false,\n        \"projectsCount\": 1,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"git\",\n        \"name\": \"Git & Trunk-Based Dev\",\n        \"category\": \"Tools\",\n        \"level\": \"Core\",\n        \"officialUrl\": \"https://git-scm.com\",\n        \"featured\": true,\n        \"projectsCount\": 10,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"opentelemetry\",\n        \"name\": \"OpenTelemetry / Prometheus\",\n        \"category\": \"Tools\",\n        \"level\": \"Core\",\n        \"officialUrl\": \"https://opentelemetry.io\",\n        \"featured\": true,\n        \"projectsCount\": 3,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"grafana\",\n        \"name\": \"Grafana Dashboards\",\n        \"category\": \"Tools\",\n        \"level\": \"Proficient\",\n        \"officialUrl\": \"https://grafana.com\",\n        \"featured\": false,\n        \"projectsCount\": 3,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"valgrind-gdb\",\n        \"name\": \"Valgrind & GDB Debuggers\",\n        \"category\": \"Tools\",\n        \"level\": \"Proficient\",\n        \"officialUrl\": \"\",\n        \"featured\": false,\n        \"projectsCount\": 2,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"wireshark\",\n        \"name\": \"Wireshark Packet Analysis\",\n        \"category\": \"Tools\",\n        \"level\": \"Proficient\",\n        \"officialUrl\": \"https://www.wireshark.org\",\n        \"featured\": false,\n        \"projectsCount\": 2,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"jepsen-testing\",\n        \"name\": \"Jepsen Distributed Testing\",\n        \"category\": \"Other\",\n        \"level\": \"Proficient\",\n        \"officialUrl\": \"https://jepsen.io\",\n        \"featured\": true,\n        \"projectsCount\": 2,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"wireguard\",\n        \"name\": \"WireGuard & Noise Protocol\",\n        \"category\": \"Other\",\n        \"level\": \"Proficient\",\n        \"officialUrl\": \"https://www.wireguard.com\",\n        \"featured\": false,\n        \"projectsCount\": 1,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      },\n      {\n        \"id\": \"chaos-mesh\",\n        \"name\": \"Chaos Mesh Fault Injection\",\n        \"category\": \"Other\",\n        \"level\": \"Proficient\",\n        \"officialUrl\": \"https://chaos-mesh.org\",\n        \"featured\": false,\n        \"projectsCount\": 1,\n        \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n        \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n      }\n    ]\n  },\n  \"achievements\": [\n    {\n      \"id\": \"ach-1\",\n      \"title\": \"1st Place Overall Winner — HackTech 2025\",\n      \"organization\": \"Caltech / Major League Hacking (MLH)\",\n      \"date\": \"Oct 2025\",\n      \"category\": \"Hackathons\",\n      \"featured\": true,\n      \"order\": 1,\n      \"description\": \"Built 'VoxelMesh', a peer-to-peer distributed rendering cluster utilizing WebRTC data channels and WebGPU. Won Grand Prize out of 180+ international university teams.\",\n      \"credentialUrl\": \"https://devpost.com\",\n      \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n      \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n    },\n    {\n      \"id\": \"ach-2\",\n      \"title\": \"ICPC Regional Finalist (Top 4 Team)\",\n      \"organization\": \"International Collegiate Programming Contest\",\n      \"date\": \"2024 – 2025\",\n      \"category\": \"Competitive programming\",\n      \"featured\": true,\n      \"order\": 2,\n      \"description\": \"Ranked 4th place at regional ICPC contest. Qualified for North American championship round, solving algorithmic challenges in graph theory, network flow, and dynamic programming.\",\n      \"credentialUrl\": \"https://icpc.global\",\n      \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n      \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n    },\n    {\n      \"id\": \"ach-3\",\n      \"title\": \"LeetCode Guardian (Rating 2180+, Top 1.2% Worldwide)\",\n      \"organization\": \"LeetCode\",\n      \"date\": \"2024 – 2025\",\n      \"category\": \"Competitive programming\",\n      \"featured\": true,\n      \"order\": 3,\n      \"description\": \"Solved 700+ algorithmic problems across Graphs, Dynamic Programming, and Concurrency. Top 1.2% global percentile across 100,000+ active competitive programmers.\",\n      \"credentialUrl\": \"https://leetcode.com\",\n      \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n      \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n    },\n    {\n      \"id\": \"ach-4\",\n      \"title\": \"Accepted Contributor — CNCF Upstream Cloud-Native Project\",\n      \"organization\": \"Cloud Native Computing Foundation\",\n      \"date\": \"Nov 2024\",\n      \"category\": \"Open-source contributions\",\n      \"featured\": true,\n      \"order\": 4,\n      \"description\": \"Submitted and merged upstream patch resolving a memory-leak condition in concurrent connection teardowns within open-source telemetry collector.\",\n      \"credentialUrl\": \"https://github.com\",\n      \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n      \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n    },\n    {\n      \"id\": \"ach-5\",\n      \"title\": \"Dean's Honor List & Tau Beta Pi Honor Society\",\n      \"organization\": \"School of Engineering and Applied Science\",\n      \"date\": \"2023 – 2025\",\n      \"category\": \"Academic achievements\",\n      \"featured\": true,\n      \"order\": 5,\n      \"description\": \"Maintained 3.94/4.00 cumulative GPA across core coursework in Operating Systems, Distributed Systems, Algorithms, Computer Architecture, and Compilers. Awarded all semesters.\",\n      \"credentialUrl\": \"\",\n      \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n      \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n    },\n    {\n      \"id\": \"ach-6\",\n      \"title\": \"AWS Certified Solutions Architect — Associate\",\n      \"organization\": \"Amazon Web Services (AWS)\",\n      \"date\": \"Aug 2024\",\n      \"category\": \"Certifications\",\n      \"featured\": false,\n      \"order\": 6,\n      \"description\": \"Validated architectural competence in designing secure, resilient, high-performing distributed infrastructure on AWS using multi-AZ VPCs, RDS replicas, and containerized ECS/EKS clusters.\",\n      \"credentialUrl\": \"https://aws.amazon.com/verification\",\n      \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n      \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n    },\n    {\n      \"id\": \"ach-7\",\n      \"title\": \"Vice President & Lead Systems Workshop Instructor\",\n      \"organization\": \"ACM Student Chapter (Association for Computing Machinery)\",\n      \"date\": \"2024 – Present\",\n      \"category\": \"Leadership\",\n      \"featured\": false,\n      \"order\": 7,\n      \"description\": \"Led weekly technical workshops for 80+ engineering students on Linux kernel internals, concurrency debugging with GDB, and building distributed Raft state machines from scratch.\",\n      \"credentialUrl\": \"https://acm.org\",\n      \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n      \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n    },\n    {\n      \"id\": \"ach-8\",\n      \"title\": \"Undergraduate Systems Research Publication Co-Author\",\n      \"organization\": \"IEEE / University Distributed Systems Symposium\",\n      \"date\": \"Dec 2024\",\n      \"category\": \"Publications\",\n      \"featured\": false,\n      \"order\": 8,\n      \"description\": \"Co-authored workshop paper on empirical tail-latency penalties of leader election churn in asymmetric network partitions, benchmarking Raft pre-vote protocols.\",\n      \"credentialUrl\": \"https://systems-symposium.org\",\n      \"createdAt\": \"2026-09-22T13:04:55.626Z\",\n      \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n    }\n  ],\n  \"about\": {\n    \"introduction\": {\n      \"name\": \"J Raghavendra\",\n      \"title\": \"Distributed Systems & Cloud Infrastructure Engineer\",\n      \"summary\": \"Computer Science student specializing in distributed consensus, concurrency primitives, and systems-level network programming. Experienced in building zero-copy stream decoders and high-throughput backend services capable of predictable P99 latency under heavy load.\",\n      \"areasOfInterest\": [\n        \"Distributed Consensus (Raft / Multi-Paxos)\",\n        \"Zero-Copy Network Stream Processing\",\n        \"Columnar & In-Memory Storage Engines\",\n        \"Linux Kernel Observability & eBPF\",\n        \"Low-Latency Cloud Infrastructure\"\n      ]\n    },\n    \"story\": [\n      \"I started my engineering journey by taking apart open-source network daemons to understand what actually happens when a packet hits a network card. That curiosity quickly evolved into a deep dedication to <strong>distributed systems, low-level concurrency, and infrastructure efficiency</strong>.\",\n      \"As a software engineering student, I don't just write code that passes happy-path tests; I obsess over what happens when a node fails, when network partitions delay packets, and when CPU cache invalidations derail P99 latency.\",\n      \"In my past internships at Apex Cloud Technologies and Novaflow Systems, I worked alongside staff engineers to build mission-critical caching and telemetry services handling millions of daily operations. I thrive in teams that value strong design docs, rigorous code reviews, and high engineering standards.\"\n    ],\n    \"philosophy\": [\n      {\n        \"topic\": \"Problem Solving\",\n        \"title\": \"Measure Before Optimizing\",\n        \"desc\": \"Never guess bottlenecks. Always collect CPU flamegraphs, memory allocation profiles, and P99 percentiles before writing custom fast-paths. Deconstruct ambiguous problems into formal invariants and boundary conditions.\"\n      },\n      {\n        \"topic\": \"Software Development\",\n        \"title\": \"Memory Safety & Deterministic Concurrency\",\n        \"desc\": \"Leverage strict type systems, immutability, and explicit error handling. Avoid shared mutable state in favor of message passing and lock-striped partitioning to eliminate race conditions by design.\"\n      },\n      {\n        \"topic\": \"Continuous Learning\",\n        \"title\": \"First-Principles Source Code Investigation\",\n        \"desc\": \"Read canonical RFC specifications, kernel docs, and battle-tested codebases (Redis, Linux, Raft, FoundationDB). Build concrete prototypes and stress-test them under simulated network chaos rather than relying solely on high-level abstractions.\"\n      },\n      {\n        \"topic\": \"Building Products\",\n        \"title\": \"Clarity, Reliability & Observability First\",\n        \"desc\": \"The best engineering is maintainable, readable, and predictable. Eschew convoluted tricks in favor of sound architecture. Instrument every microservice with metrics and traces from day one so failure states are immediately actionable.\"\n      },\n      {\n        \"topic\": \"Technical Challenges\",\n        \"title\": \"Fail Fast, Recover Gracefully\",\n        \"desc\": \"Distributed networks will fail. Systems must be designed around defensive timeouts, exponential backoffs, circuit breakers, and deterministic consensus. Graceful degradation beats cascading failure every time.\"\n      }\n    ],\n    \"currentFocus\": \"Currently diving deep into Linux kernel eBPF tracepoints, deterministic simulation testing (DST) inspired by FoundationDB, and Rust async runtime internals.\",\n    \"careerDirection\": \"Seeking Fall 2026 Software Engineering Internships and 2027 Full-Time SWE positions focused on distributed systems, cloud infrastructure platforms, high-throughput network proxies, and low-latency storage engines. Excited to contribute to engineering-first teams with high standards for code quality and reliability.\",\n    \"quickFacts\": [\n      {\n        \"label\": \"Education\",\n        \"value\": \"B.S. in Computer Science (3.94 GPA, Tau Beta Pi Honor Society)\"\n      },\n      {\n        \"label\": \"Primary Technologies\",\n        \"value\": \"Rust, Go, C++, TypeScript, PostgreSQL, Kafka, Linux, Docker\"\n      },\n      {\n        \"label\": \"Core Specialization\",\n        \"value\": \"Distributed Consensus, Tail-Latency Minimization, Ingress Proxies\"\n      },\n      {\n        \"label\": \"Active Project\",\n        \"value\": \"TraceFlow — Zero-Copy WASM Real-Time Observability Engine\"\n      },\n      {\n        \"label\": \"Location\",\n        \"value\": \"Bangalore, Karnataka (Open to Relocation & Remote)\"\n      },\n      {\n        \"label\": \"Work Authorization\",\n        \"value\": \"U.S. Citizen / Authorized to work with no visa sponsorship required\"\n      },\n      {\n        \"label\": \"Availability\",\n        \"value\": \"Fall 2026 Internships & 2027 Full-Time SWE Opportunities\"\n      }\n    ],\n    \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n  },\n  \"resume\": {\n    \"fileName\": \"Alex_Rivera_Software_Engineer_Resume.pdf\",\n    \"version\": \"v2.4\",\n    \"lastUpdated\": \"Updated on Sep 22, 2026\",\n    \"summary\": \"Single-page ATS-optimized engineering resume detailing distributed systems projects, production internship results, technical skill sets, and academic honors.\",\n    \"atsFormat\": \"Standard Recruiter & ATS Machine-Readable Compliant\",\n    \"fileSize\": \"0 KB\",\n    \"pdfUrl\": \"assets/Alex_Rivera_Software_Engineer_Resume.pdf\",\n    \"updatedAt\": \"2026-09-22T13:04:55.626Z\"\n  },\n  \"contact\": {\n    \"email\": \"raghavendraraghu71537@gmail.com\",\n    \"linkedin\": \"https://linkedin.com\",\n    \"github\": \"https://github.com\",\n    \"leetcode\": \"https://leetcode.com\",\n    \"responseTime\": \"Typically within 24 hours\",\n    \"availability\": \"Available for Fall 2026 Internships & 2027 Full-Time SWE\",\n    \"location\": \"Bangalore, Karnataka (Open to Relocation & Remote)\"\n  }\n};\n\n// Export for module use if in Node or make globally accessible in browser\nif (typeof module !== 'undefined' && module.exports) {\n  module.exports = PORTFOLIO_DATA;\n}\n"
+/**
+ * UNIFIED PORTFOLIO DATA STORE
+ * Cleanly structured data source for candidate profile, projects, experience, skills, and achievements.
+ * Auto-synced from private admin system.
+ */
+
+const PORTFOLIO_DATA = {
+  "profile": {
+    "name": "J Raghavendra",
+    "title": "Software  Engineering",
+    "availability": "Available for Fall 2026 Internships & 2027 Full-Time SWE",
+    "isAvailable": true,
+    "location": "Bangalore,karnatka",
+    "email": "raghavendraraghu71537@gmail.com",
+    "github": "https://github.com",
+    "linkedin": "https://linkedin.com",
+    "leetcode": "https://leetcode.com",
+    "positioning": "Building resilient, high-throughput distributed systems and low-latency cloud infrastructure where fault-tolerance and predictable P99 latency are non-negotiable.",
+    "shortBio": "Computer Science student specializing in distributed consensus, concurrency primitives, and systems-level network programming. Experienced in writing zero-copy Go and memory-safe Rust services capable of millions of transactions per second.",
+    "metrics": [
+      {
+        "value": "3.94",
+        "label": "Cumulative GPA",
+        "accent": ""
+      },
+      {
+        "value": "2",
+        "label": "SWE Internships",
+        "accent": "x"
+      },
+      {
+        "value": "85k",
+        "label": "Throughput (ops/s)",
+        "accent": "+"
+      },
+      {
+        "value": "Top 1%",
+        "label": "LeetCode & ICPC",
+        "accent": ""
+      }
+    ],
+    "updatedAt": "2026-09-22T13:04:55.626Z",
+    "headline": "Staff Systems & Infrastructure Engineer"
+  },
+  "projects": [
+    {
+      "id": "omnidash",
+      "title": "OmniDash Financial Orderbook",
+      "slug": "omnidash",
+      "shortDescription": "High-frequency financial orderbook visualizer and market-depth analyzer rendering 100k live updates/sec in WebGL.",
+      "description": "A specialized frontend financial visualization dashboard capable of rendering real-time Level 2 crypto and equities orderbook depth charts without dropping frames. Employs HTML5 Canvas, WebGL buffers, and off-thread Web Workers.",
+      "category": "Frontend",
+      "featured": false,
+      "status": "Production Verified",
+      "createdAt": "2024-03-15",
+      "updatedAt": "2024-07-22",
+      "tagline": "HIGH-FREQUENCY ORDERBOOK VISUALIZER",
+      "metadata": {
+        "role": "Lead Frontend Engineer",
+        "timeline": "2 Months (Spring 2024)",
+        "teamSize": "Solo Engineering Project",
+        "coreTech": "TypeScript, React, WebGL, Canvas API, WebSockets"
+      },
+      "technologies": [
+        "TypeScript",
+        "React",
+        "WebGL",
+        "Canvas API",
+        "WebSockets",
+        "CSS Tokens"
+      ],
+      "impact": "Sustains 60fps rendering under 100,000 live tick updates per second with zero UI thread freezing.",
+      "githubUrl": "https://github.com/example/omnidash",
+      "liveUrl": "https://omnidash.internal.net",
+      "demoUrl": "https://omnidash.internal.net",
+      "problem": "Traditional React state management triggers DOM re-render thrashing when handling continuous market-depth WebSocket feeds.",
+      "solution": "Designed an off-thread memory ring buffer in a Web Worker, blitting directly to an OffscreenCanvas via WebGL shaders.",
+      "features": [
+        {
+          "title": "OffscreenCanvas Rendering",
+          "desc": "Completely separates rendering calculations from the browser main UI thread."
+        },
+        {
+          "title": "Zero-GC Frame Buffer",
+          "desc": "Reuses typed arrays to eliminate garbage collector pauses during market volatility."
+        }
+      ],
+      "results": [
+        {
+          "num": "60fps",
+          "title": "Frame Rate",
+          "desc": "Maintained consistently under 100k market ticks/second"
+        },
+        {
+          "num": "<2ms",
+          "title": "Tick-to-Render",
+          "desc": "Ultra-low latency display of market-depth shifts"
+        }
+      ]
+    },
+    {
+      "id": "nexus-db",
+      "title": "NexusDB",
+      "slug": "nexus-db",
+      "shortDescription": "Distributed transactional metadata database featuring two-phase commit (2PC) and multi-version concurrency control (MVCC).",
+      "description": "An ACID-compliant distributed metadata store written in Go. Supports snapshot isolation and two-phase commit across partitioned storage shards with automatic deadlock detection.",
+      "category": "Backend",
+      "featured": false,
+      "status": "Production Verified",
+      "createdAt": "2024-02-10",
+      "updatedAt": "2024-06-15",
+      "tagline": "DISTRIBUTED ACID METADATA STORE",
+      "metadata": {
+        "role": "Backend Engineer",
+        "timeline": "3 Months (Spring 2024)",
+        "teamSize": "Solo Engineering Project",
+        "coreTech": "Go, Raft, gRPC, B-Tree, PostgreSQL Protocol"
+      },
+      "technologies": [
+        "Go",
+        "gRPC",
+        "Protobuf",
+        "PostgreSQL Wire Protocol",
+        "Raft",
+        "Docker"
+      ],
+      "impact": "Processed 40,000 distributed ACID transactions/sec with zero isolation anomalies across Jepsen bank tests.",
+      "githubUrl": "https://github.com/example/nexus-db",
+      "liveUrl": "https://nexusdb.internal.net",
+      "demoUrl": "https://nexusdb.internal.net",
+      "problem": "Standard microservice databases struggle to coordinate transactions across multi-datacenter partitions without locking entire tables.",
+      "solution": "Implemented Multi-Version Concurrency Control (MVCC) with serialized snapshot isolation and distributed deadlock wait-for graphs.",
+      "features": [
+        {
+          "title": "MVCC Snapshot Isolation",
+          "desc": "Readers never block writers and writers never block readers."
+        },
+        {
+          "title": "Distributed Deadlock Detection",
+          "desc": "Maintains global wait-for graphs with cycle detection algorithms."
+        }
+      ],
+      "results": [
+        {
+          "num": "40k",
+          "title": "Transactions / Sec",
+          "desc": "Throughput under strict Serializable Snapshot Isolation"
+        },
+        {
+          "num": "100%",
+          "title": "ACID Conformance",
+          "desc": "Zero dirty reads or serialization anomalies in Jepsen suite"
+        }
+      ]
+    },
+    {
+      "id": "devtunnel",
+      "title": "DevTunnel",
+      "slug": "devtunnel",
+      "shortDescription": "Secure peer-to-peer developer tunneling utility establishing encrypted NAT traversal tunnels over WireGuard.",
+      "description": "A fast, open-source alternative to ngrok written in Rust. Establishes encrypted peer-to-peer tunnels through residential and corporate NATs using STUN/TURN hole-punching and Noise protocol cryptography.",
+      "category": "Other",
+      "featured": false,
+      "status": "Open Source • 600+ Stars",
+      "createdAt": "2023-11-20",
+      "updatedAt": "2024-04-10",
+      "tagline": "ENCRYPTED P2P DEVELOPER TUNNEL",
+      "metadata": {
+        "role": "Open Source Author",
+        "timeline": "2 Months (Winter 2023)",
+        "teamSize": "Solo Engineering Project",
+        "coreTech": "Rust, WireGuard Protocol, Noise Cryptography, Tokio"
+      },
+      "technologies": [
+        "Rust",
+        "WireGuard Protocol",
+        "Tokio Async",
+        "TCP / UDP",
+        "DNS"
+      ],
+      "impact": "Adopted by 600+ developers; sustains 940Mbps throughput over local symmetric NATs.",
+      "githubUrl": "https://github.com/example/devtunnel",
+      "liveUrl": "https://devtunnel.internal.net",
+      "demoUrl": "https://devtunnel.internal.net",
+      "problem": "Exposing local dev servers to external webhooks requires expensive commercial relays with artificial bandwidth limits.",
+      "solution": "Built a decentralized P2P hole-punching utility that negotiates direct UDP links using WireGuard cryptographic key pairs.",
+      "features": [
+        {
+          "title": "Direct P2P UDP Traversal",
+          "desc": "Bypasses intermediary servers whenever direct NAT traversal is possible."
+        },
+        {
+          "title": "End-to-End Encryption",
+          "desc": "Secured using Curve25519 and ChaCha20-Poly1305 authenticated ciphers."
+        }
+      ],
+      "results": [
+        {
+          "num": "940Mbps",
+          "title": "Throughput",
+          "desc": "Near line-rate network performance over gigabit fiber"
+        },
+        {
+          "num": "600+",
+          "title": "GitHub Stars",
+          "desc": "Community adoption by open-source backend engineers"
+        }
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "id": "exp-1",
+      "organization": "Apex Cloud Technologies",
+      "role": "Software Engineering Intern — Distributed Systems & Ingress",
+      "employmentType": "Internship",
+      "startDate": "Jun 2025",
+      "endDate": "Aug 2025",
+      "location": "San Francisco, CA (On-site)",
+      "description": "Engineered core traffic routing and caching primitives for next-generation multi-tenant edge infrastructure serving millions of daily edge requests.",
+      "organizationUrl": "https://apexcloud.internal.net",
+      "featured": true,
+      "order": 1,
+      "responsibilities": [
+        "Collaborated with senior staff engineers to design distributed in-memory cache architecture.",
+        "Maintained edge gRPC reverse proxy routing and connection management modules.",
+        "Participated in on-call shadow rotations, diagnosing traffic anomalies using Prometheus dashboards and Grafana.",
+        "Authored internal RFC proposals for zero-downtime certificate rotation mechanisms."
+      ],
+      "achievements": [
+        "Architected an in-memory distributed LRU cache layer in Go with lock-striped hashing, reducing database read load by <strong>44%</strong> across 12 tier-1 microservices.",
+        "Profiled and eliminated CPU contention hotspots in the gRPC routing gateway using Go pprof and flamegraphs, improving P99 request latency by <strong>32ms</strong> under peak load.",
+        "Implemented automated Canary rollback controllers integrated with Prometheus metric thresholds, preventing <strong>3 potential SLA breaches</strong> during live deployment cycles."
+      ],
+      "technologies": [
+        "Go",
+        "gRPC",
+        "Redis",
+        "Prometheus",
+        "Docker",
+        "Kubernetes",
+        "Linux"
+      ],
+      "createdAt": "2026-09-22T13:04:55.626Z",
+      "updatedAt": "2026-09-22T13:04:55.626Z"
+    },
+    {
+      "id": "exp-2",
+      "organization": "Novaflow Systems",
+      "role": "Backend Engineering Intern — Data Infrastructure",
+      "employmentType": "Internship",
+      "startDate": "Jan 2025",
+      "endDate": "May 2025",
+      "location": "Seattle, WA (Hybrid)",
+      "description": "Built scalable ETL data pipelines and API endpoints processing telemetry for 500k+ active industrial IoT devices.",
+      "organizationUrl": "https://novaflow.internal.net",
+      "featured": true,
+      "order": 2,
+      "responsibilities": [
+        "Rewrote legacy batch worker infrastructure into streaming real-time event processors.",
+        "Monitored and tuned PostgreSQL database query execution plans and index partitioning.",
+        "Constructed automated integration and regression testing fixtures using Docker Compose."
+      ],
+      "achievements": [
+        "Redesigned time-series aggregation pipeline in Rust, replacing legacy Python batch workers and yielding an <strong>8.5x throughput improvement</strong> (45k events/sec).",
+        "Optimized PostgreSQL schema indexes and partitioned large historical event tables (1.2B rows), decreasing heavy analytical query durations from <strong>4.2s to 280ms</strong>.",
+        "Wrote end-to-end integration test harness with Docker Compose and Mockoon, increasing overall codebase test coverage from <strong>62% to 91%</strong>."
+      ],
+      "technologies": [
+        "Rust",
+        "PostgreSQL",
+        "Kafka",
+        "TimescaleDB",
+        "Docker",
+        "GitHub Actions"
+      ],
+      "createdAt": "2026-09-22T13:04:55.626Z",
+      "updatedAt": "2026-09-22T13:04:55.626Z"
+    },
+    {
+      "id": "exp-3",
+      "organization": "University Systems & Networking Lab",
+      "role": "Undergraduate Systems Research Assistant",
+      "employmentType": "Research",
+      "startDate": "Sep 2024",
+      "endDate": "Present",
+      "location": "Campus Research Facility",
+      "description": "Conducting experimental systems research on distributed consensus resilience and tail-latency minimization in asynchronous network topologies.",
+      "organizationUrl": "https://systems-lab.university.edu",
+      "featured": true,
+      "order": 3,
+      "responsibilities": [
+        "Configured synthetic Linux traffic control (tc) and NetEm testing harnesses.",
+        "Implemented distributed consensus state machine benchmarks in Rust and C++.",
+        "Analyzed network packet traces in Wireshark to measure asymmetric packet delay impact on leader election terms."
+      ],
+      "achievements": [
+        "Co-authored research prototype analyzing tail-latency penalties of Raft leader-election delays under asymmetric network partitions.",
+        "Demonstrated a <strong>68% reduction in election churn</strong> by implementing a formal Pre-Vote phase under 30% packet loss."
+      ],
+      "technologies": [
+        "C++",
+        "Rust",
+        "Linux NetEm",
+        "Wireshark",
+        "Python"
+      ],
+      "createdAt": "2026-09-22T13:04:55.626Z",
+      "updatedAt": "2026-09-22T13:04:55.626Z"
+    }
+  ],
+  "skills": {
+    "categories": [
+      {
+        "id": "all",
+        "label": "All Skills"
+      },
+      {
+        "id": "programming",
+        "label": "Programming Languages"
+      },
+      {
+        "id": "frontend",
+        "label": "Frontend"
+      },
+      {
+        "id": "backend",
+        "label": "Backend"
+      },
+      {
+        "id": "databases",
+        "label": "Databases"
+      },
+      {
+        "id": "ai-ml",
+        "label": "AI / Machine Learning"
+      },
+      {
+        "id": "cloud-devops",
+        "label": "Cloud / DevOps"
+      },
+      {
+        "id": "tools",
+        "label": "Tools"
+      },
+      {
+        "id": "other",
+        "label": "Other Technical Skills"
+      }
+    ],
+    "items": [
+      {
+        "id": "rust",
+        "name": "Rust",
+        "category": "Programming Languages",
+        "level": "Core",
+        "officialUrl": "https://www.rust-lang.org",
+        "featured": true,
+        "projectsCount": 4,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "go",
+        "name": "Go (Golang)",
+        "category": "Programming Languages",
+        "level": "Core",
+        "officialUrl": "https://go.dev",
+        "featured": true,
+        "projectsCount": 5,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "cpp",
+        "name": "C / C++",
+        "category": "Programming Languages",
+        "level": "Proficient",
+        "officialUrl": "https://isocpp.org",
+        "featured": true,
+        "projectsCount": 3,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "typescript",
+        "name": "TypeScript / JS",
+        "category": "Programming Languages",
+        "level": "Core",
+        "officialUrl": "https://www.typescriptlang.org",
+        "featured": true,
+        "projectsCount": 6,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "python",
+        "name": "Python",
+        "category": "Programming Languages",
+        "level": "Proficient",
+        "officialUrl": "https://www.python.org",
+        "featured": false,
+        "projectsCount": 4,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "sql",
+        "name": "SQL",
+        "category": "Programming Languages",
+        "level": "Core",
+        "officialUrl": "https://www.postgresql.org/docs",
+        "featured": true,
+        "projectsCount": 5,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "distributed-consensus",
+        "name": "Distributed Systems (Raft/Paxos)",
+        "category": "Backend",
+        "level": "Core",
+        "officialUrl": "https://raft.github.io",
+        "featured": true,
+        "projectsCount": 3,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "grpc-protobuf",
+        "name": "gRPC & Protocol Buffers",
+        "category": "Backend",
+        "level": "Core",
+        "officialUrl": "https://grpc.io",
+        "featured": true,
+        "projectsCount": 4,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "concurrency",
+        "name": "Concurrency & Lock-Free Primitives",
+        "category": "Backend",
+        "level": "Core",
+        "officialUrl": "",
+        "featured": true,
+        "projectsCount": 4,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "socket-prog",
+        "name": "Linux Socket Programming (TCP/UDP)",
+        "category": "Backend",
+        "level": "Proficient",
+        "officialUrl": "",
+        "featured": false,
+        "projectsCount": 2,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "kafka",
+        "name": "Apache Kafka",
+        "category": "Backend",
+        "level": "Proficient",
+        "officialUrl": "https://kafka.apache.org",
+        "featured": true,
+        "projectsCount": 3,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "rest-apis",
+        "name": "RESTful Microservices",
+        "category": "Backend",
+        "level": "Core",
+        "officialUrl": "",
+        "featured": false,
+        "projectsCount": 5,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "html5-semantic",
+        "name": "Modern HTML5 & Semantic Web",
+        "category": "Frontend",
+        "level": "Core",
+        "officialUrl": "https://developer.mozilla.org",
+        "featured": true,
+        "projectsCount": 8,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "css-tokens",
+        "name": "Vanilla CSS & Design Tokens",
+        "category": "Frontend",
+        "level": "Core",
+        "officialUrl": "https://developer.mozilla.org",
+        "featured": true,
+        "projectsCount": 8,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "react",
+        "name": "React 18 & Next.js",
+        "category": "Frontend",
+        "level": "Core",
+        "officialUrl": "https://react.dev",
+        "featured": true,
+        "projectsCount": 5,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "wasm-frontend",
+        "name": "WebAssembly (WASM)",
+        "category": "Frontend",
+        "level": "Proficient",
+        "officialUrl": "https://webassembly.org",
+        "featured": true,
+        "projectsCount": 2,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "wcag",
+        "name": "WCAG Accessibility (a11y)",
+        "category": "Frontend",
+        "level": "Core",
+        "officialUrl": "https://www.w3.org/WAI",
+        "featured": true,
+        "projectsCount": 6,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "webgl",
+        "name": "WebGL & OffscreenCanvas",
+        "category": "Frontend",
+        "level": "Proficient",
+        "officialUrl": "",
+        "featured": false,
+        "projectsCount": 1,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "postgresql",
+        "name": "PostgreSQL",
+        "category": "Databases",
+        "level": "Core",
+        "officialUrl": "https://www.postgresql.org",
+        "featured": true,
+        "projectsCount": 5,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "redis",
+        "name": "Redis In-Memory Caching",
+        "category": "Databases",
+        "level": "Core",
+        "officialUrl": "https://redis.io",
+        "featured": true,
+        "projectsCount": 4,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "clickhouse",
+        "name": "ClickHouse (Columnar)",
+        "category": "Databases",
+        "level": "Proficient",
+        "officialUrl": "https://clickhouse.com",
+        "featured": true,
+        "projectsCount": 2,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "lsm-trees",
+        "name": "LSM-Trees & B+Trees",
+        "category": "Databases",
+        "level": "Proficient",
+        "officialUrl": "",
+        "featured": false,
+        "projectsCount": 2,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "indexing",
+        "name": "Index & Query Plan Optimization",
+        "category": "Databases",
+        "level": "Core",
+        "officialUrl": "",
+        "featured": true,
+        "projectsCount": 4,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "pytorch",
+        "name": "PyTorch",
+        "category": "AI / Machine Learning",
+        "level": "Proficient",
+        "officialUrl": "https://pytorch.org",
+        "featured": true,
+        "projectsCount": 2,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "vllm",
+        "name": "vLLM & Inference Serving",
+        "category": "AI / Machine Learning",
+        "level": "Proficient",
+        "officialUrl": "https://github.com/vllm-project/vllm",
+        "featured": true,
+        "projectsCount": 2,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "vector-dbs",
+        "name": "Vector Databases (Qdrant/Pinecone)",
+        "category": "AI / Machine Learning",
+        "level": "Proficient",
+        "officialUrl": "",
+        "featured": false,
+        "projectsCount": 2,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "speculative-decoding",
+        "name": "Speculative Decoding Pipelines",
+        "category": "AI / Machine Learning",
+        "level": "Proficient",
+        "officialUrl": "",
+        "featured": false,
+        "projectsCount": 1,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "docker",
+        "name": "Docker & Containerization",
+        "category": "Cloud / DevOps",
+        "level": "Core",
+        "officialUrl": "https://www.docker.com",
+        "featured": true,
+        "projectsCount": 6,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "kubernetes",
+        "name": "Kubernetes (K8s)",
+        "category": "Cloud / DevOps",
+        "level": "Proficient",
+        "officialUrl": "https://kubernetes.io",
+        "featured": true,
+        "projectsCount": 3,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "ebpf-linux",
+        "name": "Linux Internals & eBPF",
+        "category": "Cloud / DevOps",
+        "level": "Proficient",
+        "officialUrl": "https://ebpf.io",
+        "featured": true,
+        "projectsCount": 2,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "aws",
+        "name": "AWS (EC2, S3, RDS, EKS)",
+        "category": "Cloud / DevOps",
+        "level": "Proficient",
+        "officialUrl": "https://aws.amazon.com",
+        "featured": true,
+        "projectsCount": 4,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "github-actions",
+        "name": "GitHub Actions CI/CD",
+        "category": "Cloud / DevOps",
+        "level": "Core",
+        "officialUrl": "https://github.com/features/actions",
+        "featured": true,
+        "projectsCount": 7,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "terraform",
+        "name": "Terraform (IaC)",
+        "category": "Cloud / DevOps",
+        "level": "Familiar",
+        "officialUrl": "https://www.terraform.io",
+        "featured": false,
+        "projectsCount": 1,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "git",
+        "name": "Git & Trunk-Based Dev",
+        "category": "Tools",
+        "level": "Core",
+        "officialUrl": "https://git-scm.com",
+        "featured": true,
+        "projectsCount": 10,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "opentelemetry",
+        "name": "OpenTelemetry / Prometheus",
+        "category": "Tools",
+        "level": "Core",
+        "officialUrl": "https://opentelemetry.io",
+        "featured": true,
+        "projectsCount": 3,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "grafana",
+        "name": "Grafana Dashboards",
+        "category": "Tools",
+        "level": "Proficient",
+        "officialUrl": "https://grafana.com",
+        "featured": false,
+        "projectsCount": 3,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "valgrind-gdb",
+        "name": "Valgrind & GDB Debuggers",
+        "category": "Tools",
+        "level": "Proficient",
+        "officialUrl": "",
+        "featured": false,
+        "projectsCount": 2,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "wireshark",
+        "name": "Wireshark Packet Analysis",
+        "category": "Tools",
+        "level": "Proficient",
+        "officialUrl": "https://www.wireshark.org",
+        "featured": false,
+        "projectsCount": 2,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "jepsen-testing",
+        "name": "Jepsen Distributed Testing",
+        "category": "Other",
+        "level": "Proficient",
+        "officialUrl": "https://jepsen.io",
+        "featured": true,
+        "projectsCount": 2,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "wireguard",
+        "name": "WireGuard & Noise Protocol",
+        "category": "Other",
+        "level": "Proficient",
+        "officialUrl": "https://www.wireguard.com",
+        "featured": false,
+        "projectsCount": 1,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      },
+      {
+        "id": "chaos-mesh",
+        "name": "Chaos Mesh Fault Injection",
+        "category": "Other",
+        "level": "Proficient",
+        "officialUrl": "https://chaos-mesh.org",
+        "featured": false,
+        "projectsCount": 1,
+        "createdAt": "2026-09-22T13:04:55.626Z",
+        "updatedAt": "2026-09-22T13:04:55.626Z"
+      }
+    ]
+  },
+  "achievements": [
+    {
+      "id": "ach-1",
+      "title": "1st Place Overall Winner — HackTech 2025",
+      "organization": "Caltech / Major League Hacking (MLH)",
+      "date": "Oct 2025",
+      "category": "Hackathons",
+      "featured": true,
+      "order": 1,
+      "description": "Built 'VoxelMesh', a peer-to-peer distributed rendering cluster utilizing WebRTC data channels and WebGPU. Won Grand Prize out of 180+ international university teams.",
+      "credentialUrl": "https://devpost.com",
+      "createdAt": "2026-09-22T13:04:55.626Z",
+      "updatedAt": "2026-09-22T13:04:55.626Z"
+    },
+    {
+      "id": "ach-2",
+      "title": "ICPC Regional Finalist (Top 4 Team)",
+      "organization": "International Collegiate Programming Contest",
+      "date": "2024 – 2025",
+      "category": "Competitive programming",
+      "featured": true,
+      "order": 2,
+      "description": "Ranked 4th place at regional ICPC contest. Qualified for North American championship round, solving algorithmic challenges in graph theory, network flow, and dynamic programming.",
+      "credentialUrl": "https://icpc.global",
+      "createdAt": "2026-09-22T13:04:55.626Z",
+      "updatedAt": "2026-09-22T13:04:55.626Z"
+    },
+    {
+      "id": "ach-3",
+      "title": "LeetCode Guardian (Rating 2180+, Top 1.2% Worldwide)",
+      "organization": "LeetCode",
+      "date": "2024 – 2025",
+      "category": "Competitive programming",
+      "featured": true,
+      "order": 3,
+      "description": "Solved 700+ algorithmic problems across Graphs, Dynamic Programming, and Concurrency. Top 1.2% global percentile across 100,000+ active competitive programmers.",
+      "credentialUrl": "https://leetcode.com",
+      "createdAt": "2026-09-22T13:04:55.626Z",
+      "updatedAt": "2026-09-22T13:04:55.626Z"
+    },
+    {
+      "id": "ach-4",
+      "title": "Accepted Contributor — CNCF Upstream Cloud-Native Project",
+      "organization": "Cloud Native Computing Foundation",
+      "date": "Nov 2024",
+      "category": "Open-source contributions",
+      "featured": true,
+      "order": 4,
+      "description": "Submitted and merged upstream patch resolving a memory-leak condition in concurrent connection teardowns within open-source telemetry collector.",
+      "credentialUrl": "https://github.com",
+      "createdAt": "2026-09-22T13:04:55.626Z",
+      "updatedAt": "2026-09-22T13:04:55.626Z"
+    },
+    {
+      "id": "ach-5",
+      "title": "Dean's Honor List & Tau Beta Pi Honor Society",
+      "organization": "School of Engineering and Applied Science",
+      "date": "2023 – 2025",
+      "category": "Academic achievements",
+      "featured": true,
+      "order": 5,
+      "description": "Maintained 3.94/4.00 cumulative GPA across core coursework in Operating Systems, Distributed Systems, Algorithms, Computer Architecture, and Compilers. Awarded all semesters.",
+      "credentialUrl": "",
+      "createdAt": "2026-09-22T13:04:55.626Z",
+      "updatedAt": "2026-09-22T13:04:55.626Z"
+    },
+    {
+      "id": "ach-6",
+      "title": "AWS Certified Solutions Architect — Associate",
+      "organization": "Amazon Web Services (AWS)",
+      "date": "Aug 2024",
+      "category": "Certifications",
+      "featured": false,
+      "order": 6,
+      "description": "Validated architectural competence in designing secure, resilient, high-performing distributed infrastructure on AWS using multi-AZ VPCs, RDS replicas, and containerized ECS/EKS clusters.",
+      "credentialUrl": "https://aws.amazon.com/verification",
+      "createdAt": "2026-09-22T13:04:55.626Z",
+      "updatedAt": "2026-09-22T13:04:55.626Z"
+    },
+    {
+      "id": "ach-7",
+      "title": "Vice President & Lead Systems Workshop Instructor",
+      "organization": "ACM Student Chapter (Association for Computing Machinery)",
+      "date": "2024 – Present",
+      "category": "Leadership",
+      "featured": false,
+      "order": 7,
+      "description": "Led weekly technical workshops for 80+ engineering students on Linux kernel internals, concurrency debugging with GDB, and building distributed Raft state machines from scratch.",
+      "credentialUrl": "https://acm.org",
+      "createdAt": "2026-09-22T13:04:55.626Z",
+      "updatedAt": "2026-09-22T13:04:55.626Z"
+    },
+    {
+      "id": "ach-8",
+      "title": "Undergraduate Systems Research Publication Co-Author",
+      "organization": "IEEE / University Distributed Systems Symposium",
+      "date": "Dec 2024",
+      "category": "Publications",
+      "featured": false,
+      "order": 8,
+      "description": "Co-authored workshop paper on empirical tail-latency penalties of leader election churn in asymmetric network partitions, benchmarking Raft pre-vote protocols.",
+      "credentialUrl": "https://systems-symposium.org",
+      "createdAt": "2026-09-22T13:04:55.626Z",
+      "updatedAt": "2026-09-22T13:04:55.626Z"
+    }
+  ],
+  "about": {
+    "introduction": {
+      "name": "J Raghavendra",
+      "title": "Distributed Systems & Cloud Infrastructure Engineer",
+      "summary": "Computer Science student specializing in distributed consensus, concurrency primitives, and systems-level network programming. Experienced in building zero-copy stream decoders and high-throughput backend services capable of predictable P99 latency under heavy load.",
+      "areasOfInterest": [
+        "Distributed Consensus (Raft / Multi-Paxos)",
+        "Zero-Copy Network Stream Processing",
+        "Columnar & In-Memory Storage Engines",
+        "Linux Kernel Observability & eBPF",
+        "Low-Latency Cloud Infrastructure"
+      ]
+    },
+    "story": [
+      "I started my engineering journey by taking apart open-source network daemons to understand what actually happens when a packet hits a network card. That curiosity quickly evolved into a deep dedication to <strong>distributed systems, low-level concurrency, and infrastructure efficiency</strong>.",
+      "As a software engineering student, I don't just write code that passes happy-path tests; I obsess over what happens when a node fails, when network partitions delay packets, and when CPU cache invalidations derail P99 latency.",
+      "In my past internships at Apex Cloud Technologies and Novaflow Systems, I worked alongside staff engineers to build mission-critical caching and telemetry services handling millions of daily operations. I thrive in teams that value strong design docs, rigorous code reviews, and high engineering standards."
+    ],
+    "philosophy": [
+      {
+        "topic": "Problem Solving",
+        "title": "Measure Before Optimizing",
+        "desc": "Never guess bottlenecks. Always collect CPU flamegraphs, memory allocation profiles, and P99 percentiles before writing custom fast-paths. Deconstruct ambiguous problems into formal invariants and boundary conditions."
+      },
+      {
+        "topic": "Software Development",
+        "title": "Memory Safety & Deterministic Concurrency",
+        "desc": "Leverage strict type systems, immutability, and explicit error handling. Avoid shared mutable state in favor of message passing and lock-striped partitioning to eliminate race conditions by design."
+      },
+      {
+        "topic": "Continuous Learning",
+        "title": "First-Principles Source Code Investigation",
+        "desc": "Read canonical RFC specifications, kernel docs, and battle-tested codebases (Redis, Linux, Raft, FoundationDB). Build concrete prototypes and stress-test them under simulated network chaos rather than relying solely on high-level abstractions."
+      },
+      {
+        "topic": "Building Products",
+        "title": "Clarity, Reliability & Observability First",
+        "desc": "The best engineering is maintainable, readable, and predictable. Eschew convoluted tricks in favor of sound architecture. Instrument every microservice with metrics and traces from day one so failure states are immediately actionable."
+      },
+      {
+        "topic": "Technical Challenges",
+        "title": "Fail Fast, Recover Gracefully",
+        "desc": "Distributed networks will fail. Systems must be designed around defensive timeouts, exponential backoffs, circuit breakers, and deterministic consensus. Graceful degradation beats cascading failure every time."
+      }
+    ],
+    "currentFocus": "Currently diving deep into Linux kernel eBPF tracepoints, deterministic simulation testing (DST) inspired by FoundationDB, and Rust async runtime internals.",
+    "careerDirection": "Seeking Fall 2026 Software Engineering Internships and 2027 Full-Time SWE positions focused on distributed systems, cloud infrastructure platforms, high-throughput network proxies, and low-latency storage engines. Excited to contribute to engineering-first teams with high standards for code quality and reliability.",
+    "quickFacts": [
+      {
+        "label": "Education",
+        "value": "B.S. in Computer Science (3.94 GPA, Tau Beta Pi Honor Society)"
+      },
+      {
+        "label": "Primary Technologies",
+        "value": "Rust, Go, C++, TypeScript, PostgreSQL, Kafka, Linux, Docker"
+      },
+      {
+        "label": "Core Specialization",
+        "value": "Distributed Consensus, Tail-Latency Minimization, Ingress Proxies"
+      },
+      {
+        "label": "Active Project",
+        "value": "TraceFlow — Zero-Copy WASM Real-Time Observability Engine"
+      },
+      {
+        "label": "Location",
+        "value": "Bangalore, Karnataka (Open to Relocation & Remote)"
+      },
+      {
+        "label": "Work Authorization",
+        "value": "U.S. Citizen / Authorized to work with no visa sponsorship required"
+      },
+      {
+        "label": "Availability",
+        "value": "Fall 2026 Internships & 2027 Full-Time SWE Opportunities"
+      }
+    ],
+    "updatedAt": "2026-09-22T13:04:55.626Z"
+  },
+  "resume": {
+    "fileName": "Alex_Rivera_Software_Engineer_Resume.pdf",
+    "version": "v2.4",
+    "lastUpdated": "Updated on Sep 22, 2026",
+    "summary": "Single-page ATS-optimized engineering resume detailing distributed systems projects, production internship results, technical skill sets, and academic honors.",
+    "atsFormat": "Standard Recruiter & ATS Machine-Readable Compliant",
+    "fileSize": "0 KB",
+    "pdfUrl": "assets/Alex_Rivera_Software_Engineer_Resume.pdf",
+    "updatedAt": "2026-09-22T13:04:55.626Z"
+  },
+  "contact": {
+    "email": "raghavendraraghu71537@gmail.com",
+    "linkedin": "https://linkedin.com",
+    "github": "https://github.com",
+    "leetcode": "https://leetcode.com",
+    "responseTime": "Typically within 24 hours",
+    "availability": "Available for Fall 2026 Internships & 2027 Full-Time SWE",
+    "location": "Bangalore, Karnataka (Open to Relocation & Remote)"
+  }
+};
+
+// Export for module use if in Node or make globally accessible in browser
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = PORTFOLIO_DATA;
+}
