@@ -181,7 +181,7 @@ async function runTests() {
     headers: { 'Content-Type': 'application/json' }
   }, {
     email: testEmail,
-    password: 'Raghavrc87229380'
+    password: process.env.OWNER_PASSWORD || 'Admin@2026!Secure'
   });
   assert(validLoginRes.statusCode === 200, `Valid owner login returns HTTP 200`);
   assert(validLoginRes.json && validLoginRes.json.success === true, `Login JSON confirms success`);

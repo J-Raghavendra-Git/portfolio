@@ -30,7 +30,7 @@ if (fs.existsSync(envPath)) {
 }
 
 const OWNER_EMAIL = (process.env.OWNER_EMAIL || 'raghavendraraghu71537@gmail.com').trim().toLowerCase();
-const OWNER_PASSWORD = process.env.OWNER_PASSWORD || 'Raghavrc87229380';
+const OWNER_PASSWORD = process.env.OWNER_PASSWORD || 'Admin@2026!Secure';
 
 let testsPassed = 0;
 let testsTotal = 0;

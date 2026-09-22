@@ -192,10 +192,7 @@ module.exports = {
     const normalizedEmail = (email || '').trim().toLowerCase();
     const storedEmail = (auth.email || '').trim().toLowerCase();
 
-    // Support both raghavendraraghu71537@gmail.com and raghavendraraghu71537@gmail.com alias
-    const isEmailMatch = (normalizedEmail === storedEmail) ||
-      (storedEmail === 'raghavendraraghu71537@gmail.com' && normalizedEmail === 'raghavendraraghu71537@gmail.com') ||
-      (storedEmail === 'raghavendraraghu71537@gmail.com' && normalizedEmail === 'raghavendraraghu71537@gmail.com');
+    const isEmailMatch = (normalizedEmail === storedEmail);
 
     if (!isEmailMatch) {
       console.warn(`[AUTH] Login failed for "${normalizedEmail}": email does not match registered owner (${storedEmail})`);
