@@ -1,0 +1,143 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+6 0 obj
+<< /Length 4378 >>
+stream
+BT
+/F1 14 Tf
+50 750 Td
+(J RAGHAVENDRA) Tj
+/F1 9 Tf
+0 -14 Td
+(Distributed Systems & Cloud Infrastructure Software Engineer) Tj
+0 -12 Td
+(raghavendraraghu71537@gmail.com  |  Bangalore, Karnataka  |  github.com  |  linkedin.com) Tj
+0 -16 Td
+/F2 10 Tf
+(-------------------------------------------------------------------------------------------------------------------------) Tj
+0 -14 Td
+/F2 10 Tf
+(TARGET OBJECTIVE:) Tj
+/F1 8.5 Tf
+0 -12 Td
+(Seeking Fall 2026 Software Engineering Internships and 2027 Full-Time SWE Roles \(Systems, Distributed Platforms, Cloud Infrastructure\).) Tj
+0 -11 Td
+0 -8 Td
+/F2 10 Tf
+(EDUCATION:) Tj
+/F1 8.5 Tf
+0 -12 Td
+(University of California / Top CS Program) Tj
+0 -11 Td
+(Bachelor of Science in Computer Science, Minor in Mathematics) Tj
+0 -11 Td
+(Cumulative GPA: 3.94 / 4.00 | Expected Graduation: May 2027) Tj
+0 -11 Td
+(Relevant Coursework: Distributed Systems, Operating Systems, Algorithms, Computer Architecture, Database Systems, Compilers, Computer Networks.) Tj
+0 -11 Td
+0 -8 Td
+/F2 10 Tf
+(TECHNICAL SKILLS:) Tj
+/F1 8.5 Tf
+0 -12 Td
+(  * Languages: Rust, Go \(Golang\), C, C++, TypeScript, Python, SQL, Bash.) Tj
+0 -11 Td
+(  * Systems & Distributed: Raft Consensus, gRPC, Protobuf, Concurrency, Linux Socket Programming, LSM-Tree, Kafka, Redis.) Tj
+0 -11 Td
+(  * Cloud & Infrastructure: Docker, Kubernetes, eBPF, AWS \(EC2, S3, RDS\), GitHub Actions CI/CD, Linux Cgroups, Prometheus, Grafana.) Tj
+0 -11 Td
+0 -8 Td
+/F2 10 Tf
+(WORK EXPERIENCE:) Tj
+/F1 8.5 Tf
+0 -12 Td
+(Apex Cloud Technologies — Software Engineering Intern \(Distributed Systems & Ingress\) | Jun 2025 – Aug 2025 \(San Francisco, CA\)) Tj
+0 -11 Td
+(  * Architected an in-memory distributed LRU cache layer in Go with lock-striped hashing, reducing database read load by 44% across 12 tier-1 services.) Tj
+0 -11 Td
+(  * Profiled and eliminated CPU contention hotspots in the gRPC routing gateway using Go pprof, improving P99 latency by 32ms under peak load.) Tj
+0 -11 Td
+(  * Implemented automated Canary rollback controllers integrated with Prometheus metrics, preventing 3 potential SLA breaches.) Tj
+0 -11 Td
+0 -8 Td
+(Novaflow Systems — Backend Engineering Intern \(Data Infrastructure\) | Jan 2025 – May 2025 \(Seattle, WA\)) Tj
+0 -11 Td
+(  * Redesigned time-series aggregation pipeline in Rust, achieving an 8.5x throughput improvement \(45,000 events/second\).) Tj
+0 -11 Td
+(  * Optimized PostgreSQL schema indexes and partitioned 1.2B rows, decreasing heavy query latency from 4.2s to 280ms.) Tj
+0 -11 Td
+(  * Built end-to-end integration test harness with Docker Compose, raising test coverage from 62% to 91%.) Tj
+0 -11 Td
+0 -8 Td
+(University Systems & Networking Lab — Undergraduate Research Assistant | Sep 2024 – Present) Tj
+0 -11 Td
+(  * Co-authored research prototype analyzing tail-latency penalties of Raft leader-election delays under asymmetric network partitions.) Tj
+0 -11 Td
+(  * Stress-tested state machines using Linux NetEm and traffic control \(tc\) under 30% packet loss.) Tj
+0 -11 Td
+0 -8 Td
+/F2 10 Tf
+(FLAGSHIP PROJECTS:) Tj
+/F1 8.5 Tf
+0 -12 Td
+(AuraKV — Distributed Consensus Key-Value Store \(Rust, Tokio, Raft, gRPC, LSM-Tree\)) Tj
+0 -11 Td
+(  * Maintains 85,000 writes/sec with <3.8ms P99 latency across 5 geo-distributed nodes during simulated 30% node packet loss.) Tj
+0 -11 Td
+(  * Jepsen-tested linearizability verification with zero data loss across 1,000 partition injection cycles.) Tj
+0 -11 Td
+0 -8 Td
+(HyperProxy — High-Concurrency Layer 7 Reverse Proxy \(Go, eBPF/XDP, HTTP/2, TCP\)) Tj
+0 -11 Td
+(  * Reduced tail P99 latency by 58% and memory footprint by 4.2x vs Envoy baseline under 140,000 concurrent keep-alive connections.) Tj
+0 -11 Td
+0 -8 Td
+(TraceFlow — Real-Time Distributed Tracing Pipeline \(TypeScript, Rust/WASM, ClickHouse, OpenTelemetry\)) Tj
+0 -11 Td
+(  * Ingests 250k spans/sec with <50ms query latency over 200GB+ historical trace datasets.) Tj
+0 -11 Td
+0 -8 Td
+/F2 10 Tf
+(ACHIEVEMENTS & HONORS:) Tj
+/F1 8.5 Tf
+0 -12 Td
+(  * 1st Place Overall Winner — HackTech 2025 \(MLH Grand Prize, 180+ teams\)) Tj
+0 -11 Td
+(  * ICPC Regional Finalist \(Top 4 finish\) & LeetCode Guardian \(Rating 2180+, Top 1.2%\)) Tj
+0 -11 Td
+(  * Accepted Contributor — CNCF Upstream Cloud-Native Project) Tj
+0 -11 Td
+(  * Dean's Honor List & Tau Beta Pi Engineering Honor Society \(All semesters\)) Tj
+0 -11 Td
+0 -8 Td
+ET
+endstream
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000251 00000 n 
+0000000321 00000 n 
+0000000396 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+4826
+%%EOF

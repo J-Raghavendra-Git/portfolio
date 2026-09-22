@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Management | Owner Administration Console</title>
+  <meta name="robots" content="noindex, nofollow">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/css/design-tokens.css">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-body">
+
+  <div class="admin-layout">
+    <!-- Collapsible Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar-header">
+        <a href="/admin/dashboard" class="admin-brand">
+          <span class="admin-brand-icon">AR</span>
+          <div>
+            <div class="admin-brand-text">J Raghavendra</div>
+            <div style="font-size: 10px; color: var(--text-tertiary); font-family: var(--font-mono);">OWNER CONSOLE</div>
+          </div>
+        </a>
+        <span class="admin-brand-badge">Admin</span>
+      </div>
+
+      <nav class="admin-nav" aria-label="Admin Navigation">
+        <span class="admin-nav-section-title">Core Management</span>
+        <a href="/admin/dashboard" class="admin-nav-link">
+          <span class="admin-nav-link-content">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            <span>Dashboard</span>
+          </span>
+        </a>
+        <a href="/admin/profile" class="admin-nav-link active">
+          <span class="admin-nav-link-content">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <span>Profile</span>
+          </span>
+        </a>
+
+        <span class="admin-nav-section-title">Portfolio Content</span>
+        <a href="/admin/projects" class="admin-nav-link">
+          <span class="admin-nav-link-content">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            <span>Projects</span>
+          </span>
+        </a>
+        <a href="/admin/experience" class="admin-nav-link">
+          <span class="admin-nav-link-content">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+            <span>Experience</span>
+          </span>
+        </a>
+        <a href="/admin/skills" class="admin-nav-link">
+          <span class="admin-nav-link-content">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <span>Skills</span>
+          </span>
+        </a>
+        <a href="/admin/achievements" class="admin-nav-link">
+          <span class="admin-nav-link-content">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+            <span>Achievements</span>
+          </span>
+        </a>
+        <a href="/admin/about" class="admin-nav-link">
+          <span class="admin-nav-link-content">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            <span>About Page</span>
+          </span>
+        </a>
+        <a href="/admin/resume" class="admin-nav-link">
+          <span class="admin-nav-link-content">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            <span>Resume (ATS)</span>
+          </span>
+        </a>
+
+        <span class="admin-nav-section-title">Inquiries & Settings</span>
+        <a href="/admin/messages" class="admin-nav-link">
+          <span class="admin-nav-link-content">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <span>Messages</span>
+          </span>
+          <span class="admin-nav-badge" id="sidebar-unread-badge" style="display: none;">0</span>
+        </a>
+                <a href="/admin/security" class="admin-nav-link">
+          <span class="admin-nav-link-content">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            <span>Security Center</span>
+          </span>
+        </a>
+<a href="/admin/settings" class="admin-nav-link">
+          <span class="admin-nav-link-content">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            <span>Settings</span>
+          </span>
+        </a>
+      </nav>
+
+      <div class="admin-sidebar-footer">
+        <div class="admin-owner-info">
+          <div class="admin-owner-avatar">AR</div>
+          <div class="admin-owner-meta">
+            <span class="admin-owner-name" id="admin-sidebar-owner-name">J Raghavendra</span>
+            <span class="admin-owner-role">● Owner (Active)</span>
+          </div>
+        </div>
+        <button type="button" id="admin-logout-btn" class="admin-action-btn" title="Sign Out">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="admin-main">
+      <header class="admin-topbar">
+        <div class="admin-topbar-left">
+          <button type="button" class="admin-mobile-toggle" aria-label="Toggle Sidebar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          </button>
+          <div class="admin-breadcrumbs">
+            <span>Portfolio Admin</span>
+            <span>/</span>
+            <span class="current">Owner Profile</span>
+          </div>
+        </div>
+        <div class="admin-topbar-actions">
+          <div class="admin-status-indicator">
+            <span class="status-dot-green"></span>
+            <span>Owner Authenticated</span>
+          </div>
+          <a href="/" target="_blank" class="btn btn-secondary btn-sm" style="gap: 6px;">
+            <span>View Public Site</span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          </a>
+        </div>
+      </header>
+
+      <main class="admin-content-canvas">
+        <div class="admin-page-header">
+          <div class="admin-page-title-group">
+            <h1>Candidate Profile & Positioning</h1>
+            <p class="admin-page-subtext">Manage core identity, positioning statement, availability, and external social channels.</p>
+          </div>
+          <div class="admin-page-actions">
+            <button type="submit" form="profile-form" id="profile-save-btn" class="btn btn-primary btn-sm">
+              <span>Save Profile Changes</span>
+            </button>
+          </div>
+        </div>
+
+        <form id="profile-form" class="admin-card" style="padding: 1.5rem;" novalidate>
+          <h2 class="admin-card-title" style="margin-bottom: 1.25rem;">Core Professional Identity</h2>
+
+          <div class="admin-form-grid">
+            <div class="admin-form-group">
+              <label for="prof-name" class="admin-form-label">Full Name *</label>
+              <input type="text" id="prof-name" class="admin-form-input" required>
+            </div>
+
+            <div class="admin-form-group">
+              <label for="prof-title" class="admin-form-label">Professional Title *</label>
+              <input type="text" id="prof-title" class="admin-form-input" required>
+            </div>
+
+            <div class="admin-form-group full-width">
+              <label for="prof-positioning" class="admin-form-label">First 5-10s Hero Positioning Statement *</label>
+              <textarea id="prof-positioning" class="admin-form-textarea" style="min-height: 80px;" required></textarea>
+              <span class="admin-form-help">Displayed prominently on the homepage hero directly below your title.</span>
+            </div>
+
+            <div class="admin-form-group full-width">
+              <label for="prof-bio" class="admin-form-label">Short Supporting Bio *</label>
+              <textarea id="prof-bio" class="admin-form-textarea" style="min-height: 80px;" required></textarea>
+            </div>
+          </div>
+
+          <hr style="border: 0; border-top: 1px solid var(--border-subtle); margin: 1.5rem 0;">
+
+          <h2 class="admin-card-title" style="margin-bottom: 1.25rem;">Recruiter Availability & Channels</h2>
+
+          <div class="admin-form-grid">
+            <div class="admin-form-group">
+              <label for="prof-email" class="admin-form-label">Contact Email *</label>
+              <input type="email" id="prof-email" class="admin-form-input" required>
+            </div>
+
+            <div class="admin-form-group">
+              <label for="prof-location" class="admin-form-label">Location / Relocation Preferences</label>
+              <input type="text" id="prof-location" class="admin-form-input">
+            </div>
+
+            <div class="admin-form-group full-width">
+              <label for="prof-availability" class="admin-form-label">Recruiter Availability Banner Text</label>
+              <input type="text" id="prof-availability" class="admin-form-input">
+            </div>
+
+            <div class="admin-form-group">
+              <label for="prof-github" class="admin-form-label">GitHub URL</label>
+              <input type="url" id="prof-github" class="admin-form-input">
+            </div>
+
+            <div class="admin-form-group">
+              <label for="prof-linkedin" class="admin-form-label">LinkedIn URL</label>
+              <input type="url" id="prof-linkedin" class="admin-form-input">
+            </div>
+
+            <div class="admin-form-group">
+              <label for="prof-leetcode" class="admin-form-label">LeetCode URL</label>
+              <input type="url" id="prof-leetcode" class="admin-form-input">
+            </div>
+          </div>
+
+          <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end;">
+            <button type="submit" class="btn btn-primary">Save Profile Changes</button>
+          </div>
+        </form>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="/js/admin-core.js"></script>
+  <script src="/js/admin-profile.js"></script>
+</body>
+</html>

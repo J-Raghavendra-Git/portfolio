@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+  <title>404: Page Not Found | J Raghavendra — Software Engineer</title>
+  <meta name="description" content="The requested resource or portfolio page could not be located.">
+  <meta name="robots" content="noindex, follow">
+  
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  
+  <!-- Modern Fonts Preload -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/design-tokens.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+</head>
+<body>
+
+  <!-- Subtle Blueprint Technical Background Pattern -->
+  <div class="blueprint-background" aria-hidden="true"></div>
+
+  <!-- Global Header -->
+  <header class="site-header" role="banner">
+    <div class="container nav-container">
+      <a href="/" class="brand-logo" aria-label="J Raghavendra Home">
+        <span class="brand-icon">JR</span>
+        <span>J Raghavendra</span>
+        <span class="brand-title">// SWE</span>
+      </a>
+
+      <nav class="desktop-nav" role="navigation" aria-label="Main Navigation">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/projects" class="nav-link">Projects</a>
+        <a href="/experience" class="nav-link">Experience</a>
+        <a href="/skills" class="nav-link">Skills</a>
+        <a href="/achievements" class="nav-link">Achievements</a>
+        <a href="/about" class="nav-link">About</a>
+        <a href="/resume" class="nav-link">Resume</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="/contact" class="btn btn-primary btn-sm">Contact Me</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" style="min-height: calc(100vh - 160px); display: flex; align-items: center; justify-content: center; padding: calc(var(--space-24) + 60px) var(--space-4) var(--space-16) var(--space-4);">
+    <div class="container" style="max-width: 680px; text-align: center;">
+      
+      <!-- Diagnostic Moniker -->
+      <div style="font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: var(--accent-crimson, #ef4444); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px;">
+        // ERROR 404 • SYSTEM FAULT
+      </div>
+
+      <!-- Main Code Display -->
+      <div style="font-family: var(--font-mono); font-size: clamp(4rem, 12vw, 7rem); font-weight: 800; line-height: 1; margin-bottom: 1rem; background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-muted) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        404
+      </div>
+
+      <h1 style="font-size: var(--text-2xl); font-weight: 700; color: var(--text-primary); margin-bottom: 1rem; letter-spacing: -0.02em;">
+        Resource Not Found
+      </h1>
+
+      <p style="font-size: var(--text-base); color: var(--text-secondary); line-height: 1.6; max-width: 500px; margin: 0 auto 2rem auto;">
+        The requested endpoint, project case study, or resource could not be found on this edge server. It may have been renamed, removed, or temporarily relocated.
+      </p>
+
+      <!-- Action Buttons -->
+      <div style="display: flex; flex-wrap: wrap; gap: var(--space-3); justify-content: center; align-items: center;">
+        <a href="/" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <span>Return to Home</span>
+        </a>
+        <a href="/projects" class="btn btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+          <span>Explore Projects</span>
+        </a>
+        <a href="/contact" class="btn btn-ghost">
+          <span>Contact Engineer</span>
+        </a>
+      </div>
+
+      <!-- Terminal Diagnostics Box -->
+      <div style="margin-top: 3rem; background: var(--bg-surface-elevated); border: 1px solid var(--border-medium); border-radius: var(--radius-md); padding: 1rem; text-align: left; font-family: var(--font-mono); font-size: 12px; color: var(--text-tertiary);">
+        <div style="color: var(--accent-primary); margin-bottom: 4px;">// DIAGNOSTIC LOG</div>
+        <div>STATUS: HTTP 404 (Not Found)</div>
+        <div>HOST: Recruiter Edge Infrastructure</div>
+        <div>ROUTE: Unresolved URI Segment</div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer" role="contentinfo" style="border-top: 1px solid var(--border-subtle); padding: 2rem 0;">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: var(--text-xs); color: var(--text-tertiary);">
+      <div>&copy; 2026 J Raghavendra. All rights reserved.</div>
+      <div class="footer-status-pill">
+        <span class="status-dot"></span>
+        <span>Edge Hosted • Zero Downtime</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/theme.js"></script>
+</body>
+</html>

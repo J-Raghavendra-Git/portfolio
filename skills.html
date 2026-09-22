@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+  <title>Skills & Technologies | J Raghavendra — Software Engineer</title>
+  <meta name="description" content="Technical capabilities of J Raghavendra: 35+ technologies across 8 structured categories including distributed systems, Rust, Go, cloud infrastructure, and AI engineering.">
+  <meta name="author" content="J Raghavendra">
+  
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="canonical" href="https://jraghavendra.dev/skills">
+
+  <!-- Open Graph / Social Cards -->
+  <meta property="og:title" content="Skills & Technologies | J Raghavendra — Software Engineer">
+  <meta property="og:description" content="Technical capabilities: 35+ technologies across 8 structured categories including distributed systems, Rust, Go, and cloud infrastructure.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://jraghavendra.dev/skills">
+  <meta property="og:image" content="https://jraghavendra.dev/assets/favicon.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Skills & Technologies | J Raghavendra">
+  <meta name="twitter:description" content="Technical competencies in distributed systems, network proxies, and cloud infrastructure.">
+  
+  <!-- Modern Fonts Preload -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/design-tokens.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/skills.css">
+</head>
+<body>
+
+  <!-- Subtle Blueprint Technical Background Pattern -->
+  <div class="blueprint-background" aria-hidden="true"></div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- ========================================================================
+       GLOBAL NAVIGATION
+       ======================================================================== -->
+  <header class="site-header" role="banner">
+    <div class="container nav-container">
+      <!-- Brand Moniker -->
+      <a href="index.html#home" class="brand-logo" aria-label="J Raghavendra Home">
+        <span class="brand-icon">JR</span>
+        <span>J Raghavendra</span>
+        <span class="brand-title">// SWE</span>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="desktop-nav" role="navigation" aria-label="Main Navigation">
+        <a href="index.html#home" class="nav-link">Home</a>
+        <a href="projects.html" class="nav-link">Projects</a>
+        <a href="experience.html" class="nav-link">Experience</a>
+        <a href="skills.html" class="nav-link active" aria-current="page">Skills</a>
+        <a href="achievements.html" class="nav-link">Achievements</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="resume.html" class="nav-link">Resume</a>
+      </nav>
+
+      <!-- Nav Actions -->
+      <div class="nav-actions">
+        <!-- Theme Toggle -->
+        <button type="button" class="btn-icon theme-toggle-btn" aria-label="Switch Theme">
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <a href="contact.html" class="btn btn-primary btn-sm">Contact Me</a>
+
+        <!-- Mobile Hamburger -->
+        <button type="button" class="mobile-nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div class="mobile-nav-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation Menu">
+      <a href="index.html#home" class="nav-link">Home</a>
+      <a href="projects.html" class="nav-link">Projects</a>
+      <a href="experience.html" class="nav-link">Experience</a>
+      <a href="skills.html" class="nav-link active">Skills</a>
+      <a href="achievements.html" class="nav-link">Achievements</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="resume.html" class="nav-link">Resume</a>
+      <a href="contact.html" class="btn btn-primary" style="margin-top: 1rem;">Contact Me</a>
+    </div>
+  </header>
+
+  <main id="main-content">
+    
+    <!-- ========================================================================
+         PAGE HEADER
+         ======================================================================== -->
+    <section class="skills-page-header">
+      <div class="container">
+        <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-primary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;">
+          // TECHNICAL ARSENAL & CAPABILITIES
+        </div>
+        <h1 class="skills-header-title">Skills & Technologies</h1>
+        <p class="skills-header-subtext">
+          A structured index of technical capabilities across 8 engineering domains. Grounded in production repositories, systems research, and high-concurrency benchmarks. No arbitrary percentage bars: categorized chips, project evidence, and official documentation links.
+        </p>
+
+        <!-- Technical Stats Row -->
+        <div class="skills-stats-row">
+          <div class="skills-stat-card">
+            <span class="skills-stat-num">8</span>
+            <span class="skills-stat-label">Technical Domains</span>
+          </div>
+          <div class="skills-stat-card">
+            <span class="skills-stat-num">35+</span>
+            <span class="skills-stat-label">Core Technologies</span>
+          </div>
+          <div class="skills-stat-card">
+            <span class="skills-stat-num">100%</span>
+            <span class="skills-stat-label">Production Tested</span>
+          </div>
+          <div class="skills-stat-card">
+            <span class="skills-stat-num">0%</span>
+            <span class="skills-stat-label">Arbitrary Percentage Bars</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SEARCH, FILTERS, AND CATEGORIES
+         ======================================================================== -->
+    <section class="section" style="padding-top: var(--space-6);" aria-label="Skills Catalog">
+      <div class="container">
+        
+        <!-- Competency Legend -->
+        <div class="skills-legend" aria-label="Competency Legend">
+          <span class="skills-legend-title">Proficiency Key:</span>
+          <div class="skills-legend-item">
+            <span class="tech-indicator-dot core"></span>
+            <span><strong>Core</strong> — Primary daily tool, architectural deep dive, high throughput</span>
+          </div>
+          <div class="skills-legend-item">
+            <span class="tech-indicator-dot proficient"></span>
+            <span><strong>Proficient</strong> — Production experience, standard operational stack</span>
+          </div>
+          <div class="skills-legend-item">
+            <span class="tech-indicator-dot familiar"></span>
+            <span><strong>Familiar</strong> — Academic coursework, integration testing, prototypes</span>
+          </div>
+        </div>
+
+        <!-- Controls Row: Filter Tabs & Live Search -->
+        <div class="skills-controls-row">
+          <!-- Filter Tabs -->
+          <div id="skills-filter-bar" class="skills-filter-wrapper" role="tablist" aria-label="Filter skills by technical domain">
+            <!-- Rendered dynamically via js/skills.js -->
+          </div>
+
+          <!-- Live Search Input -->
+          <div class="skills-search-box">
+            <svg class="skills-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input 
+              type="text" 
+              id="skills-search-input" 
+              class="skills-search-input" 
+              placeholder="Search technologies (e.g. Rust, Raft, Docker)..."
+              aria-label="Search skills and technologies"
+            >
+          </div>
+        </div>
+
+        <!-- Grouped Categories Container -->
+        <div id="skills-categories-container" class="skills-categories-wrapper">
+          <!-- Rendered dynamically via js/skills.js -->
+        </div>
+
+        <!-- Empty Search / Filter State -->
+        <div id="skills-empty-state" class="skills-empty-state">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="1.5" style="margin: 0 auto 12px auto;">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <h3 style="font-size: var(--text-lg); font-weight: 700; color: var(--text-primary); margin-bottom: 4px;">No Technologies Found</h3>
+          <p style="font-size: var(--text-sm); color: var(--text-tertiary); max-width: 400px; margin: 0 auto;">
+            No technologies matched your query. Try clearing the search bar or choosing "All Skills".
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html#home" class="brand-logo" aria-label="Back to Top">
+            <span class="brand-icon">JR</span>
+            <span>J Raghavendra</span>
+            <span class="brand-title">// SWE</span>
+          </a>
+          <p class="footer-tagline">
+            Distributed systems, high-concurrency network proxies, and low-latency infrastructure. Built with semantic HTML5 and vanilla design tokens.
+          </p>
+        </div>
+
+        <div class="footer-links-group">
+          <div>
+            <div class="footer-col-title">Navigation</div>
+            <div class="footer-link-list">
+              <a href="index.html#home" class="footer-link">Home</a>
+              <a href="projects.html" class="footer-link">Projects</a>
+              <a href="experience.html" class="footer-link">Experience</a>
+              <a href="skills.html" class="footer-link">Skills</a>
+              <a href="achievements.html" class="footer-link">Achievements</a>
+              <a href="about.html" class="footer-link">About</a>
+              <a href="resume.html" class="footer-link">Resume</a>
+            </div>
+          </div>
+
+          <div>
+            <div class="footer-col-title">Profiles</div>
+            <div class="footer-link-list">
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+              <a href="https://leetcode.com" target="_blank" rel="noopener noreferrer" class="footer-link">LeetCode</a>
+              <a href="security.html" class="footer-link">Security</a>
+              <a href="contact.html" class="footer-link">Contact</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; 2026 J Raghavendra. All rights reserved. Recruiter-focused portfolio.
+        </div>
+        <div class="footer-status-pill">
+          <span class="status-dot"></span>
+          <span>All Services Operational • Edge Hosted</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript Scripts -->
+  <script src="js/portfolio-data.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/skills.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+  <title>About | J Raghavendra — Software Engineer</title>
+  <meta name="description" content="Engineering background, five-pillar technical philosophy, current research focus, and career direction of J Raghavendra, distributed systems and cloud infrastructure engineer.">
+  <meta name="author" content="J Raghavendra">
+  
+  <!-- Modern Fonts Preload -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../css/design-tokens.css">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/about.css">
+</head>
+<body>
+
+  <!-- Subtle Blueprint Technical Background Pattern -->
+  <div class="blueprint-background" aria-hidden="true"></div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- ========================================================================
+       GLOBAL NAVIGATION
+       ======================================================================== -->
+  <header class="site-header" role="banner">
+    <div class="container nav-container">
+      <!-- Brand Moniker -->
+      <a href="../index.html#home" class="brand-logo" aria-label="J Raghavendra Home">
+        <span class="brand-icon">JR</span>
+        <span>J Raghavendra</span>
+        <span class="brand-title">// SWE</span>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="desktop-nav" role="navigation" aria-label="Main Navigation">
+        <a href="../index.html#home" class="nav-link">Home</a>
+        <a href="../projects.html" class="nav-link">Projects</a>
+        <a href="../experience.html" class="nav-link">Experience</a>
+        <a href="../skills.html" class="nav-link">Skills</a>
+        <a href="../achievements.html" class="nav-link">Achievements</a>
+        <a href="../about.html" class="nav-link active" aria-current="page">About</a>
+        <a href="../resume.html" class="nav-link">Resume</a>
+      </nav>
+
+      <!-- Nav Actions -->
+      <div class="nav-actions">
+        <!-- Theme Toggle -->
+        <button type="button" class="btn-icon theme-toggle-btn" aria-label="Switch Theme">
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <a href="../contact.html" class="btn btn-primary btn-sm">Contact Me</a>
+
+        <!-- Mobile Hamburger -->
+        <button type="button" class="mobile-nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div class="mobile-nav-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation Menu">
+      <a href="../index.html#home" class="nav-link">Home</a>
+      <a href="../projects.html" class="nav-link">Projects</a>
+      <a href="../experience.html" class="nav-link">Experience</a>
+      <a href="../skills.html" class="nav-link">Skills</a>
+      <a href="../achievements.html" class="nav-link">Achievements</a>
+      <a href="../about.html" class="nav-link active">About</a>
+      <a href="../resume.html" class="nav-link">Resume</a>
+      <a href="../contact.html" class="btn btn-primary" style="margin-top: 1rem;">Contact Me</a>
+    </div>
+  </header>
+
+  <main id="main-content">
+    
+    <!-- ========================================================================
+         PAGE HEADER & INTRODUCTION
+         ======================================================================== -->
+    <section class="about-page-header">
+      <div class="container">
+        <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-primary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;">
+          // BACKGROUND & OPERATING PRINCIPLES
+        </div>
+        <h1 class="about-header-title">About J Raghavendra</h1>
+        <p class="about-header-subtext">
+          Computer Science student and systems software engineer building resilient distributed consensus algorithms, zero-copy network stream processing pipelines, and low-latency cloud infrastructure.
+        </p>
+
+        <!-- Technical Interest Badges -->
+        <div id="about-interest-chips" class="about-interest-chips">
+          <!-- Populated dynamically via js/about.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         STORY & QUICK FACTS
+         ======================================================================== -->
+    <section class="section" style="padding-top: var(--space-4);" aria-label="Professional Story and Quick Facts">
+      <div class="container">
+        <div class="about-main-layout">
+          
+          <!-- Narrative Story -->
+          <div>
+            <div style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-primary); margin-bottom: var(--space-3);">
+              // THE ENGINEERING JOURNEY
+            </div>
+            <h2 style="font-size: var(--text-2xl); font-weight: 700; color: var(--text-primary); letter-spacing: -0.02em; margin-bottom: var(--space-6);">
+              Obsessed with Reliability, Invariants, and P99 Latency
+            </h2>
+            <div id="about-story-paragraphs" class="about-story-article">
+              <!-- Populated dynamically via js/about.js -->
+            </div>
+          </div>
+
+          <!-- Quick Facts Aside -->
+          <aside class="about-quickfacts-card" aria-label="Candidate Quick Facts">
+            <div class="quickfacts-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+              <span>Quick Facts</span>
+            </div>
+            <div id="about-quickfacts-list" class="quickfacts-list">
+              <!-- Populated dynamically via js/about.js -->
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         ENGINEERING PHILOSOPHY (5 PILLARS)
+         ======================================================================== -->
+    <section class="section" style="background-color: var(--bg-surface-elevated); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);" aria-label="Five Pillars of Engineering Philosophy">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">// CORE TENETS</span>
+          <h2 class="section-title">Engineering Philosophy</h2>
+          <p class="section-subtitle">
+            How I approach problem solving, architecture design, continuous learning, product delivery, and technical challenges under production constraints.
+          </p>
+        </div>
+
+        <div id="about-philosophy-grid" class="philosophy-grid">
+          <!-- Populated dynamically via js/about.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         CURRENT FOCUS & CAREER DIRECTION
+         ======================================================================== -->
+    <section class="section" aria-label="Current Technical Focus and Opportunities Sought">
+      <div class="container">
+        <div class="callout-row">
+          
+          <!-- Current Focus -->
+          <div class="callout-card primary">
+            <div class="callout-label">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+              <span>Current Research & Exploration</span>
+            </div>
+            <h3 class="callout-title">Deep Technical Dives</h3>
+            <p id="about-current-focus-text" class="callout-text">
+              <!-- Populated dynamically via js/about.js -->
+            </p>
+          </div>
+
+          <!-- Career Direction -->
+          <div class="callout-card emerald">
+            <div class="callout-label">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="12 8 8 12 12 16 12 8"></polygon></svg>
+              <span>Career Direction</span>
+            </div>
+            <h3 class="callout-title">Opportunities Pursued</h3>
+            <p id="about-career-direction-text" class="callout-text">
+              <!-- Populated dynamically via js/about.js -->
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Call to Action Buttons -->
+        <div style="display: flex; flex-wrap: wrap; gap: var(--space-4); justify-content: center; margin-top: var(--space-8);">
+          <a href="../resume.html" class="btn btn-primary" style="padding: 0.75rem 1.75rem;">
+            <span>View Full Resume & ATS Specs</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+          <a href="../contact.html" class="btn btn-secondary" style="padding: 0.75rem 1.75rem;">
+            <span>Get in Touch (/contact)</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="../index.html#home" class="brand-logo" aria-label="Back to Top">
+            <span class="brand-icon">JR</span>
+            <span>J Raghavendra</span>
+            <span class="brand-title">// SWE</span>
+          </a>
+          <p class="footer-tagline">
+            Distributed systems, high-concurrency network proxies, and low-latency infrastructure. Built with semantic HTML5 and vanilla design tokens.
+          </p>
+        </div>
+
+        <div class="footer-links-group">
+          <div>
+            <div class="footer-col-title">Navigation</div>
+            <div class="footer-link-list">
+              <a href="../index.html#home" class="footer-link">Home</a>
+              <a href="../projects.html" class="footer-link">Projects</a>
+              <a href="../experience.html" class="footer-link">Experience</a>
+              <a href="../skills.html" class="footer-link">Skills</a>
+              <a href="../achievements.html" class="footer-link">Achievements</a>
+              <a href="../about.html" class="footer-link">About</a>
+              <a href="../resume.html" class="footer-link">Resume</a>
+            </div>
+          </div>
+
+          <div>
+            <div class="footer-col-title">Profiles</div>
+            <div class="footer-link-list">
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+              <a href="https://leetcode.com" target="_blank" rel="noopener noreferrer" class="footer-link">LeetCode</a>
+              <a href="../contact.html" class="footer-link">Contact</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; 2026 J Raghavendra. All rights reserved. Recruiter-focused portfolio.
+        </div>
+        <div class="footer-status-pill">
+          <span class="status-dot"></span>
+          <span>All Services Operational • Edge Hosted</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript Scripts -->
+  <script src="../js/portfolio-data.js"></script>
+  <script src="../js/theme.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/about.js"></script>
+
+</body>
+</html>

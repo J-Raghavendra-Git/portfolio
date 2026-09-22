@@ -1,0 +1,10 @@
+{
+  "sessionDurationHours": 24,
+  "failedLoginLockoutThreshold": 5,
+  "lockoutWindowMinutes": 15,
+  "contactRateLimitPerHour": 5,
+  "eventRetentionDays": 30,
+  "twoFactorReady": true,
+  "lastSecurityReview": "2026-09-22T14:38:35.612Z",
+  "updatedAt": "2026-09-22T14:27:32.030Z"
+}

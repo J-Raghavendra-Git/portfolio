@@ -1,0 +1,803 @@
+/* ==========================================================================
+   CASE STUDY STYLESHEET
+   Aesthetic: Technical postmortem / Engineering deep-dive (Stripe / Linear / Cloudflare)
+   High information density, generous whitespace, clean architectural diagrams.
+   ========================================================================== */
+
+/* Top Back Navigation Bar */
+.case-study-topbar {
+  border-bottom: 1px solid var(--border-subtle);
+  background-color: var(--bg-surface-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 0.75rem 0;
+}
+
+.case-study-topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.back-link:hover {
+  color: var(--accent-primary);
+}
+
+/* --------------------------------------------------------------------------
+   1. Project Header
+   -------------------------------------------------------------------------- */
+.cs-header-section {
+  padding-top: var(--space-16);
+  padding-bottom: var(--space-12);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.cs-badges-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.cs-title {
+  font-size: var(--text-5xl);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--text-primary);
+  line-height: 1.1;
+  margin-bottom: var(--space-3);
+}
+
+.cs-tagline {
+  font-size: var(--text-xl);
+  font-weight: 500;
+  color: var(--text-secondary);
+  max-width: 820px;
+  line-height: 1.5;
+  margin-bottom: var(--space-8);
+}
+
+.cs-header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+/* Metadata Row */
+.cs-metadata-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  padding: var(--space-5) var(--space-6);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+}
+
+.cs-meta-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.cs-meta-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.cs-meta-value {
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   2. Hero Visual Showcase
+   -------------------------------------------------------------------------- */
+.cs-hero-visual {
+  padding: var(--space-12) 0;
+}
+
+.cs-showcase-wrapper {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+.cs-showcase-tabs {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-surface-elevated);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 0 var(--space-4);
+  overflow-x: auto;
+}
+
+.cs-showcase-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.75rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-tertiary);
+  border-bottom: 2px solid transparent;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.cs-showcase-tab:hover {
+  color: var(--text-primary);
+}
+
+.cs-showcase-tab.active {
+  color: var(--accent-primary);
+  border-bottom-color: var(--accent-primary);
+  background-color: rgba(56, 189, 248, 0.04);
+}
+
+.cs-showcase-body {
+  padding: var(--space-6);
+  min-height: 440px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #080c14;
+}
+
+[data-theme="light"] .cs-showcase-body {
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+
+.cs-view-pane {
+  display: none;
+}
+
+.cs-view-pane.active {
+  display: block;
+  animation: fadeIn 250ms ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --------------------------------------------------------------------------
+   3. The Problem & 4. The Solution
+   -------------------------------------------------------------------------- */
+.cs-editorial-split {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: var(--space-10);
+  align-items: start;
+}
+
+.cs-prose {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.cs-prose strong {
+  color: var(--text-primary);
+}
+
+.cs-prose h3 {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  margin-top: var(--space-2);
+}
+
+.cs-highlight-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Problem -> Solution -> Outcome Flow Visual */
+.flow-diagram {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.flow-step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  position: relative;
+}
+
+.flow-step-badge {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.flow-step-badge.problem {
+  background-color: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+.flow-step-badge.solution {
+  background-color: rgba(56, 189, 248, 0.12);
+  color: var(--accent-primary);
+  border: 1px solid var(--accent-primary-border);
+}
+
+.flow-step-badge.outcome {
+  background-color: var(--accent-emerald-subtle);
+  color: var(--accent-emerald);
+  border: 1px solid var(--accent-emerald-border);
+}
+
+.flow-connector-arrow {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 1.25rem;
+  line-height: 1;
+  margin: -4px 0;
+}
+
+/* --------------------------------------------------------------------------
+   5. Key Features
+   -------------------------------------------------------------------------- */
+.cs-features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
+}
+
+.cs-feature-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  transition: all var(--transition-fast);
+}
+
+.cs-feature-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+}
+
+.cs-feature-icon-box {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: var(--accent-primary-subtle);
+  border: 1px solid var(--accent-primary-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-primary);
+}
+
+.cs-feature-title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.cs-feature-desc {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   6. How It Works (System Architecture Flowchart)
+   -------------------------------------------------------------------------- */
+.architecture-pipeline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.arch-node {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5) var(--space-6);
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: var(--space-6);
+  align-items: center;
+  transition: border-color var(--transition-fast);
+}
+
+.arch-node:hover {
+  border-color: var(--accent-primary);
+}
+
+.arch-node-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.arch-node-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-primary);
+  flex-shrink: 0;
+}
+
+.arch-node-title {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+}
+
+.arch-node-desc {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.arch-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  color: var(--accent-primary);
+  font-size: 14px;
+}
+
+/* --------------------------------------------------------------------------
+   7. Technology Stack
+   -------------------------------------------------------------------------- */
+.cs-tech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-4);
+}
+
+.cs-tech-col {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.cs-tech-col-title {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--accent-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.cs-tech-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* --------------------------------------------------------------------------
+   8. Engineering Decisions & Trade-Offs
+   -------------------------------------------------------------------------- */
+.decisions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+
+.decision-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  transition: all var(--transition-fast);
+}
+
+.decision-card:hover {
+  border-color: var(--border-strong);
+}
+
+.decision-header {
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: var(--space-3);
+}
+
+.decision-title {
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.decision-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.decision-field-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent-primary);
+  text-transform: uppercase;
+}
+
+.decision-field-val {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   9. My Contribution
+   -------------------------------------------------------------------------- */
+.contribution-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+
+.contribution-item {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.contribution-bullet {
+  color: var(--accent-emerald);
+  font-size: 1.1rem;
+  line-height: 1.2;
+}
+
+.contribution-text {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.contribution-text strong {
+  color: var(--text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   10. Results & Verified Metrics
+   -------------------------------------------------------------------------- */
+.cs-results-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+
+.cs-result-box {
+  background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-surface-elevated) 100%);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-2);
+}
+
+.cs-result-num {
+  font-family: var(--font-mono);
+  font-size: var(--text-4xl);
+  font-weight: 800;
+  color: var(--accent-primary);
+  letter-spacing: -0.03em;
+}
+
+.cs-result-title {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.cs-result-desc {
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+  line-height: 1.4;
+}
+
+/* --------------------------------------------------------------------------
+   11. Challenges & Deep Dives
+   -------------------------------------------------------------------------- */
+.challenges-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.challenge-box {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: var(--space-8);
+}
+
+.challenge-left {
+  border-right: 1px solid var(--border-subtle);
+  padding-right: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.challenge-left-num {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--accent-amber);
+  font-weight: 700;
+}
+
+.challenge-left-title {
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.challenge-right-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.challenge-step {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.challenge-step-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent-primary);
+  text-transform: uppercase;
+}
+
+.challenge-step-content {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   12. Product Gallery
+   -------------------------------------------------------------------------- */
+.cs-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+
+.gallery-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery-card:hover {
+  border-color: var(--accent-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.gallery-card-preview {
+  height: 220px;
+  background-color: #06090e;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery-card-info {
+  padding: var(--space-4);
+}
+
+.gallery-card-title {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.gallery-card-caption {
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+  margin-top: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   13. What I Learned
+   -------------------------------------------------------------------------- */
+.learnings-box {
+  background: linear-gradient(135deg, var(--bg-surface) 0%, var(--bg-surface-elevated) 100%);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.learnings-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+}
+
+.learning-item-title {
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--accent-primary);
+  margin-bottom: var(--space-2);
+}
+
+.learning-item-text {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   14. Links & Next Steps
+   -------------------------------------------------------------------------- */
+.cs-next-steps-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-xl);
+  padding: var(--space-10);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Media Queries for Case Study
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .cs-metadata-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .cs-editorial-split {
+    grid-template-columns: 1fr;
+  }
+  .decisions-grid {
+    grid-template-columns: 1fr;
+  }
+  .cs-results-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .challenge-box {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+  .challenge-left {
+    border-right: none;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-right: 0;
+    padding-bottom: var(--space-4);
+  }
+  .cs-gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .cs-title {
+    font-size: var(--text-3xl);
+  }
+  .cs-features-grid {
+    grid-template-columns: 1fr;
+  }
+  .contribution-list {
+    grid-template-columns: 1fr;
+  }
+  .learnings-grid {
+    grid-template-columns: 1fr;
+  }
+  .arch-node {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+  .cs-results-strip {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 390px) {
+  .cs-metadata-grid {
+    grid-template-columns: 1fr;
+  }
+  .cs-header-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .cs-header-actions .btn {
+    width: 100%;
+  }
+}

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+  <title>Contact | J Raghavendra — Software Engineer</title>
+  <meta name="description" content="Recruiter-friendly contact channels and direct communication form for J Raghavendra. Available for Fall 2026 internships and 2027 full-time SWE roles.">
+  <meta name="author" content="J Raghavendra">
+  
+  <!-- Modern Fonts Preload -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../css/design-tokens.css">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/contact.css">
+</head>
+<body>
+
+  <!-- Subtle Blueprint Technical Background Pattern -->
+  <div class="blueprint-background" aria-hidden="true"></div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- ========================================================================
+       GLOBAL NAVIGATION
+       ======================================================================== -->
+  <header class="site-header" role="banner">
+    <div class="container nav-container">
+      <!-- Brand Moniker -->
+      <a href="../index.html#home" class="brand-logo" aria-label="J Raghavendra Home">
+        <span class="brand-icon">JR</span>
+        <span>J Raghavendra</span>
+        <span class="brand-title">// SWE</span>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="desktop-nav" role="navigation" aria-label="Main Navigation">
+        <a href="../index.html#home" class="nav-link">Home</a>
+        <a href="../projects.html" class="nav-link">Projects</a>
+        <a href="../experience.html" class="nav-link">Experience</a>
+        <a href="../skills.html" class="nav-link">Skills</a>
+        <a href="../achievements.html" class="nav-link">Achievements</a>
+        <a href="../about.html" class="nav-link">About</a>
+        <a href="../resume.html" class="nav-link">Resume</a>
+      </nav>
+
+      <!-- Nav Actions -->
+      <div class="nav-actions">
+        <!-- Theme Toggle -->
+        <button type="button" class="btn-icon theme-toggle-btn" aria-label="Switch Theme">
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <a href="../contact.html" class="btn btn-primary btn-sm active" aria-current="page">Contact Me</a>
+
+        <!-- Mobile Hamburger -->
+        <button type="button" class="mobile-nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div class="mobile-nav-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation Menu">
+      <a href="../index.html#home" class="nav-link">Home</a>
+      <a href="../projects.html" class="nav-link">Projects</a>
+      <a href="../experience.html" class="nav-link">Experience</a>
+      <a href="../skills.html" class="nav-link">Skills</a>
+      <a href="../achievements.html" class="nav-link">Achievements</a>
+      <a href="../about.html" class="nav-link">About</a>
+      <a href="../resume.html" class="nav-link">Resume</a>
+      <a href="../contact.html" class="btn btn-primary active" style="margin-top: 1rem;">Contact Me</a>
+    </div>
+  </header>
+
+  <main id="main-content">
+    
+    <!-- ========================================================================
+         PAGE HEADER
+         ======================================================================== -->
+    <section class="contact-page-header">
+      <div class="container">
+        <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-primary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;">
+          // RECRUITER & ENGINEERING INQUIRIES
+        </div>
+        <h1 class="contact-header-title">Get in Touch</h1>
+        <p class="contact-header-subtext">
+          Currently seeking Fall 2026 Software Engineering Internships and 2027 Full-Time SWE positions in distributed systems, backend infrastructure, and low-latency systems. Direct contact channels and validated message dispatch below.
+        </p>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         MAIN GRID: CHANNELS & FORM
+         ======================================================================== -->
+    <section class="section" style="padding-top: var(--space-4);" aria-label="Contact Channels and Form">
+      <div class="container">
+        <div class="contact-main-grid">
+          
+          <!-- Column 1: Direct Communication Channels & Recruiter SLA -->
+          <aside class="contact-channels-card" aria-label="Direct Communication Channels">
+            
+            <div class="channels-header-block">
+              <h2 class="channels-title">Direct Channels</h2>
+              <p class="channels-desc">Fastest response channels for recruiters, hiring managers, and engineers.</p>
+            </div>
+
+            <div class="contact-channels-list">
+              
+              <!-- Email Channel -->
+              <div class="contact-channel-row">
+                <div class="channel-row-left">
+                  <div class="channel-icon-box" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                  </div>
+                  <div class="channel-info-col">
+                    <span class="channel-name">Direct Email</span>
+                    <span class="channel-handle">raghavendraraghu71537@gmail.com</span>
+                  </div>
+                </div>
+                <button type="button" id="btn-copy-contact-email" class="btn btn-secondary btn-sm" aria-label="Copy Email Address to Clipboard">
+                  <span>Copy</span>
+                </button>
+              </div>
+
+              <!-- LinkedIn Channel -->
+              <div class="contact-channel-row">
+                <div class="channel-row-left">
+                  <div class="channel-icon-box" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                  </div>
+                  <div class="channel-info-col">
+                    <span class="channel-name">LinkedIn</span>
+                    <span class="channel-handle">linkedin.com/in/alex-rivera</span>
+                  </div>
+                </div>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+                  <span>Connect</span>
+                </a>
+              </div>
+
+              <!-- GitHub Channel -->
+              <div class="contact-channel-row">
+                <div class="channel-row-left">
+                  <div class="channel-icon-box" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                  </div>
+                  <div class="channel-info-col">
+                    <span class="channel-name">GitHub</span>
+                    <span class="channel-handle">github.com/alex-rivera-swe</span>
+                  </div>
+                </div>
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+                  <span>Profile</span>
+                </a>
+              </div>
+
+              <!-- LeetCode Channel -->
+              <div class="contact-channel-row">
+                <div class="channel-row-left">
+                  <div class="channel-icon-box" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="12 8 8 12 12 16 12 8"></polygon></svg>
+                  </div>
+                  <div class="channel-info-col">
+                    <span class="channel-name">LeetCode</span>
+                    <span class="channel-handle">Rating 2180+ (Top 1.2%)</span>
+                  </div>
+                </div>
+                <a href="https://leetcode.com" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+                  <span>Verify</span>
+                </a>
+              </div>
+
+            </div>
+
+            <!-- Recruiter SLA Box -->
+            <div class="recruiter-sla-box">
+              <span class="sla-label">
+                <span class="resume-meta-dot"></span>
+                <span>Candidate Status & Availability</span>
+              </span>
+              <span class="sla-value">Fall 2026 Internships & 2027 Full-Time SWE</span>
+              <p class="sla-note">
+                Response turnaround: <strong>&lt; 24 hours</strong>. U.S. Citizen (no visa sponsorship required). Open to on-site in San Francisco, Seattle, New York, or remote.
+              </p>
+            </div>
+
+          </aside>
+
+          <!-- Column 2: Interactive Contact Form -->
+          <div class="contact-form-card">
+            
+            <div class="form-header-block">
+              <h2 class="form-header-title">Send a Direct Message</h2>
+              <p class="form-header-subtext">Submit your inquiry directly. Submissions are queued securely and answered promptly.</p>
+            </div>
+
+            <!-- Status Banners -->
+            <div id="contact-status-success" class="form-status-banner success" role="status" aria-live="polite">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0; margin-top:2px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <div>
+                <strong>Message Dispatched:</strong> Thank you! Your inquiry has been queued. Alex will review and reply within 24 hours.
+              </div>
+            </div>
+
+            <div id="contact-status-error" class="form-status-banner error" role="alert" aria-live="assertive">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0; margin-top:2px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+              <div>
+                <strong>Dispatch Failed:</strong> Unable to queue your message. Please email directly at <a href="mailto:raghavendraraghu71537@gmail.com" style="color:inherit; text-decoration:underline;">raghavendraraghu71537@gmail.com</a>.
+              </div>
+            </div>
+
+            <!-- Validated Form -->
+            <form id="contact-page-form" novalidate>
+              
+              <!-- Name Field -->
+              <div class="form-field-group">
+                <label for="contact-input-name" class="form-field-label">
+                  <span>Your Full Name <span class="req">*</span></span>
+                </label>
+                <input 
+                  type="text" 
+                  id="contact-input-name" 
+                  name="name" 
+                  class="form-field-input" 
+                  placeholder="e.g. Sarah Jenkins" 
+                  required 
+                  autocomplete="name"
+                  aria-describedby="err-contact-name"
+                >
+                <span id="err-contact-name" class="form-field-error-msg"></span>
+              </div>
+
+              <!-- Email Field -->
+              <div class="form-field-group">
+                <label for="contact-input-email" class="form-field-label">
+                  <span>Work / Corporate Email <span class="req">*</span></span>
+                </label>
+                <input 
+                  type="email" 
+                  id="contact-input-email" 
+                  name="email" 
+                  class="form-field-input" 
+                  placeholder="e.g. sarah@techcompany.com" 
+                  required 
+                  autocomplete="email"
+                  aria-describedby="err-contact-email"
+                >
+                <span id="err-contact-email" class="form-field-error-msg"></span>
+              </div>
+
+              <!-- Subject / Inquiry Type -->
+              <div class="form-field-group">
+                <label for="contact-input-subject" class="form-field-label">
+                  <span>Inquiry Type <span class="req">*</span></span>
+                </label>
+                <select id="contact-input-subject" name="subject" class="form-field-select">
+                  <option value="Fall 2026 SWE Internship">Fall 2026 Software Engineering Internship</option>
+                  <option value="2027 Full-Time SWE">2027 Full-Time Software Engineering Role</option>
+                  <option value="Technical Screening / Interview">Technical Screening / Recruiter Call</option>
+                  <option value="Open Source Collaboration">Open Source / Research Collaboration</option>
+                  <option value="General Inquiry">Other Technical Inquiry</option>
+                </select>
+              </div>
+
+              <!-- Message Field -->
+              <div class="form-field-group">
+                <label for="contact-input-message" class="form-field-label">
+                  <span>Message & Context <span class="req">*</span></span>
+                </label>
+                <textarea 
+                  id="contact-input-message" 
+                  name="message" 
+                  class="form-field-textarea" 
+                  placeholder="Share details regarding team, role scope, tech stack, or interview schedule..." 
+                  required
+                  aria-describedby="err-contact-message"
+                ></textarea>
+                <span id="err-contact-message" class="form-field-error-msg"></span>
+              </div>
+
+              <!-- Submit Button -->
+              <button type="submit" id="contact-submit-btn" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 0.85rem 1.5rem;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                <span>Dispatch Inquiry</span>
+              </button>
+
+              <div style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); margin-top: 12px; text-align: center;">
+                🔒 Zero tracking cookies or third-party ad telemetry. Submissions remain private.
+              </div>
+
+            </form>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="../index.html#home" class="brand-logo" aria-label="Back to Top">
+            <span class="brand-icon">JR</span>
+            <span>J Raghavendra</span>
+            <span class="brand-title">// SWE</span>
+          </a>
+          <p class="footer-tagline">
+            Distributed systems, high-concurrency network proxies, and low-latency infrastructure. Built with semantic HTML5 and vanilla design tokens.
+          </p>
+        </div>
+
+        <div class="footer-links-group">
+          <div>
+            <div class="footer-col-title">Navigation</div>
+            <div class="footer-link-list">
+              <a href="../index.html#home" class="footer-link">Home</a>
+              <a href="../projects.html" class="footer-link">Projects</a>
+              <a href="../experience.html" class="footer-link">Experience</a>
+              <a href="../skills.html" class="footer-link">Skills</a>
+              <a href="../achievements.html" class="footer-link">Achievements</a>
+              <a href="../about.html" class="footer-link">About</a>
+              <a href="../resume.html" class="footer-link">Resume</a>
+            </div>
+          </div>
+
+          <div>
+            <div class="footer-col-title">Profiles</div>
+            <div class="footer-link-list">
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+              <a href="https://leetcode.com" target="_blank" rel="noopener noreferrer" class="footer-link">LeetCode</a>
+              <a href="../contact.html" class="footer-link">Contact</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; 2026 J Raghavendra. All rights reserved. Recruiter-focused portfolio.
+        </div>
+        <div class="footer-status-pill">
+          <span class="status-dot"></span>
+          <span>All Services Operational • Edge Hosted</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript Scripts -->
+  <script src="../js/portfolio-data.js"></script>
+  <script src="../js/theme.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/form.js"></script>
+  <script src="../js/contact.js"></script>
+
+</body>
+</html>

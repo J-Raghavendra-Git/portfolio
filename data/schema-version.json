@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "appliedMigrations": [
+    "001_initial_schema_bootstrap",
+    "002_normalize_timestamps_and_relations"
+  ],
+  "lastUpdated": "2026-09-22T13:04:55.631Z"
+}

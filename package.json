@@ -1,0 +1,24 @@
+{
+  "name": "recruiter-portfolio",
+  "version": "1.0.0",
+  "description": "High-performance software engineer recruiter portfolio and private owner administration system.",
+  "main": "server.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "build": "node scripts/qa-checks.js",
+    "migrate": "node scripts/migrate.js",
+    "test": "node scripts/audit-portfolio.js",
+    "test:security": "node scripts/test-security-module.js",
+    "test:backend": "node scripts/test-backend-production.js",
+    "test:admin": "node test-admin-system.js",
+    "test:qa": "node scripts/qa-checks.js",
+    "test:e2e": "node scripts/test-e2e-workflow.js",
+    "generate-resume": "node scripts/generate-resume-pdf.js"
+  },
+  "author": "J Raghavendra",
+  "license": "MIT",
+  "private": true
+}
