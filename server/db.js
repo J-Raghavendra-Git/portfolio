@@ -61,26 +61,49 @@ function atomicWriteJson(filePathOrName, data) {
     const targetPath = path.join(RUNTIME_DATA_DIR, baseName);
     const tempPath = `${targetPath}.tmp.${Date.now()}`;
     fs.writeFileSync(tempPath, JSON.stringify(data, null, 2), 'utf-8');
-    fs.renameSync(tempPath, targetPath);
+    try {
+      fs.renameSync(tempPath, targetPath);
+    } catch (renameErr) {
+      if (renameErr.code === 'EPERM' || renameErr.code === 'EBUSY') {
+        fs.copyFileSync(tempPath, targetPath);
+        try { fs.unlinkSync(tempPath); } catch (_) {}
+      } else {
+        throw renameErr;
+      }
+    }
   } catch (err) {
     // Graceful fallback for read-only filesystem environments (Vercel / Lambda)
     console.warn(`[DB] Notice: Write for ${baseName} fell back to memory store (${err.code || err.message}).`);
+  }
+
+  // Also sync to BUNDLED_DATA_DIR if different and writable
+  if (RUNTIME_DATA_DIR !== BUNDLED_DATA_DIR) {
+    try {
+      const bundledTarget = path.join(BUNDLED_DATA_DIR, baseName);
+      const tempPath = `${bundledTarget}.tmp.${Date.now()}`;
+      fs.writeFileSync(tempPath, JSON.stringify(data, null, 2), 'utf-8');
+      try {
+        fs.renameSync(tempPath, bundledTarget);
+      } catch (renameErr) {
+        if (renameErr.code === 'EPERM' || renameErr.code === 'EBUSY') {
+          fs.copyFileSync(tempPath, bundledTarget);
+          try { fs.unlinkSync(tempPath); } catch (_) {}
+        }
+      }
+    } catch (_) {
+      // expected on read-only environments
+    }
   }
 }
 
 /**
  * Safe JSON read helper
- * Checks: 1. Memory cache -> 2. Runtime directory (/tmp) -> 3. Bundled project data -> 4. Fallback
+ * Checks: 1. Runtime directory (/tmp) -> 2. Bundled project data -> 3. Memory cache -> 4. Fallback
  */
 function readJson(filePathOrName, fallback = {}) {
   const baseName = path.basename(filePathOrName);
 
-  // 1. Check in-memory store
-  if (memoryCache.has(baseName)) {
-    return memoryCache.get(baseName);
-  }
-
-  // 2. Check runtime directory (e.g. /tmp/portfolio-data/...)
+  // 1. Check runtime directory (e.g. /tmp/portfolio-data/...)
   const runtimePath = path.join(RUNTIME_DATA_DIR, baseName);
   try {
     if (fs.existsSync(runtimePath)) {
@@ -93,7 +116,7 @@ function readJson(filePathOrName, fallback = {}) {
     // continue to bundled
   }
 
-  // 3. Check bundled project data directory
+  // 2. Check bundled project data directory
   const bundledPath = path.join(BUNDLED_DATA_DIR, baseName);
   try {
     if (fs.existsSync(bundledPath)) {
@@ -103,7 +126,12 @@ function readJson(filePathOrName, fallback = {}) {
       return parsed;
     }
   } catch (err) {
-    console.error(`[DB] Error reading ${bundledPath}:`, err.message);
+    // continue to cache
+  }
+
+  // 3. Check in-memory store
+  if (memoryCache.has(baseName)) {
+    return memoryCache.get(baseName);
   }
 
   return fallback;

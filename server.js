@@ -15,7 +15,7 @@ const auth = require('./server/auth');
 const security = require('./server/security');
 
 const PORT = parseInt(process.env.PORT || '4173', 10);
-const ROOT_DIR = __dirname;
+const ROOT_DIR = process.env.VERCEL ? process.cwd() : __dirname;
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',

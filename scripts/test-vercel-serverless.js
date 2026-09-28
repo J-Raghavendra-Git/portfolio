@@ -156,7 +156,50 @@ async function runTests() {
   console.log('[PASS] 6. GET /admin/security (logged out) -> HTTP 302 Redirect to /admin/login (Protected)');
   passed++;
 
-  console.log(`\nALL ${passed}/6 VERCEL SERVERLESS EMULATION CHECKS PASSED PERFECTLY!\n`);
+  // 7. Test GET /css/design-tokens.css (CSS MIME type & static delivery)
+  const cssTokensRes = await dispatch('GET', '/css/design-tokens.css');
+  assert.strictEqual(cssTokensRes.statusCode, 200, `GET /css/design-tokens.css must return 200 (returned ${cssTokensRes.statusCode})`);
+  assert(cssTokensRes.headers['content-type'].includes('text/css'), 'CSS must be served with text/css MIME type');
+  assert(cssTokensRes.body.includes('--font-sans'), 'CSS tokens must be present in response');
+  console.log('[PASS] 7. GET /css/design-tokens.css -> HTTP 200 OK (text/css MIME type validated)');
+  passed++;
+
+  // 8. Test GET /css/components.css
+  const cssCompRes = await dispatch('GET', '/css/components.css');
+  assert.strictEqual(cssCompRes.statusCode, 200, `GET /css/components.css must return 200 (returned ${cssCompRes.statusCode})`);
+  assert(cssCompRes.headers['content-type'].includes('text/css'), 'CSS must be served with text/css MIME type');
+  assert(cssCompRes.body.includes('.btn'), 'Button component styles must be present');
+  console.log('[PASS] 8. GET /css/components.css -> HTTP 200 OK (Component styles intact)');
+  passed++;
+
+  // 9. Test GET /js/portfolio-data.js
+  const jsDataRes = await dispatch('GET', '/js/portfolio-data.js');
+  assert.strictEqual(jsDataRes.statusCode, 200, `GET /js/portfolio-data.js must return 200`);
+  assert(jsDataRes.headers['content-type'].includes('javascript'), 'JS must be served with javascript MIME type');
+  console.log('[PASS] 9. GET /js/portfolio-data.js -> HTTP 200 OK (application/javascript validated)');
+  passed++;
+
+  // 10. Test GET /assets/favicon.svg
+  const svgRes = await dispatch('GET', '/assets/favicon.svg');
+  assert.strictEqual(svgRes.statusCode, 200, `GET /assets/favicon.svg must return 200`);
+  assert(svgRes.headers['content-type'].includes('image/svg'), 'SVG must be served with image/svg+xml');
+  console.log('[PASS] 10. GET /assets/favicon.svg -> HTTP 200 OK (image/svg+xml validated)');
+  passed++;
+
+  // 11. Test GET /resume.pdf
+  const pdfRes = await dispatch('GET', '/resume.pdf');
+  assert.strictEqual(pdfRes.statusCode, 200, `GET /resume.pdf must return 200`);
+  assert(pdfRes.headers['content-type'].includes('application/pdf'), 'PDF must be served with application/pdf');
+  console.log('[PASS] 11. GET /resume.pdf -> HTTP 200 OK (application/pdf validated)');
+  passed++;
+
+  // 12. Test api/index.js handler export
+  const apiHandler = require('../api/index.js');
+  assert.strictEqual(typeof apiHandler, 'function', 'api/index.js must export a callable function (req, res)');
+  console.log('[PASS] 12. api/index.js serverless handler verified');
+  passed++;
+
+  console.log(`\nALL ${passed}/12 VERCEL SERVERLESS EMULATION CHECKS PASSED PERFECTLY!\n`);
 }
 
 runTests().catch(err => {
