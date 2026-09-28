@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+  <title>TraceFlow Technical Case Study | J Raghavendra</title>
+  <meta name="description" content="Engineering case study of TraceFlow: High-throughput distributed tracing and observability pipeline with zero-copy WebAssembly stream parsing and sub-second ClickHouse columnar queries.">
+  <meta name="author" content="J Raghavendra">
+  
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="canonical" href="https://jraghavendra.dev/case-study.html">
+
+  <!-- Open Graph / Social Cards -->
+  <meta property="og:title" content="Technical Case Study | J Raghavendra — Software Engineer">
+  <meta property="og:description" content="In-depth engineering architectural case study, technical decisions, trade-offs, and verification results.">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="https://jraghavendra.dev/assets/favicon.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Technical Case Study | J Raghavendra">
+  <meta name="twitter:description" content="In-depth engineering architectural case study, technical decisions, and trade-offs.">
+  
+  <!-- Modern Fonts Preload -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/css/design-tokens.css">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/case-study.css">
+</head>
+<body>
+
+  <!-- Subtle Blueprint Technical Background Pattern -->
+  <div class="blueprint-background" aria-hidden="true"></div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- ========================================================================
+       TOP BAR & BACK NAVIGATION
+       ======================================================================== -->
+  <div class="case-study-topbar">
+    <div class="container case-study-topbar-inner">
+      <a href="/projects.html" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span>Back to Projects</span>
+      </a>
+
+      <div class="nav-actions">
+        <!-- Theme Toggle -->
+        <button type="button" class="btn-icon theme-toggle-btn" aria-label="Switch Theme">
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <a href="index.html#contact" class="btn btn-secondary btn-sm">Contact Engineer</a>
+      </div>
+    </div>
+  </div>
+
+  <main id="main-content">
+    
+    <!-- ========================================================================
+         1. PROJECT HEADER
+         ======================================================================== -->
+    <header class="cs-header-section">
+      <div class="container">
+        <!-- Category & Status Badges -->
+        <div class="cs-badges-row">
+          <span class="badge-tag highlight">DISTRIBUTED SYSTEMS & OBSERVABILITY</span>
+          <div class="status-badge" role="status">
+            <span class="status-dot"></span>
+            <span>Production Verified • Open Source</span>
+          </div>
+        </div>
+
+        <!-- Title & One-line Description -->
+        <h1 class="cs-title">TraceFlow</h1>
+        <p class="cs-tagline">
+          High-throughput distributed tracing and observability pipeline with zero-copy WebAssembly stream parsing and sub-second ClickHouse columnar queries.
+        </p>
+
+        <!-- CTAs -->
+        <div class="cs-header-actions">
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+            <span>View Source Code (GitHub)</span>
+          </a>
+          <a href="https://traceflow-demo.internal.net" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            <span>Live Demonstration</span>
+          </a>
+          <button type="button" class="btn btn-ghost" data-copy-email="raghavendraraghu71537@gmail.com">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <span>Ask Me About This Project</span>
+          </button>
+        </div>
+
+        <!-- Metadata Row -->
+        <div class="cs-metadata-grid" role="region" aria-label="Project Metadata">
+          <div class="cs-meta-col">
+            <span class="cs-meta-label">My Role</span>
+            <span class="cs-meta-value">Lead Architect & Systems Engineer</span>
+          </div>
+          <div class="cs-meta-col">
+            <span class="cs-meta-label">Timeline</span>
+            <span class="cs-meta-value">4 Months (Fall 2024 – Winter 2025)</span>
+          </div>
+          <div class="cs-meta-col">
+            <span class="cs-meta-label">Team Size</span>
+            <span class="cs-meta-value">2 Engineers (Distributed Core + Web UI)</span>
+          </div>
+          <div class="cs-meta-col">
+            <span class="cs-meta-label">Core Tech</span>
+            <span class="cs-meta-value">Rust / WASM, ClickHouse, TypeScript, Kafka</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ========================================================================
+         2. HERO VISUAL SHOWCASE (Multi-View Interactive Dashboard)
+         ======================================================================== -->
+    <section class="cs-hero-visual" aria-label="Interactive Visual Showcase">
+      <div class="container">
+        <div class="cs-showcase-wrapper">
+          <!-- View Switcher Tabs -->
+          <div class="cs-showcase-tabs" role="tablist" aria-label="Showcase View Selection">
+            <button type="button" class="cs-showcase-tab active" data-view="view-waterfall" role="tab" aria-selected="true">
+              <span>Trace Waterfall & DAG View</span>
+            </button>
+            <button type="button" class="cs-showcase-tab" data-view="view-ebpf" role="tab" aria-selected="false">
+              <span>Kernel Stream & WASM Decoder</span>
+            </button>
+            <button type="button" class="cs-showcase-tab" data-view="view-topology" role="tab" aria-selected="false">
+              <span>Live Cluster Topology</span>
+            </button>
+          </div>
+
+          <!-- Showcase Body Panes -->
+          <div class="cs-showcase-body">
+            
+            <!-- Pane 1: Trace Waterfall -->
+            <div id="view-waterfall" class="cs-view-pane active">
+              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 12px; margin-bottom: 16px; font-family: var(--font-mono); font-size: 12px;">
+                <div>
+                  <span style="color: var(--accent-primary); font-weight: 700;">TRACE ID:</span>
+                  <span style="color: #f8fafc;"> 8f3c4e91-d7a2-411e-b810-620a84e93110</span>
+                </div>
+                <div style="display: flex; gap: 16px;">
+                  <span style="color: #94a3b8;">Total Spans: <strong>8</strong></span>
+                  <span style="color: var(--accent-emerald);">Duration: <strong>12.4ms</strong></span>
+                  <span style="color: #38bdf8;">ClickHouse Query: <strong>1.8ms</strong></span>
+                </div>
+              </div>
+
+              <!-- Waterfall Bars Visualization -->
+              <div style="display: flex; flex-direction: column; gap: 10px; font-family: var(--font-mono); font-size: 11px;">
+                <!-- Span 1 -->
+                <div>
+                  <div style="display: flex; justify-content: space-between; color: #cbd5e1; margin-bottom: 3px;">
+                    <span>[HTTP Ingress] POST /api/v2/checkout</span>
+                    <span>12.4ms</span>
+                  </div>
+                  <div style="background: rgba(255, 255, 255, 0.05); height: 20px; border-radius: 4px; overflow: hidden; position: relative;">
+                    <div style="background: #38bdf8; width: 100%; height: 100%; border-radius: 4px; opacity: 0.85;"></div>
+                  </div>
+                </div>
+
+                <!-- Span 2 -->
+                <div style="padding-left: 20px;">
+                  <div style="display: flex; justify-content: space-between; color: #cbd5e1; margin-bottom: 3px;">
+                    <span>├─ [Auth Gateway] gRPC VerifyToken</span>
+                    <span>1.6ms</span>
+                  </div>
+                  <div style="background: rgba(255, 255, 255, 0.05); height: 20px; border-radius: 4px; overflow: hidden; position: relative;">
+                    <div style="background: #818cf8; width: 13%; height: 100%; margin-left: 2%; border-radius: 4px;"></div>
+                  </div>
+                </div>
+
+                <!-- Span 3 -->
+                <div style="padding-left: 20px;">
+                  <div style="display: flex; justify-content: space-between; color: #cbd5e1; margin-bottom: 3px;">
+                    <span>├─ [Cache Service] Redis GET user:session:8412</span>
+                    <span>0.4ms</span>
+                  </div>
+                  <div style="background: rgba(255, 255, 255, 0.05); height: 20px; border-radius: 4px; overflow: hidden; position: relative;">
+                    <div style="background: #10b981; width: 4%; height: 100%; margin-left: 16%; border-radius: 4px;"></div>
+                  </div>
+                </div>
+
+                <!-- Span 4 -->
+                <div style="padding-left: 20px;">
+                  <div style="display: flex; justify-content: space-between; color: #cbd5e1; margin-bottom: 3px;">
+                    <span>├─ [Order Engine] gRPC ProcessOrderPayment</span>
+                    <span>8.2ms</span>
+                  </div>
+                  <div style="background: rgba(255, 255, 255, 0.05); height: 20px; border-radius: 4px; overflow: hidden; position: relative;">
+                    <div style="background: #f59e0b; width: 66%; height: 100%; margin-left: 21%; border-radius: 4px;"></div>
+                  </div>
+                </div>
+
+                <!-- Span 5 -->
+                <div style="padding-left: 40px;">
+                  <div style="display: flex; justify-content: space-between; color: #cbd5e1; margin-bottom: 3px;">
+                    <span>│  └─ [PostgreSQL] UPDATE accounts SET balance = balance - 120</span>
+                    <span>3.1ms</span>
+                  </div>
+                  <div style="background: rgba(255, 255, 255, 0.05); height: 20px; border-radius: 4px; overflow: hidden; position: relative;">
+                    <div style="background: #ef4444; width: 25%; height: 100%; margin-left: 55%; border-radius: 4px;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pane 2: Kernel Stream & WASM Decoder -->
+            <div id="view-ebpf" class="cs-view-pane">
+              <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-primary); margin-bottom: 8px;">
+                // RUST WEBASSEMBLY ZERO-COPY INGESTION PIPELINE
+              </div>
+              <pre style="background: #020617; padding: 18px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.08); font-family: var(--font-mono); font-size: 12px; color: #e2e8f0; line-height: 1.6; overflow-x: auto;"><code><span style="color: #64748b;">// Zero-allocation slice reader executing in WebAssembly memory block</span>
+<span style="color: #f43f5e;">#[inline(always)]</span>
+<span style="color: #38bdf8;">pub fn</span> <span style="color: #7dd3fc;">process_raw_otlp_batch</span>(buffer: &[u8], filter_threshold_us: u32) -> Result&lt;SpanBatchSummary, ParseError&gt; {
+    <span style="color: #38bdf8;">let mut</span> reader = ZeroCopyCursor::new(buffer);
+    <span style="color: #38bdf8;">let mut</span> outlier_spans = Vec::with_capacity(<span style="color: #fbbf24;">128</span>);
+    
+    <span style="color: #f43f5e;">while</span> reader.has_remaining() {
+        <span style="color: #38bdf8;">let</span> span_hdr = reader.read_varint_header()?;
+        <span style="color: #f43f5e;">if</span> span_hdr.duration_us >= filter_threshold_us || span_hdr.is_error {
+            outlier_spans.push(reader.slice_span_zero_alloc(span_hdr.length)?);
+        } <span style="color: #f43f5e;">else</span> {
+            reader.fast_forward(span_hdr.length); <span style="color: #64748b;">// Bypass allocation</span>
+        }
+    }
+    <span style="color: #10b981;">Ok</span>(SpanBatchSummary { count: outlier_spans.len(), captured_bytes: reader.offset() })
+}</code></pre>
+            </div>
+
+            <!-- Pane 3: Cluster Topology -->
+            <div id="view-topology" class="cs-view-pane">
+              <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-primary); margin-bottom: 8px;">
+                // DISTRIBUTED CLUSTER TOPOLOGY (6 REGIONAL INGESTION WORKERS)
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; font-family: var(--font-mono); font-size: 11px;">
+                <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); padding: 14px; border-radius: 6px;">
+                  <div style="color: var(--accent-primary); font-weight: 700;">us-east-1 (Worker-01)</div>
+                  <div style="color: #94a3b8; font-size: 10px; margin-top: 4px;">Ingestion: 48,200 spans/s</div>
+                  <div style="color: var(--accent-emerald); font-size: 10px;">Status: Healthy (12% CPU)</div>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); padding: 14px; border-radius: 6px;">
+                  <div style="color: var(--accent-primary); font-weight: 700;">us-west-2 (Worker-02)</div>
+                  <div style="color: #94a3b8; font-size: 10px; margin-top: 4px;">Ingestion: 42,100 spans/s</div>
+                  <div style="color: var(--accent-emerald); font-size: 10px;">Status: Healthy (10% CPU)</div>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); padding: 14px; border-radius: 6px;">
+                  <div style="color: var(--accent-primary); font-weight: 700;">eu-central-1 (Worker-03)</div>
+                  <div style="color: #94a3b8; font-size: 10px; margin-top: 4px;">Ingestion: 39,800 spans/s</div>
+                  <div style="color: var(--accent-emerald); font-size: 10px;">Status: Healthy (11% CPU)</div>
+                </div>
+              </div>
+              <div style="margin-top: 14px; padding: 12px; background: rgba(56, 189, 248, 0.08); border: 1px solid var(--accent-primary-border); border-radius: 6px; font-family: var(--font-mono); font-size: 11px; color: var(--accent-primary);">
+                Kafka Partition Rebalance: Synchronized • ClickHouse Active Shards: 3x Replica Pairs • Replication Lag: &lt;14ms
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         3. THE PROBLEM & 4. THE SOLUTION
+         ======================================================================== -->
+    <section class="section" aria-label="Problem Formulation and Architectural Solution">
+      <div class="container">
+        <div class="cs-editorial-split">
+          <!-- Left Column: Detailed Problem Narrative -->
+          <div class="cs-prose">
+            <span class="section-label">// PROBLEM FORMULATION</span>
+            <h2>The Problem</h2>
+            <p>
+              Modern microservice architectures rely on asynchronous RPC calls, message queues, and cross-service pipelines. When a user experiences a 3-second delay on an API endpoint, identifying which downstream database connection or lock contention caused the regression requires tracing the request across <strong>dozens of distributed services</strong>.
+            </p>
+            <p>
+              <strong>Who experiences it:</strong> Backend infrastructure teams, Site Reliability Engineers (SREs), and platform developers who manage high-traffic services where tail-latency spikes trigger catastrophic cascading timeouts.
+            </p>
+            <p>
+              <strong>Why existing approaches fail:</strong>
+            </p>
+            <ul style="padding-left: 20px; display: flex; flex-direction: column; gap: 8px;">
+              <li><strong>Aggressive Head-Sampling:</strong> Industry solutions (Datadog, Dynatrace) sample 95%+ of traces at ingress to control costs, meaning rare, critical P99 error traces are silently dropped.</li>
+              <li><strong>Heavy Runtime Overhead:</strong> Traditional tracing agents in Java, Python, and Node.js incur 10% to 18% CPU penalties due to JSON serialization and synchronous HTTP reporting.</li>
+              <li><strong>High Query Latency:</strong> Document-oriented databases (Elasticsearch) take 8 to 20 seconds to aggregate multi-hop parent-child relationships across billions of historical spans.</li>
+            </ul>
+
+            <h2 style="margin-top: 2rem;">The Solution</h2>
+            <p>
+              I architected <strong>TraceFlow</strong>: a distributed observability pipeline capable of ingesting <strong>100% of error and outlier traces without sampling</strong>. By combining a zero-copy WebAssembly decoder with Apache Kafka buffering and columnar ClickHouse storage, TraceFlow provides sub-50ms distributed DAG queries while using <strong>4.2x less memory</strong> than legacy collectors.
+            </p>
+          </div>
+
+          <!-- Right Column: Problem -> Solution -> Outcome Flow Visual -->
+          <div class="cs-highlight-card">
+            <div style="font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.05em;">
+              // ARCHITECTURAL FLOW MATRIX
+            </div>
+
+            <div class="flow-diagram">
+              <!-- Problem Step -->
+              <div class="flow-step-item">
+                <span class="flow-step-badge problem">Problem</span>
+                <div>
+                  <div style="font-weight: 700; font-size: 13px; color: var(--text-primary);">95% Tail-Trace Blind Spots</div>
+                  <div style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">Aggressive sampling drops critical P99 timeouts; legacy collectors cause 15% CPU load.</div>
+                </div>
+              </div>
+
+              <div class="flow-connector-arrow">↓</div>
+
+              <!-- Solution Step -->
+              <div class="flow-step-item">
+                <span class="flow-step-badge solution">Solution</span>
+                <div>
+                  <div style="font-weight: 700; font-size: 13px; color: var(--text-primary);">Zero-Copy WASM + Columnar Ingestion</div>
+                  <div style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">Rust WASM binary filters raw bytes without allocations; Kafka buffers burst spikes; ClickHouse indexes billions of spans.</div>
+                </div>
+              </div>
+
+              <div class="flow-connector-arrow">↓</div>
+
+              <!-- Outcome Step -->
+              <div class="flow-step-item">
+                <span class="flow-step-badge outcome">Outcome</span>
+                <div>
+                  <div style="font-weight: 700; font-size: 13px; color: var(--text-primary);">250,000 Spans/s & &lt;48ms Queries</div>
+                  <div style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">0.00% error trace data loss, 8.4x storage compression, and real-time causality DAG rendering.</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top: 1rem; padding: 12px; background: var(--bg-surface-elevated); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); font-size: 11px; color: var(--text-tertiary);">
+              💡 <strong>Core Engineering Insight:</strong> Tail-sampling inside a stateless WebAssembly stream worker allows capturing all outlier traces without paying the storage tax of 100% happy-path spans.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         5. KEY FEATURES
+         ======================================================================== -->
+    <section class="section" style="background-color: var(--bg-surface);" aria-label="System Key Features">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">// SYSTEM CAPABILITIES</span>
+          <h2 class="section-title">Key Architectural Features</h2>
+          <p class="section-subtitle">
+            Engineered from first principles to prioritize zero data loss, predictable memory usage, and sub-second query rendering.
+          </p>
+        </div>
+
+        <div class="cs-features-grid">
+          <!-- Feature 1 -->
+          <div class="cs-feature-card">
+            <div class="cs-feature-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            </div>
+            <h3 class="cs-feature-title">Zero-Copy WASM Stream Parser</h3>
+            <p class="cs-feature-desc">
+              Executes compiled Rust WebAssembly decoders directly within the network buffer memory space. Extracts trace identifiers and duration fields without heap memory allocations, preventing GC pause spikes.
+            </p>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="cs-feature-card">
+            <div class="cs-feature-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+            </div>
+            <h3 class="cs-feature-title">Columnar ClickHouse Storage Engine</h3>
+            <p class="cs-feature-desc">
+              Utilizes sparse primary keys on <code>(service_name, trace_date, duration_us)</code> to scan 200GB+ of telemetry in under 50 milliseconds, delivering 8.4x better compression than JSON document stores.
+            </p>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="cs-feature-card">
+            <div class="cs-feature-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            </div>
+            <h3 class="cs-feature-title">Real-Time Causality DAG Reconstructor</h3>
+            <p class="cs-feature-desc">
+              Resolves out-of-order parent-child spans caused by network jitter using an in-memory temporal sliding-window reconciler, rebuilding precise distributed execution graphs before storage.
+            </p>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="cs-feature-card">
+            <div class="cs-feature-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+            </div>
+            <h3 class="cs-feature-title">Dynamic Outlier & Anomaly Alerting</h3>
+            <p class="cs-feature-desc">
+              Computes rolling P99 latency percentiles per microservice endpoint every 5 seconds. Automatically flags and isolates downstream bottleneck spans that diverge from the baseline distribution.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         6. HOW IT WORKS (System Architecture Flowchart)
+         ======================================================================== -->
+    <section class="section" aria-label="System Architecture and Flow">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">// SYSTEM TOPOLOGY</span>
+          <h2 class="section-title">How It Works: System Architecture</h2>
+          <p class="section-subtitle">
+            An end-to-end trace traversal: from application OpenTelemetry emitters through our stateless ingestion workers to the columnar storage layer and visualization UI.
+          </p>
+        </div>
+
+        <div class="architecture-pipeline">
+          
+          <!-- Node 1: User / Browser -->
+          <div class="arch-node">
+            <div class="arch-node-left">
+              <div class="arch-node-icon">01</div>
+              <div class="arch-node-title">1. Client / User</div>
+            </div>
+            <div class="arch-node-desc">
+              Engineers and SREs query trace IDs, filter services by error rates, and inspect live waterfall trees via the TraceFlow web dashboard.
+            </div>
+          </div>
+
+          <div class="arch-arrow">↓ HTTPS / WebSocket Subscriptions</div>
+
+          <!-- Node 2: Frontend SPA -->
+          <div class="arch-node">
+            <div class="arch-node-left">
+              <div class="arch-node-icon">02</div>
+              <div class="arch-node-title">2. Frontend SPA</div>
+            </div>
+            <div class="arch-node-desc">
+              Built with React, TypeScript, and HTML5 Canvas. Offloads heavy DAG layout calculations to Web Workers to ensure 60fps scrolling across 10,000+ span trees.
+            </div>
+          </div>
+
+          <div class="arch-arrow">↓ gRPC / OpenTelemetry Protobuf (OTLP)</div>
+
+          <!-- Node 3: Ingestion Gateway -->
+          <div class="arch-node">
+            <div class="arch-node-left">
+              <div class="arch-node-icon">03</div>
+              <div class="arch-node-title">3. Ingestion Gateway</div>
+            </div>
+            <div class="arch-node-desc">
+              High-concurrency reverse proxy written in Go. Accepts raw Protobuf telemetry over HTTP/2 and gRPC, validates tenant API tokens, and pushes raw frames into Kafka partitions.
+            </div>
+          </div>
+
+          <div class="arch-arrow">↓ Partition Keyed by Trace ID</div>
+
+          <!-- Node 4: Business Logic & WASM -->
+          <div class="arch-node">
+            <div class="arch-node-left">
+              <div class="arch-node-icon">04</div>
+              <div class="arch-node-title">4. WASM Stream Workers</div>
+            </div>
+            <div class="arch-node-desc">
+              Distributed worker nodes running compiled Rust WebAssembly. Decompresses raw bytes, evaluates tail-sampling rules, re-orders parent-child relationships, and batches records.
+            </div>
+          </div>
+
+          <div class="arch-arrow">↓ Micro-Batched ClickHouse Native Inserts</div>
+
+          <!-- Node 5: Database & Cache -->
+          <div class="arch-node">
+            <div class="arch-node-left">
+              <div class="arch-node-icon">05</div>
+              <div class="arch-node-title">5. ClickHouse & Redis</div>
+            </div>
+            <div class="arch-node-desc">
+              ClickHouse columnar cluster stores immutable span datasets partitioned by day. Redis caches active root-span indexes and hot trace lookups with a 15-minute TTL.
+            </div>
+          </div>
+
+          <div class="arch-arrow">↓ Deployed on Cloud Infrastructure</div>
+
+          <!-- Node 6: Infrastructure -->
+          <div class="arch-node">
+            <div class="arch-node-left">
+              <div class="arch-node-icon">06</div>
+              <div class="arch-node-title">6. Infrastructure</div>
+            </div>
+            <div class="arch-node-desc">
+              Multi-zone AWS EKS Kubernetes cluster with automated Horizontal Pod Autoscalers (HPA) governed by Kafka consumer group lag and CPU metrics.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         7. TECHNOLOGY STACK
+         ======================================================================== -->
+    <section class="section" style="background-color: var(--bg-surface);" aria-label="Technology Stack Breakdown">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">// TECHNOLOGY STACK</span>
+          <h2 class="section-title">Technologies & Tools Used</h2>
+          <p class="section-subtitle">
+            Grouped by architectural domain. Chosen deliberately for high concurrency, memory safety, and analytical throughput.
+          </p>
+        </div>
+
+        <div class="cs-tech-grid">
+          <!-- Frontend -->
+          <div class="cs-tech-col">
+            <div class="cs-tech-col-title">Frontend</div>
+            <div class="cs-tech-chips">
+              <span class="badge-tag highlight">React 18</span>
+              <span class="badge-tag">TypeScript</span>
+              <span class="badge-tag">HTML5 Canvas</span>
+              <span class="badge-tag">Web Workers</span>
+              <span class="badge-tag">Vanilla CSS Tokens</span>
+            </div>
+          </div>
+
+          <!-- Backend -->
+          <div class="cs-tech-col">
+            <div class="cs-tech-col-title">Backend</div>
+            <div class="cs-tech-chips">
+              <span class="badge-tag highlight">Rust</span>
+              <span class="badge-tag">Go (Golang)</span>
+              <span class="badge-tag">Tokio Async</span>
+              <span class="badge-tag">gRPC</span>
+              <span class="badge-tag">Protocol Buffers</span>
+            </div>
+          </div>
+
+          <!-- Database -->
+          <div class="cs-tech-col">
+            <div class="cs-tech-col-title">Database & Storage</div>
+            <div class="cs-tech-chips">
+              <span class="badge-tag highlight">ClickHouse</span>
+              <span class="badge-tag">Apache Kafka</span>
+              <span class="badge-tag">Redis</span>
+              <span class="badge-tag">PostgreSQL</span>
+              <span class="badge-tag">AWS S3 Cold</span>
+            </div>
+          </div>
+
+          <!-- AI / Analytics -->
+          <div class="cs-tech-col">
+            <div class="cs-tech-col-title">Analytics & Detection</div>
+            <div class="cs-tech-chips">
+              <span class="badge-tag">Rolling P99 Window</span>
+              <span class="badge-tag">Outlier Clustering</span>
+              <span class="badge-tag">Z-Score Deviations</span>
+            </div>
+          </div>
+
+          <!-- Cloud & DevOps -->
+          <div class="cs-tech-col">
+            <div class="cs-tech-col-title">Cloud & Infrastructure</div>
+            <div class="cs-tech-chips">
+              <span class="badge-tag">AWS EKS</span>
+              <span class="badge-tag">Docker</span>
+              <span class="badge-tag">Terraform</span>
+              <span class="badge-tag">Linux Cgroups</span>
+              <span class="badge-tag">GitHub Actions</span>
+            </div>
+          </div>
+
+          <!-- Testing & Tools -->
+          <div class="cs-tech-col">
+            <div class="cs-tech-col-title">Testing & Observability</div>
+            <div class="cs-tech-chips">
+              <span class="badge-tag highlight">OpenTelemetry</span>
+              <span class="badge-tag">Chaos Mesh</span>
+              <span class="badge-tag">Prometheus</span>
+              <span class="badge-tag">Grafana</span>
+              <span class="badge-tag">Valgrind / GDB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         8. ENGINEERING DECISIONS & TRADE-OFFS
+         ======================================================================== -->
+    <section class="section" aria-label="Engineering Decisions and Trade-offs">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">// ARCHITECTURAL RIGOR</span>
+          <h2 class="section-title">Engineering Decisions & Trade-Offs</h2>
+          <p class="section-subtitle">
+            Demonstrating sound engineering judgment: weighing alternatives, identifying constraints, and deliberately accepting trade-offs.
+          </p>
+        </div>
+
+        <div class="decisions-grid">
+          
+          <!-- Decision 1 -->
+          <div class="decision-card">
+            <div class="decision-header">
+              <span class="badge-tag highlight" style="margin-bottom: 6px;">STORAGE LAYER</span>
+              <h3 class="decision-title">ClickHouse Columnar vs. Elasticsearch</h3>
+            </div>
+            <div class="decision-field">
+              <span class="decision-field-label">Why I Chose It:</span>
+              <p class="decision-field-val">ClickHouse compresses structured telemetry data 8.4x better than inverted JSON indices, and aggregates multi-billion span datasets in sub-50 milliseconds.</p>
+            </div>
+            <div class="decision-field">
+              <span class="decision-field-label">Alternative Considered:</span>
+              <p class="decision-field-val">Elasticsearch / OpenSearch (standard industry default for log and trace search).</p>
+            </div>
+            <div class="decision-field">
+              <span class="decision-field-label">Trade-Off Incurred:</span>
+              <p class="decision-field-val">ClickHouse requires strict upfront schema design and does not handle individual row updates well; all writes must be micro-batched.</p>
+            </div>
+          </div>
+
+          <!-- Decision 2 -->
+          <div class="decision-card">
+            <div class="decision-header">
+              <span class="badge-tag highlight" style="margin-bottom: 6px;">STREAM PARSER</span>
+              <h3 class="decision-title">Rust WebAssembly vs. Native CGO Bindings</h3>
+            </div>
+            <div class="decision-field">
+              <span class="decision-field-label">Why I Chose It:</span>
+              <p class="decision-field-val">Compiling Rust to WebAssembly provides memory safety, sandboxed execution, and completely eliminates CGO cross-compilation headaches across Darwin/Linux architectures.</p>
+            </div>
+            <div class="decision-field">
+              <span class="decision-field-label">Alternative Considered:</span>
+              <p class="decision-field-val">Native C/C++ shared library linked via CGO.</p>
+            </div>
+            <div class="decision-field">
+              <span class="decision-field-label">Trade-Off Incurred:</span>
+              <p class="decision-field-val">Approximately 8% slower raw compute execution than native un-sandboxed C binaries, but negligible compared to network I/O.</p>
+            </div>
+          </div>
+
+          <!-- Decision 3 -->
+          <div class="decision-card">
+            <div class="decision-header">
+              <span class="badge-tag highlight" style="margin-bottom: 6px;">BUFFERING STRATEGY</span>
+              <h3 class="decision-title">Kafka Partitioned Buffer vs. Direct HTTP/2 Streaming</h3>
+            </div>
+            <div class="decision-field">
+              <span class="decision-field-label">Why I Chose It:</span>
+              <p class="decision-field-val">Kafka absorbs 10x traffic spikes during outages when downstream services fail, guaranteeing that no telemetry packets are dropped due to database backpressure.</p>
+            </div>
+            <div class="decision-field">
+              <span class="decision-field-label">Alternative Considered:</span>
+              <p class="decision-field-val">Direct HTTP/2 gRPC streaming directly from Ingress to ClickHouse nodes.</p>
+            </div>
+            <div class="decision-field">
+              <span class="decision-field-label">Trade-Off Incurred:</span>
+              <p class="decision-field-val">Added architectural operational complexity and 12–15ms of end-to-end ingestion pipeline latency.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         9. MY CONTRIBUTION
+         ======================================================================== -->
+    <section class="section" style="background-color: var(--bg-surface);" aria-label="Individual Engineering Contributions">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">// INDIVIDUAL IMPACT</span>
+          <h2 class="section-title">My Personal Contributions</h2>
+          <p class="section-subtitle">
+            Direct responsibilities and engineering deliverables I spearheaded on this project. No exaggeration or generic claims.
+          </p>
+        </div>
+
+        <div class="contribution-list">
+          <div class="contribution-item">
+            <span class="contribution-bullet">▹</span>
+            <div class="contribution-text">
+              <strong>Designed and implemented the zero-copy WASM trace decoder</strong> in Rust, eliminating dynamic heap allocations and reducing parser CPU usage by 42%.
+            </div>
+          </div>
+
+          <div class="contribution-item">
+            <span class="contribution-bullet">▹</span>
+            <div class="contribution-text">
+              <strong>Architected the ClickHouse sparse indexing schema</strong> and partition compaction strategy, achieving sub-50ms query speeds on 200GB+ historical trace datasets.
+            </div>
+          </div>
+
+          <div class="contribution-item">
+            <span class="contribution-bullet">▹</span>
+            <div class="contribution-text">
+              <strong>Built the out-of-order trace causality reconciler</strong> using in-memory priority queues to assemble accurate execution DAGs despite network jitter.
+            </div>
+          </div>
+
+          <div class="contribution-item">
+            <span class="contribution-bullet">▹</span>
+            <div class="contribution-text">
+              <strong>Engineered the gRPC OTLP ingestion proxy</strong> in Go, supporting 140,000+ concurrent keep-alive connections with graceful degradation.
+            </div>
+          </div>
+
+          <div class="contribution-item">
+            <span class="contribution-bullet">▹</span>
+            <div class="contribution-text">
+              <strong>Created the HTML5 Canvas trace waterfall renderer</strong> with Web Workers to ensure seamless 60fps interaction on large traces with 10,000+ spans.
+            </div>
+          </div>
+
+          <div class="contribution-item">
+            <span class="contribution-bullet">▹</span>
+            <div class="contribution-text">
+              <strong>Established the automated chaos-testing suite</strong> using Chaos Mesh and Docker Compose to verify zero data loss under simulated 30% packet loss.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         10. RESULTS & VERIFIED METRICS
+         ======================================================================== -->
+    <section class="section" aria-label="Measurable Engineering Results">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">// VERIFIED METRICS</span>
+          <h2 class="section-title">Measurable Results</h2>
+          <p class="section-subtitle">
+            Empirical benchmark figures collected through repeatable synthetic load testing on AWS c6i.2xlarge instances.
+          </p>
+        </div>
+
+        <div class="cs-results-strip">
+          <div class="cs-result-box">
+            <span class="cs-result-num">250k</span>
+            <span class="cs-result-title">Spans / Second</span>
+            <span class="cs-result-desc">Peak ingestion throughput sustained on a 3-node cluster</span>
+          </div>
+
+          <div class="cs-result-box">
+            <span class="cs-result-num">&lt;48ms</span>
+            <span class="cs-result-title">P99 Query Latency</span>
+            <span class="cs-result-desc">Sub-second DAG aggregation over 200GB+ of historical traces</span>
+          </div>
+
+          <div class="cs-result-box">
+            <span class="cs-result-num">0.00%</span>
+            <span class="cs-result-title">Error Trace Loss</span>
+            <span class="cs-result-desc">100% of outlier and error spans captured without sampling</span>
+          </div>
+
+          <div class="cs-result-box">
+            <span class="cs-result-num">8.4x</span>
+            <span class="cs-result-title">Storage Compression</span>
+            <span class="cs-result-desc">Efficiency improvement compared to traditional JSON documents</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         11. CHALLENGES & DEEP DIVES
+         ======================================================================== -->
+    <section class="section" style="background-color: var(--bg-surface);" aria-label="Significant Technical Challenges">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">// DEEP DIVES</span>
+          <h2 class="section-title">Technical Challenges & Solutions</h2>
+          <p class="section-subtitle">
+            Unpacking three non-trivial engineering problems encountered during system implementation.
+          </p>
+        </div>
+
+        <div class="challenges-stack">
+          
+          <!-- Challenge 1 -->
+          <div class="challenge-box">
+            <div class="challenge-left">
+              <span class="challenge-left-num">// CHALLENGE 01</span>
+              <h3 class="challenge-left-title">Out-of-Order Span Arrival Under Network Jitter</h3>
+            </div>
+            <div class="challenge-right-grid">
+              <div class="challenge-step">
+                <span class="challenge-step-title">Challenge:</span>
+                <p class="challenge-step-content">Child spans emitted by downstream microservices frequently arrived at the ingestion worker 200–500ms <em>before</em> the parent root span due to asymmetric network routes, corrupting the DAG hierarchy.</p>
+              </div>
+              <div class="challenge-step">
+                <span class="challenge-step-title">Approach:</span>
+                <p class="challenge-step-content">Implemented a temporal sliding-window reconciler backed by a lock-free priority queue. Child spans lacking a parent are quarantined in an in-memory buffer with a 2-second timeout before fallback orphan classification.</p>
+              </div>
+              <div class="challenge-step">
+                <span class="challenge-step-title">Result:</span>
+                <p class="challenge-step-content">Reconciled 99.8% of out-of-order traces without failing or triggering database foreign-key lookups.</p>
+              </div>
+              <div class="challenge-step">
+                <span class="challenge-step-title">What I Learned:</span>
+                <p class="challenge-step-content">In distributed stream processing, assuming physical clock synchronization or in-order delivery is a fatal fallacy; state machines must be resilient to temporal inversions.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Challenge 2 -->
+          <div class="challenge-box">
+            <div class="challenge-left">
+              <span class="challenge-left-num">// CHALLENGE 02</span>
+              <h3 class="challenge-left-title">Memory Ballooning in High-Frequency Stream Processing</h3>
+            </div>
+            <div class="challenge-right-grid">
+              <div class="challenge-step">
+                <span class="challenge-step-title">Challenge:</span>
+                <p class="challenge-step-content">Deserializing 250,000 Protocol Buffer objects per second in Go generated millions of short-lived heap allocations, triggering aggressive GC pauses that degraded throughput by 38%.</p>
+              </div>
+              <div class="challenge-step">
+                <span class="challenge-step-title">Approach:</span>
+                <p class="challenge-step-content">Moved the stream parsing logic into a compiled Rust WebAssembly module with pre-allocated memory rings. The parser slices directly into the raw network buffer without heap reallocation.</p>
+              </div>
+              <div class="challenge-step">
+                <span class="challenge-step-title">Result:</span>
+                <p class="challenge-step-content">Reduced process Resident Set Size (RSS) memory footprint by 4.2x and brought GC pause times under 1 millisecond.</p>
+              </div>
+              <div class="challenge-step">
+                <span class="challenge-step-title">What I Learned:</span>
+                <p class="challenge-step-content">Garbage collection in high-throughput network services is manageable only if allocation rates remain near-zero; zero-copy architecture is non-negotiable at scale.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Challenge 3 -->
+          <div class="challenge-box">
+            <div class="challenge-left">
+              <span class="challenge-left-num">// CHALLENGE 03</span>
+              <h3 class="challenge-left-title">ClickHouse Disk I/O Throttling During Heavy Batch Writes</h3>
+            </div>
+            <div class="challenge-right-grid">
+              <div class="challenge-step">
+                <span class="challenge-step-title">Challenge:</span>
+                <p class="challenge-step-content">High-frequency small inserts caused ClickHouse to spawn thousands of unmerged parts, throwing <code>Too many parts in all data parts in table</code> errors and halting writes.</p>
+              </div>
+              <div class="challenge-step">
+                <span class="challenge-step-title">Approach:</span>
+                <p class="challenge-step-content">Configured a dual-tier buffering buffer with Kafka consumer groups that micro-batches records into optimal chunks of 50,000 rows or 2 seconds, and configured asynchronous ClickHouse insert settings.</p>
+              </div>
+              <div class="challenge-step">
+                <span class="challenge-step-title">Result:</span>
+                <p class="challenge-step-content">Completely eliminated part compaction errors while achieving 100% saturation of NVMe storage write bandwidth.</p>
+              </div>
+              <div class="challenge-step">
+                <span class="challenge-step-title">What I Learned:</span>
+                <p class="challenge-step-content">Columnar databases require understanding write mechanics: batching is not just an optimization, it is an architectural requirement.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         12. SCREENSHOTS / PRODUCT GALLERY
+         ======================================================================== -->
+    <section class="section" aria-label="Product Screenshots and Gallery">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">// PRODUCT ARTIFACTS</span>
+          <h2 class="section-title">Product & Telemetry Gallery</h2>
+          <p class="section-subtitle">
+            High-resolution interface views and telemetry dashboards. Click any view to inspect full details.
+          </p>
+        </div>
+
+        <div class="cs-gallery-grid">
+          
+          <!-- Gallery Item 1 -->
+          <div class="gallery-card" data-title="Trace Waterfall & Execution Timeline" data-caption="Interactive HTML5 Canvas visualization showing multi-hop microservice latency breakdown down to microsecond resolution.">
+            <div class="gallery-card-preview">
+              <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-primary); text-align: center;">
+                [ INTERACTIVE WATERFALL CANVAS ]<br>
+                <span style="color: #94a3b8; font-size: 10px;">Click to inspect high-resolution DAG</span>
+              </div>
+            </div>
+            <div class="gallery-card-info">
+              <div class="gallery-card-title">Distributed Trace Waterfall</div>
+              <div class="gallery-card-caption">Detailed multi-tier RPC execution timelines</div>
+            </div>
+          </div>
+
+          <!-- Gallery Item 2 -->
+          <div class="gallery-card" data-title="Cluster Topology & Service Health Graph" data-caption="Real-time DAG connectivity graph highlighting service error rates and P99 latency anomalies across 50+ nodes.">
+            <div class="gallery-card-preview">
+              <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-emerald); text-align: center;">
+                [ LIVE SERVICE GRAPH TOPOLOGY ]<br>
+                <span style="color: #94a3b8; font-size: 10px;">Click to inspect node latency percentiles</span>
+              </div>
+            </div>
+            <div class="gallery-card-info">
+              <div class="gallery-card-title">Service Dependency Graph</div>
+              <div class="gallery-card-caption">Dynamic topology with live traffic flows</div>
+            </div>
+          </div>
+
+          <!-- Gallery Item 3 -->
+          <div class="gallery-card" data-title="ClickHouse Query Analytics & Flamegraph" data-caption="Deep flamegraph profiling isolating hot CPU execution paths within the downstream database query engine.">
+            <div class="gallery-card-preview">
+              <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-amber); text-align: center;">
+                [ FLAMEGRAPH PROFILING ENGINE ]<br>
+                <span style="color: #94a3b8; font-size: 10px;">Click to inspect CPU flamegraph view</span>
+              </div>
+            </div>
+            <div class="gallery-card-info">
+              <div class="gallery-card-title">Flamegraph & Hotspot Analyzer</div>
+              <div class="gallery-card-caption">Identifies sub-millisecond CPU bottlenecks</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         13. WHAT I LEARNED
+         ======================================================================== -->
+    <section class="section" style="background-color: var(--bg-surface);" aria-label="Technical and Product Learnings">
+      <div class="container">
+        <div class="learnings-box">
+          <div style="font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: var(--accent-primary); text-transform: uppercase; letter-spacing: 0.05em;">
+            // RETROSPECTIVE
+          </div>
+          <h2 style="font-size: var(--text-2xl); font-weight: 700; color: var(--text-primary);">What I Learned Building TraceFlow</h2>
+
+          <div class="learnings-grid">
+            <div>
+              <h3 class="learning-item-title">Technical Mastery</h3>
+              <p class="learning-item-text">
+                Building an observability pipeline from scratch reinforced that distributed systems are fundamentally exercises in <strong>handling partial failure and managing memory pressure</strong>. Mastering zero-copy primitives in Rust and columnar storage in ClickHouse transformed how I reason about CPU cache locality, network socket serialization, and database compaction tradeoffs.
+              </p>
+            </div>
+
+            <div>
+              <h3 class="learning-item-title">Product & Developer Experience</h3>
+              <p class="learning-item-text">
+                Telemetry data is completely useless if engineers cannot interpret it within 5 seconds during an outage. Designing an information-dense yet cognitively manageable trace waterfall taught me that <strong>developer tools must balance low latency with clarity</strong>: highlighting the critical path while hiding noise.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         14. LINKS & NEXT STEPS
+         ======================================================================== -->
+    <section class="section" aria-label="Project Links and Next Steps">
+      <div class="container">
+        <div class="cs-next-steps-card">
+          <div>
+            <h2 style="font-size: var(--text-2xl); font-weight: 700; margin-bottom: 6px;">Explore the Code & Architecture</h2>
+            <p style="font-size: var(--text-sm); color: var(--text-secondary);">
+              Inspect the GitHub repository, review the API documentation, or schedule an engineering conversation.
+            </p>
+          </div>
+
+          <div style="display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center;">
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+              <span>View Source Code</span>
+            </a>
+            <a href="https://traceflow-demo.internal.net" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              <span>View Live Demo</span>
+            </a>
+            <a href="/projects.html" class="btn btn-ghost">
+              <span>← Back to Projects</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================
+       ACCESSIBLE MODAL: GALLERY INSPECTOR
+       ======================================================================== -->
+  <dialog id="gallery-dialog" class="custom-dialog" closedby="any" aria-labelledby="gallery-dialog-title">
+    <div class="dialog-inner-scroll">
+      <div class="dialog-header">
+        <div>
+          <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-primary); margin-bottom: 4px;">// ARTIFACT INSPECTOR</div>
+          <h3 id="gallery-dialog-title" class="dialog-title" style="font-size: var(--text-xl); font-weight: 700;">Artifact View</h3>
+        </div>
+        <button type="button" class="dialog-close-btn" data-close-modal aria-label="Close Inspector Dialog">&times;</button>
+      </div>
+
+      <div id="gallery-dialog-content" style="background: #020617; padding: 2rem; border-radius: var(--radius-lg); border: 1px solid var(--border-medium); min-height: 280px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+      </div>
+
+      <p id="gallery-dialog-caption" style="font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.6;"></p>
+
+      <div style="display: flex; justify-content: flex-end; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle);">
+        <button type="button" class="btn btn-secondary btn-sm" data-close-modal>Close Inspector</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- JavaScript Scripts -->
+  <script src="/js/portfolio-data.js"></script>
+  <script src="/js/theme.js"></script>
+  <script src="/js/case-study.js"></script>
+  <script src="/js/form.js"></script>
+
+</body>
+</html>

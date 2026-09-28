@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security Architecture & Threat Defense | J Raghavendra Portfolio</title>
+  <meta name="description" content="Defensive systems security architecture, cryptographic safeguards, access controls, and data privacy principles of J Raghavendra's portfolio platform.">
+  <link rel="canonical" href="https://jraghavendra.dev/security">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Security Architecture & Threat Defense | J Raghavendra">
+  <meta property="og:description" content="Defensive systems security architecture, cryptographic safeguards, and data privacy principles.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://jraghavendra.dev/security">
+  <meta property="og:image" content="https://jraghavendra.dev/assets/og-image.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Security Architecture | J Raghavendra">
+  <meta name="twitter:description" content="Defensive security architecture, cryptographic safeguards, and data privacy principles.">
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/css/design-tokens.css">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <style>
+    .security-hero {
+      padding: var(--space-12) 0 var(--space-8);
+      border-bottom: 1px solid var(--border-subtle);
+      position: relative;
+    }
+    .security-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: var(--space-6);
+      margin-top: var(--space-8);
+    }
+    .sec-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .sec-card:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+      transform: translateY(-2px);
+    }
+    .sec-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      color: var(--accent-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-4);
+    }
+    .sec-card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: var(--space-2);
+    }
+    .sec-card-text {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .sec-spec-list {
+      margin-top: var(--space-4);
+      padding-left: var(--space-4);
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    .sec-spec-list li {
+      margin-bottom: 4px;
+    }
+    .sec-status-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #10b981;
+      font-size: var(--text-xs);
+      font-family: var(--font-mono);
+      font-weight: 600;
+    }
+    .policy-box {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      margin-top: var(--space-10);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Pattern -->
+  <div class="blueprint-background" aria-hidden="true"></div>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Header -->
+  <header class="site-header" role="banner">
+    <div class="container nav-container">
+      <a href="/#home" class="brand-logo" aria-label="J Raghavendra Home">
+        <span class="brand-icon">JR</span>
+        <span>J Raghavendra</span>
+        <span class="brand-title">// SWE</span>
+      </a>
+
+      <nav class="desktop-nav" role="navigation" aria-label="Main Navigation">
+        <a href="/#home" class="nav-link">Home</a>
+        <a href="/projects.html" class="nav-link">Projects</a>
+        <a href="/experience.html" class="nav-link">Experience</a>
+        <a href="/skills.html" class="nav-link">Skills</a>
+        <a href="/achievements.html" class="nav-link">Achievements</a>
+        <a href="/about.html" class="nav-link">About</a>
+        <a href="/resume.html" class="nav-link">Resume</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button type="button" class="btn-icon theme-toggle-btn" aria-label="Switch Theme">
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+
+        <a href="/contact.html" class="btn btn-primary btn-sm">Get in Touch</a>
+
+        <button type="button" class="mobile-menu-btn btn-icon" aria-label="Toggle navigation menu" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer" aria-hidden="true">
+    <div class="mobile-drawer-header">
+      <div class="brand-logo">
+        <span class="brand-icon">JR</span>
+        <span>J Raghavendra</span>
+      </div>
+      <button type="button" class="btn-icon mobile-drawer-close" aria-label="Close navigation menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <nav class="mobile-nav" role="navigation">
+      <a href="/#home" class="mobile-nav-link">Home</a>
+      <a href="/projects.html" class="mobile-nav-link">Projects</a>
+      <a href="/experience.html" class="mobile-nav-link">Experience</a>
+      <a href="/skills.html" class="mobile-nav-link">Skills</a>
+      <a href="/achievements.html" class="mobile-nav-link">Achievements</a>
+      <a href="/about.html" class="mobile-nav-link">About</a>
+      <a href="/resume.html" class="mobile-nav-link">Resume</a>
+      <a href="/contact.html" class="mobile-nav-link">Contact</a>
+    </nav>
+  </div>
+
+  <main id="main-content">
+    <!-- Hero Header -->
+    <section class="security-hero">
+      <div class="container">
+        <div style="margin-bottom: var(--space-3);">
+          <span class="sec-status-chip">
+            <span style="width: 6px; height: 6px; border-radius: 50%; background: #10b981;"></span>
+            DEFENSIVE ARCHITECTURE • ZERO CLIENT TRUST
+          </span>
+        </div>
+        <h1 style="font-size: 2.25rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: var(--space-3);">
+          Security & Defensive Systems Architecture
+        </h1>
+        <p style="font-size: 1.05rem; color: var(--text-secondary); max-width: 720px; line-height: 1.6;">
+          An overview of the defensive engineering controls, cryptographic standards, access controls, and data privacy safeguards implemented across this portfolio platform.
+        </p>
+      </div>
+    </section>
+
+    <!-- Main Content Grid -->
+    <section style="padding: var(--space-10) 0 var(--space-16);">
+      <div class="container">
+        
+        <div class="security-grid">
+          
+          <!-- Card 1: Authentication -->
+          <div class="sec-card">
+            <div class="sec-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            </div>
+            <h2 class="sec-card-title">Cryptographic Authentication</h2>
+            <p class="sec-card-text">
+              Administrative access is guarded by cryptographic key derivation using modern primitives. No plaintext credentials are ever stored.
+            </p>
+            <ul class="sec-spec-list">
+              <li><strong>scrypt Key Derivation</strong>: Configured with N=16384, r=8, p=1 and 64-byte derived keys.</li>
+              <li><strong>Cryptographic Salt</strong>: 128-bit cryptographically random salt generated per identity.</li>
+              <li><strong>Constant-Time Verification</strong>: Comparison via <code style="font-family: var(--font-mono);">timingSafeEqual</code> prevents timing side-channel analysis.</li>
+              <li><strong>Brute-Force Lockout</strong>: Automatic 15-minute IP lockout after 5 consecutive failed attempts.</li>
+            </ul>
+          </div>
+
+          <!-- Card 2: Authorization -->
+          <div class="sec-card">
+            <div class="sec-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            </div>
+            <h2 class="sec-card-title">Server-Side Authorization</h2>
+            <p class="sec-card-text">
+              Strict single-owner architecture. Public visitors operate in an isolated, read-only context with zero mutation authority.
+            </p>
+            <ul class="sec-spec-list">
+              <li><strong>Zero-Trust Client Checks</strong>: Client-side UI state is never trusted for authorization decisions.</li>
+              <li><strong>401 Unauthorized Barriers</strong>: Every administrative REST API enforces session validity on the server.</li>
+              <li><strong>Cryptographic CSRF Tokens</strong>: State mutations require matching session-bound tokens.</li>
+              <li><strong>Session Revocation</strong>: Sessions can be terminated individually or en masse with immediate effect.</li>
+            </ul>
+          </div>
+
+          <!-- Card 3: Cookie & Session Security -->
+          <div class="sec-card">
+            <div class="sec-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
+            </div>
+            <h2 class="sec-card-title">Session Hardening</h2>
+            <p class="sec-card-text">
+              Owner sessions are maintained via hardened HTTP cookies isolated from client scripts.
+            </p>
+            <ul class="sec-spec-list">
+              <li><strong>HttpOnly Flag</strong>: Eliminates JavaScript access, mitigating Cross-Site Scripting (XSS) session theft.</li>
+              <li><strong>SameSite=Strict</strong>: Strictly limits cookie transmission to same-site navigations, preventing CSRF.</li>
+              <li><strong>256-Bit Entropy</strong>: Session tokens generated with 32 bytes of cryptographic randomness.</li>
+              <li><strong>Bounded TTL</strong>: Strict 24-hour session lifetime with automatic garbage collection.</li>
+            </ul>
+          </div>
+
+          <!-- Card 4: Input Validation -->
+          <div class="sec-card">
+            <div class="sec-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+            </div>
+            <h2 class="sec-card-title">Input Sanitization & Abuse Defense</h2>
+            <p class="sec-card-text">
+              All inbound data is validated against strict schemas before being accepted or processed.
+            </p>
+            <ul class="sec-spec-list">
+              <li><strong>Byte-Length Ceilings</strong>: Contact inquiries capped at bounded character lengths to prevent memory inflation.</li>
+              <li><strong>Honeypot Traps</strong>: Automated bots completing invisible fields are silently dropped without persistence.</li>
+              <li><strong>IP Rate Limiting</strong>: Public inquiry endpoints throttled to 5 requests per hour per IP.</li>
+              <li><strong>HTML Escaping</strong>: All dynamic text rendered on clients is sanitized against injection attacks.</li>
+            </ul>
+          </div>
+
+          <!-- Card 5: File Storage Safety -->
+          <div class="sec-card">
+            <div class="sec-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line></svg>
+            </div>
+            <h2 class="sec-card-title">Binary File Upload Verification</h2>
+            <p class="sec-card-text">
+              Resume and document uploads are subjected to binary magic-byte inspection rather than trusting MIME headers.
+            </p>
+            <ul class="sec-spec-list">
+              <li><strong>Magic Byte Verification</strong>: File headers must start with binary <code style="font-family: var(--font-mono);">%PDF-</code> bytes.</li>
+              <li><strong>Executable Rejection</strong>: Non-PDF or executable binaries (e.g. Windows PE, scripts) are rejected with HTTP 400.</li>
+              <li><strong>5MB File Size Cap</strong>: Protects against denial-of-service via memory exhaustion.</li>
+              <li><strong>Immutable Destination</strong>: Saved strictly to fixed paths; user-controlled filenames are never trusted.</li>
+            </ul>
+          </div>
+
+          <!-- Card 6: Information Disclosure Defense -->
+          <div class="sec-card">
+            <div class="sec-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="15"></line><line x1="15" y1="9" x2="9" y2="15"></line></svg>
+            </div>
+            <h2 class="sec-card-title">Data Privacy & Information Isolation</h2>
+            <p class="sec-card-text">
+              Defensive boundary isolation prevents unauthorized inspection of backend source code or private data.
+            </p>
+            <ul class="sec-spec-list">
+              <li><strong>Static Directory Barriers</strong>: Static file requests to <code style="font-family: var(--font-mono);">.env</code>, <code style="font-family: var(--font-mono);">/data/*</code>, or server source files return HTTP 403 Forbidden.</li>
+              <li><strong>Sanitized Public Endpoints</strong>: Public data APIs strictly omit credentials, salts, hashes, and recruiter inquiries.</li>
+              <li><strong>Privacy-Preserving Logs</strong>: IP addresses in recruiter messages are hashed with SHA-256 for abuse tracking.</li>
+              <li><strong>No Third-Party Trackers</strong>: Zero ad networks, telemetry scripts, or external behavioral cookies.</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <!-- Vulnerability Reporting Policy Box -->
+        <div class="policy-box">
+          <div style="display: flex; align-items: flex-start; gap: 16px;">
+            <div style="font-size: 1.5rem;">🛡️</div>
+            <div>
+              <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: var(--space-2); color: var(--text-primary);">
+                Responsible Vulnerability Disclosure
+              </h3>
+              <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: var(--space-4);">
+                I welcome constructive, responsible security feedback from recruiters, engineers, and researchers. If you identify a security or privacy flaw on this platform, please reach out directly through the contact channels below.
+              </p>
+              <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                <a href="/contact.html" class="btn btn-primary btn-sm">Report via Contact Form</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <div class="brand-logo" style="margin-bottom: var(--space-3);">
+            <span class="brand-icon">JR</span>
+            <span>J Raghavendra</span>
+          </div>
+          <p style="font-size: 0.88rem; color: var(--text-secondary); max-width: 320px; line-height: 1.5;">
+            Software Engineer specializing in distributed consensus, low-latency proxies, and systems infrastructure.
+          </p>
+        </div>
+
+        <div class="footer-links-grid">
+          <div>
+            <div class="footer-col-title">Navigation</div>
+            <div class="footer-link-list">
+              <a href="/projects.html" class="footer-link">Projects</a>
+              <a href="/experience.html" class="footer-link">Experience</a>
+              <a href="/skills.html" class="footer-link">Skills</a>
+              <a href="/achievements.html" class="footer-link">Achievements</a>
+              <a href="/about.html" class="footer-link">About</a>
+              <a href="/resume.html" class="footer-link">Resume</a>
+            </div>
+          </div>
+
+          <div>
+            <div class="footer-col-title">Profiles & Trust</div>
+            <div class="footer-link-list">
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+              <a href="/security.html" class="footer-link active">Security</a>
+              <a href="/contact.html" class="footer-link">Contact</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; 2026 J Raghavendra. All rights reserved. Recruiter-focused portfolio.
+        </div>
+        <div class="footer-status-pill">
+          <span class="status-dot"></span>
+          <span>Security Hardened • Zero-Trust Primitives</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/theme.js"></script>
+  <script src="/js/navigation.js"></script>
+</body>
+</html>

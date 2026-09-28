@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "build": "node scripts/qa-checks.js",
+    "build": "node scripts/build.js && node scripts/qa-checks.js",
     "migrate": "node scripts/migrate.js",
     "test": "node scripts/audit-portfolio.js",
     "test:security": "node scripts/test-security-module.js",

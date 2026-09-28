@@ -927,6 +927,15 @@ const server = http.createServer(async (req, res) => {
     candidatePath = path.join(candidatePath, 'index.html');
   } else if (!fs.existsSync(candidatePath) && fs.existsSync(`${candidatePath}.html`)) {
     candidatePath = `${candidatePath}.html`;
+  } else if (!fs.existsSync(candidatePath)) {
+    const publicPath = path.join(ROOT_DIR, 'public', staticPath);
+    if (fs.existsSync(publicPath) && fs.statSync(publicPath).isDirectory() && fs.existsSync(path.join(publicPath, 'index.html'))) {
+      candidatePath = path.join(publicPath, 'index.html');
+    } else if (fs.existsSync(`${publicPath}.html`)) {
+      candidatePath = `${publicPath}.html`;
+    } else if (fs.existsSync(publicPath)) {
+      candidatePath = publicPath;
+    }
   }
 
   if (fs.existsSync(candidatePath) && fs.statSync(candidatePath).isFile()) {
